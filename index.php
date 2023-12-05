@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+
+<title>EstateAgency - Home</title>
   
 <?php include("includes/linked-files.php") ?>
 
