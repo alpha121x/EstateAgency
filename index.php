@@ -43,7 +43,9 @@
 
   </main><!-- End #main -->
 
+  <!-- ======= Footer ======= -->
   <?php include("includes/footer.php") ?>
+  <!-- End  Footer -->
 
   <?php include("includes/preloader.php") ?>
 
