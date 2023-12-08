@@ -1,4 +1,3 @@
-<!-- ======= Property Search Section ======= -->
 <div class="click-closed"></div>
   <!--/ Form Search Star /-->
   <div class="box-collapse">
@@ -90,4 +89,4 @@
         </div>
       </form>
     </div>
-  </div><!-- End Property Search Section -->
+  </div>
