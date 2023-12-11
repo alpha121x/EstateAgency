@@ -6,14 +6,14 @@ if (isset($_GET['id'])) {
     $user_id = intval($_GET['id']);  // Convert to integer to ensure it's a valid ID
 
     // SQL query to fetch user data based on user ID using MeekroDB
-    $user_data = DB::queryFirstRow("SELECT * FROM users_address WHERE user_id = %i", $user_id);
+    $user_data = DB::queryFirstRow("SELECT * FROM plot_listing WHERE plot_id = %i", $user_id);
 
     if ($user_data) {
         // Access user data using the fetched associative array
-        $id = $user_data['user_id'];
-        $username = $user_data['username'];
-        $email = $user_data['email'];
-        $user_address = $user_data['user-address'];  // Assuming the correct column name is 'user_address'
+        $id = $user_data['plot_id'];
+        $plot_num = $user_data['plot_num'];
+        $plot_description = $user_data['plot_description'];
+        $plot_image = $user_data['plot_image'];  // Assuming the correct column name is 'user_address'
 
     } else {
         echo "User not found";
@@ -30,7 +30,7 @@ if (isset($_GET['id'])) {
 <html lang="en">
 
 <head>
-  <title>Edit user- Form</title>
+  <title>Edit Plot Listing- Form</title>
   <?php include"include/linked-files.php" ?>
 </head>
 
@@ -48,7 +48,7 @@ if (isset($_GET['id'])) {
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-          <li class="breadcrumb-item">Edit Users Address</li>
+          <li class="breadcrumb-item">Edit Plot Listing</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -63,21 +63,21 @@ if (isset($_GET['id'])) {
               <!-- Horizontal Form -->
               <form method="post" action="fire-update-querries.php" enctype="form-data">
                 <div class="row mb-3">
-                  <label for="inputusername" class="col-sm-2 col-form-label"><input type="hidden" name="user-address-edit-page-id" value='<?php echo $id; ?>'>Username</label>
+                  <label for="inputusername" class="col-sm-2 col-form-label"><input type="hidden" name="plot_listing_edit_page_id" value='<?php echo $id; ?>'>Username</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" value='<?php echo $username; ?>' name="username">
+                    <input type="text" class="form-control" value='<?php echo $user_data['plot_num']; ?>' name="plot_num">
                   </div>
                 </div> 
                 <div class="row mb-3">
-                  <label for="inputemail" class="col-sm-2 col-form-label">Email</label>
+                  <label for="inputemail" class="col-sm-2 col-form-label">Plot Description</label>
                   <div class="col-sm-6">
-                    <input type="email" class="form-control" value='<?php echo $email; ?>' name="email">
+                  <textarea name="plot_description"  cols="30" rows="10"><?php echo $plot_description ?></textarea>
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputemail" class="col-sm-2 col-form-label">Address</label>
+                  <label for="inputemail" class="col-sm-2 col-form-label">Plot Image</label>
                   <div class="col-sm-6">
-                   <textarea name="user_address" class="form-control" cols="30" rows="10"><?php echo $user_address; ?></textarea>
+                   <input type="file" name="plot_image" value='<?php echo $plot_image ?>'>
                   </div>
                 </div>
 

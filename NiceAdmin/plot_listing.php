@@ -38,16 +38,16 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Datatables</h5>
-          <p>Edit Users record.</p>
+          <p>Edit Plots record.</p>
 
           <!-- Table with stripped rows -->
           <table class="table datatable">
             <thead>
               <tr>
                 <th scope="col">id.</th>
-                <th scope="col">Username</th>
-                <th scope="col">Email</th>
-                <th scope="col">User Address</th>
+                <th scope="col">Plot number</th>
+                <th scope="col">Plot Description</th>
+                <th scope="col">Plot Image</th>
                 <th scope="col">Changes</th>
               </tr>
             </thead>
@@ -57,31 +57,31 @@
                   require_once ("include/classes/meekrodb.2.3.class.php");
 
                   // Select all users from the admin_users table
-                  $users = DB::query("SELECT * FROM users_address");
+                  $plots = DB::query("SELECT * FROM plot_listing");
 
-                  if ($users) {
-                      foreach ($users as $user) {
+                  if ($plots) {
+                      foreach ($plots as $plot) {
                           // Assign variables from the fetched row
-                          $id = $user['user_id'];
-                          $username = $user['username'];
-                          $email = $user['email'];
-                          $user_address = $user['user-address'];
+                          $id = $plot['plot_id'];
+                          $plot_num = $plot['plot_num'];
+                          $plot_description = $plot['plot_description'];
+                          $plot_image = $plot['plot_image'];
                           ?>
                           <!-- Display data in the rows -->
                           <tr>
-                              <td><?php echo $user['user_id']; ?></td>
-                              <td><?php echo $user['username']; ?></td>
-                              <td><?php echo $user['email']; ?></td>
-                              <td><?php echo $user['user-address']; ?></td>
+                              <td><?php echo $plot['plot_id']; ?></td>
+                              <td><?php echo $plot['plot_num']; ?></td>
+                              <td><?php echo $plot['plot_description']; ?></td>
+                              <td><?php echo $plot['plot_image']; ?></td>
                               <td>
                               <?php
                                 // Check if the user is an admin
                                 if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin') {
-                                    echo"<a href='edit-user.php?id=<?php echo $id; ?>'><i class='fa fa-edit'></i>Edit</a>
+                                    echo"<a href='edit_plot_listing.php?id=<?php echo $id; ?>'><i class='fa fa-edit'></i>Edit</a>
                                     |
                                     <a href='delete.php?deleteid=<?php echo $id; ?>'><i class='fa fa-trash-o'></i>Delete</a>";
                                 } else {
-                                    echo"<a href='edit-user.php?id=<?php echo $id; ?>'><i class='fa fa-edit'></i>Edit</a>";
+                                    echo"<a href='edit_plot_lisitng.php?id=<?php echo $id; ?>'><i class='fa fa-edit'></i>Edit</a>";
                                 }
                                 ?>
                               </td>

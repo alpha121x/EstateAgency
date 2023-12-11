@@ -15,7 +15,7 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin') {
          <li class="nav-item">
            <a class="nav-link collapsed"  href="add-user-profile.php">
            <i class="bi bi-person-fill-add"></i>
-             <span>Add Users Profile</span>
+             <span>Add Users</span>
            </a>
          </li>
          <li class="nav-item">
@@ -31,15 +31,15 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin') {
            </a>
          </li>
          <li class="nav-item">
-           <a class="nav-link collapsed"  href="users_address.php">
+           <a class="nav-link collapsed"  href="plot_listing.php">
            <i class="bi bi-person-fill-lock"></i>
-             <span>Users Address</span>
+             <span>Plot Listing</span>
            </a>
          </li>
          <li class="nav-item">
-           <a class="nav-link collapsed"  href="add_user_address.php">
+           <a class="nav-link collapsed"  href="add_plot_listing.php">
            <i class="bi bi-person-fill-lock"></i>
-             <span>Add Users Address</span>
+             <span>Add Plots Listing</span>
            </a>
          </li>
    </aside><!-- End Sidebar-->';
@@ -62,9 +62,9 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin') {
            </a>
          </li>
          <li class="nav-item">
-           <a class="nav-link collapsed"  href="users_address.php">
+           <a class="nav-link collapsed"  href="plot_listing.php">
            <i class="bi bi-person-fill-lock"></i>
-             <span>Users Address</span>
+             <span>Plot Lisitng</span>
            </a>
          </li>
    </aside><!-- End Sidebar-->';

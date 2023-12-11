@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-  <title>Add User Profile - Form</title>
+  <title>Add Posts - Form</title>
   <?php include"include/linked-files.php" ?>
 </head>
 
@@ -21,7 +21,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-          <li class="breadcrumb-item">Add Users Address</li>
+          <li class="breadcrumb-item">Add Posts Lisintings</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -36,21 +36,21 @@
               <!-- Horizontal Form -->
               <form method="post" action="fire-add-querries.php" enctype="form-data">
                 <div class="row mb-3">
-                  <label for="inputusername" class="col-sm-2 col-form-label">Username</label>
+                  <label for="inputusername" class="col-sm-2 col-form-label">Plot No:</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" placeholder="Enter Username" name="username">
+                    <input type="text" class="form-control" placeholder="Enter Plot Num." name="plot_num">
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputemail" class="col-sm-2 col-form-label">Email</label>
+                  <label for="inputemail" class="col-sm-2 col-form-label">Plot Description</label>
                   <div class="col-sm-6">
-                    <input type="email" class="form-control" placeholder="Enter Email" name="email">
+                   <textarea class="form-control" name="plot_description" cols="30" rows="10"></textarea>
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputemail" class="col-sm-2 col-form-label">Adress</label>
+                  <label for="inputemail" class="col-sm-2 col-form-label">Add Image</label>
                   <div class="col-sm-6">
-                   <textarea class="form-control" name="user_address" cols="30" rows="10"></textarea>
+                   <input type="file" class="form-control" name="plot_image">
                   </div>
                 </div>
 
@@ -59,7 +59,7 @@
                 </div>
                 
                 <div class="text-center">
-                  <button type="submit" class="btn btn-primary" name="add-user-address"><i class='bx bx-upload'></i> Add</button>
+                  <button type="submit" class="btn btn-primary" name="add-plot"><i class='bx bx-upload'></i> Add</button>
                   <button type="reset" class="btn btn-secondary" name="reset">Reset</button>
                 </div>
                 <br>

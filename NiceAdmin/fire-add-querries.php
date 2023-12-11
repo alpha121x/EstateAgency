@@ -28,20 +28,20 @@ if (isset($_POST['add-user'])) {
 require_once "include/classes/meekrodb.2.3.class.php";
 require('db_config.php');
 
-if (isset($_POST['add-user-address'])) {
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $user_address = $_POST['user_address'];
+if (isset($_POST['add-plot'])) {
+    $plot_num = $_POST['plot_num'];
+    $plot_description = $_POST['plot_description'];
+    $plot_image = $_POST['plot_image'];
 
     // Insert query using MeekroDB
-    $inserted = DB::insert('users_address', [
-        'username' => $username,
-        'email' => $email,
-        'user-address' => $user_address
+    $inserted = DB::insert('plot_listing', [
+        'plot_num' => $plot_num,
+        'plot_description' => $plot_description,
+        'plot_image' => $plot_image
     ]);
 
     if ($inserted) {
-        header("Location: add_user_address.php");
+        header("Location: add_plot_listing.php");
     }
 }
 ?>
