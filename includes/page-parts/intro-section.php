@@ -19,6 +19,7 @@
                 </h1>
                 <p class="intro-subtitle intro-price">
                   <a href="#"><span class="price-a">Buy | $ 12.000</span></a>
+                  <a href="#"><span class="price-a" data-bs-toggle="modal" data-bs-target="#exampleModal">Bid <i class="bi bi-coin"></i></span></a>
                 </p>
               </div>
             </div>
@@ -44,6 +45,7 @@
                 </h1>
                 <p class="intro-subtitle intro-price">
                   <a href="#"><span class="price-a">Buy | $ 12.000</span></a>
+                  <a href="#"><span class="price-a">Bid <i class="bi bi-coin"></i></span></a>
                 </p>
               </div>
             </div>
@@ -69,6 +71,7 @@
                 </h1>
                 <p class="intro-subtitle intro-price">
                   <a href="#"><span class="price-a">Buy | $ 12.000</span></a>
+                  <a href="#"><span class="price-a">Bid <i class="bi bi-coin"></i></span></a>
                 </p>
               </div>
             </div>
@@ -79,4 +82,31 @@
   </div>
 </div>
 <div class="swiper-pagination"></div>
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Your Bid.</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post">
+        <label for="bid-input" class="form-control">Add Bid Amount</label>
+        <input type="text" class="form-control" placeholder="Enter Bid Amoount Rs." name="bid" id="bid">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
