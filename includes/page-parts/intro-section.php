@@ -18,7 +18,7 @@
                   <br> Olive Road Two
                 </h1>
                 <p class="intro-subtitle intro-price">
-                  <a href="#"><span class="price-a">rent | $ 12.000</span></a>
+                  <a href="#"><span class="price-a">Buy | $ 12.000</span></a>
                 </p>
               </div>
             </div>
@@ -43,7 +43,7 @@
                   <br> Venda Road Five
                 </h1>
                 <p class="intro-subtitle intro-price">
-                  <a href="#"><span class="price-a">rent | $ 12.000</span></a>
+                  <a href="#"><span class="price-a">Buy | $ 12.000</span></a>
                 </p>
               </div>
             </div>
@@ -68,7 +68,7 @@
                   <br> Roan Road One
                 </h1>
                 <p class="intro-subtitle intro-price">
-                  <a href="#"><span class="price-a">rent | $ 12.000</span></a>
+                  <a href="#"><span class="price-a">Buy | $ 12.000</span></a>
                 </p>
               </div>
             </div>
