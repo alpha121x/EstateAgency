@@ -46,8 +46,7 @@
               <tr>
                 <th scope="col">id.</th>
                 <th scope="col">Plot number</th>
-                <th scope="col">Plot Description</th>
-                <th scope="col">Plot Image</th>
+                <th scope="col">Plot Title</th>
                 <th scope="col">Changes</th>
               </tr>
             </thead>
@@ -64,6 +63,7 @@
                           // Assign variables from the fetched row
                           $id = $plot['plot_id'];
                           $plot_num = $plot['plot_num'];
+                          $plot_title = $plot['plot_title'];
                           $plot_description = $plot['plot_description'];
                           $plot_image = $plot['plot_image'];
                           ?>
@@ -71,8 +71,7 @@
                           <tr>
                               <td><?php echo $plot['plot_id']; ?></td>
                               <td><?php echo $plot['plot_num']; ?></td>
-                              <td><?php echo $plot['plot_description']; ?></td>
-                              <td><?php echo $plot['plot_image']; ?></td>
+                              <td><?php echo $plot['plot_title']; ?></td>
                               <td>
                               <?php
                                 // Check if the user is an admin

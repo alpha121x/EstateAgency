@@ -30,12 +30,14 @@ require('db_config.php');
 
 if (isset($_POST['add-plot'])) {
     $plot_num = $_POST['plot_num'];
+    $plot_title = $_POST['plot_title'];
     $plot_description = $_POST['plot_description'];
     $plot_image = $_POST['plot_image'];
 
     // Insert query using MeekroDB
     $inserted = DB::insert('plot_listing', [
         'plot_num' => $plot_num,
+        'plot_title' => $plot_title,
         'plot_description' => $plot_description,
         'plot_image' => $plot_image
     ]);

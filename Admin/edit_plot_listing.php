@@ -12,6 +12,7 @@ if (isset($_GET['id'])) {
         // Access user data using the fetched associative array
         $id = $user_data['plot_id'];
         $plot_num = $user_data['plot_num'];
+        $plot_description = $user_data['plot_title'];
         $plot_description = $user_data['plot_description'];
         $plot_image = $user_data['plot_image'];  // Assuming the correct column name is 'user_address'
 
@@ -63,9 +64,15 @@ if (isset($_GET['id'])) {
               <!-- Horizontal Form -->
               <form method="post" action="fire-update-querries.php" enctype="form-data">
                 <div class="row mb-3">
-                  <label for="inputusername" class="col-sm-2 col-form-label"><input type="hidden" name="plot_listing_edit_page_id" value='<?php echo $id; ?>'>Username</label>
+                  <label for="inputusername" class="col-sm-2 col-form-label"><input type="hidden" name="plot_listing_edit_page_id" value='<?php echo $id; ?>'>Plot No</label>
                   <div class="col-sm-6">
                     <input type="text" class="form-control" value='<?php echo $user_data['plot_num']; ?>' name="plot_num">
+                  </div>
+                </div> 
+                <div class="row mb-3">
+                  <label for="inputusername" class="col-sm-2 col-form-label">Plot Title:</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" value='<?php echo $user_data['plot_title']; ?>' name="plot_title">
                   </div>
                 </div> 
                 <div class="row mb-3">

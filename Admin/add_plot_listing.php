@@ -42,6 +42,12 @@
                   </div>
                 </div>
                 <div class="row mb-3">
+                  <label for="inputusername" class="col-sm-2 col-form-label">Plot Title</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" placeholder="Enter Plot Title.." name="plot_title">
+                  </div>
+                </div>
+                <div class="row mb-3">
                   <label for="inputemail" class="col-sm-2 col-form-label">Plot Description</label>
                   <div class="col-sm-6">
                    <textarea class="form-control" name="plot_description" cols="30" rows="10"></textarea>
