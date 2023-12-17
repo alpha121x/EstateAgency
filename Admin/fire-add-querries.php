@@ -33,7 +33,55 @@ if (isset($_POST['add-plot'])) {
     $plot_title = $_POST['plot_title'];
     $plot_location = $_POST['plot_location'];
     $plot_description = $_POST['plot_description'];
-    $plot_image = $_POST['plot_image'];
+
+    // File upload handling
+    $targetDir = "uploads/";  // Create a directory named "uploads" in your project
+    $targetFile = $targetDir . basename($_FILES["plot_image"]["name"]);
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+
+    // Check if the image file is a actual image or fake image
+    if (isset($_POST["submit"])) {
+        $check = getimagesize($_FILES["plot_image"]["tmp_name"]);
+        if ($check !== false) {
+            echo "File is an image - " . $check["mime"] . ".";
+            $uploadOk = 1;
+        } else {
+            echo "File is not an image.";
+            $uploadOk = 0;
+        }
+    }
+
+    // Check if file already exists
+    if (file_exists($targetFile)) {
+        echo "Sorry, file already exists.";
+        $uploadOk = 0;
+    }
+
+    // Check file size
+    if ($_FILES["plot_image"]["size"] > 500000) {
+        echo "Sorry, your file is too large.";
+        $uploadOk = 0;
+    }
+
+    // Allow certain file formats
+    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif") {
+        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        $uploadOk = 0;
+    }
+
+    // Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+        echo "Sorry, your file was not uploaded.";
+        // if everything is ok, try to upload file
+    } else {
+        if (move_uploaded_file($_FILES["plot_image"]["tmp_name"], $targetFile)) {
+            echo "The file " . basename($_FILES["plot_image"]["name"]) . " has been uploaded.";
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+        }
+    }
 
     // Insert query using MeekroDB
     $inserted = DB::insert('plot_listing', [
@@ -41,7 +89,7 @@ if (isset($_POST['add-plot'])) {
         'plot_title' => $plot_title,
         'plot_location' => $plot_location,
         'plot_description' => $plot_description,
-        'plot_image' => $plot_image
+        'plot_image' => $targetFile  // Save the path to the uploaded file
     ]);
 
     if ($inserted) {
@@ -49,4 +97,5 @@ if (isset($_POST['add-plot'])) {
     }
 }
 ?>
+
 
