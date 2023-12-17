@@ -76,15 +76,14 @@
                         <td><?php echo $plot['plot_title']; ?></td>
                         <td><?php echo $plot['plot_location']; ?></td>
                         <td>
-                          <a href='edit_plot_listing.php?id=<?php echo $id ?>'><i class='fa fa-edit'></i></a>
+                          <a href='edit_plot_listing.php?id=<?php echo $id; ?>'><i class="bi bi-pencil-square"></i></a>
                           |
-                          <a href='delete.php?deleteid=<?php echo $id; ?>'><i class='fa fa-trash-o'></i></a>
+                          <a href='delete.php?deleteid=<?php echo $id; ?>'><i class="bi bi-trash"></i></a>
                         </td>
+
                       </tr>
                   <?php
                     }
-                  } else {
-                    echo "No data found in the database.";
                   }
                   ?>
 
