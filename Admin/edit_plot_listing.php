@@ -12,7 +12,8 @@ if (isset($_GET['id'])) {
         // Access user data using the fetched associative array
         $id = $user_data['plot_id'];
         $plot_num = $user_data['plot_num'];
-        $plot_description = $user_data['plot_title'];
+        $plot_title = $user_data['plot_title'];
+        $plot_location = $user_data['plot_location'];
         $plot_description = $user_data['plot_description'];
         $plot_image = $user_data['plot_image'];  // Assuming the correct column name is 'user_address'
 
@@ -76,6 +77,12 @@ if (isset($_GET['id'])) {
                   </div>
                 </div> 
                 <div class="row mb-3">
+                  <label for="inputusername" class="col-sm-2 col-form-label">Plot Location</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" value='<?php echo $user_data['plot_location']; ?>' name="plot_location">
+                  </div>
+                </div> 
+                <div class="row mb-3">
                   <label for="inputemail" class="col-sm-2 col-form-label">Plot Description</label>
                   <div class="col-sm-6">
                   <textarea name="plot_description"  cols="30" rows="10"><?php echo $plot_description ?></textarea>
@@ -92,7 +99,7 @@ if (isset($_GET['id'])) {
                 </div>
                 
                 <div class="text-center">
-                  <button type="submit" class="btn btn-primary" name="update-user-address"><i class='bx bx-upload'></i> Save</button>
+                  <button type="submit" class="btn btn-primary" name="update-plot"><i class='bx bx-upload'></i> Save</button>
                 </div>
                 <br>
               </form><!-- End Horizontal Form -->

@@ -31,6 +31,7 @@ require('db_config.php');
 if (isset($_POST['add-plot'])) {
     $plot_num = $_POST['plot_num'];
     $plot_title = $_POST['plot_title'];
+    $plot_location = $_POST['plot_location'];
     $plot_description = $_POST['plot_description'];
     $plot_image = $_POST['plot_image'];
 
@@ -38,6 +39,7 @@ if (isset($_POST['add-plot'])) {
     $inserted = DB::insert('plot_listing', [
         'plot_num' => $plot_num,
         'plot_title' => $plot_title,
+        'plot_location' => $plot_location,
         'plot_description' => $plot_description,
         'plot_image' => $plot_image
     ]);

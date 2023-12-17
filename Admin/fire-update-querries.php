@@ -39,21 +39,25 @@ if (isset($_POST['update-password'])) {
 
 <?php 
 // Update user-address details
-if (isset($_POST['update-user-address'])) {
-    $user_edit_page_id = $_POST['user-address-edit-page-id'];
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $user_address = $_POST['user_address'];
+if (isset($_POST['update-plot'])) {
+    $plot_edit_page_id = $_POST['plot_listing_edit_page_id'];
+    $plot_num = $_POST['plot_num'];
+    $plot_tite = $_POST['plot_title'];
+    $plot_location = $_POST['plot_location'];
+    $plot_description = $_POST['plot_description'];
+    $plot_image = $_POST['plot_image'];
 
     // Update query using MeekroDB
-    $updated = DB::update('users_address', [
-        'username' => $username,
-        'email' => $email,
-        'user-address' => $user_address
-    ], 'user_id=%i', $user_edit_page_id);
+    $updated = DB::update('plot_listing', [
+        'plot_num' => $plot_num,
+        'plot_title' => $plot_tite,
+        'plot_location' => $plot_location,
+        'plot_description' => $plot_description,
+        'plot_image' => $plot_image
+    ], 'plot_id=%i', $plot_edit_page_id);
 
     if ($updated) {
-        header("Location: users_address.php");
+        header("Location: plot_listing.php");
     }
 }
 
