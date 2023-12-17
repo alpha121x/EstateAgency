@@ -33,37 +33,15 @@ if (isset($_POST['add-plot'])) {
     $plot_title = $_POST['plot_title'];
     $plot_location = $_POST['plot_location'];
     $plot_description = $_POST['plot_description'];
+    $plot_image = $_POST['plot_image'];
 
-    $filePath = ''; // Initialize $filePath outside the if block
-
-    if (isset($_FILES['plot_image'])) {
-        $file = $_FILES['plot_image'];
-    
-        $uploadDir = 'uploads/';
-        // Define allowed file extensions
-        $allowedExtensions = ['png', 'jpg', 'jpeg'];
-        $fileExtension = pathinfo($file['name'], PATHINFO_EXTENSION);
-    
-        if (in_array($fileExtension, $allowedExtensions)) {
-            $uniqueFileName = uniqid() . '_' . $file['name'];
-            move_uploaded_file($file['tmp_name'], $uploadDir . $uniqueFileName);
-    
-            $filename = $uniqueFileName;
-            $filePath = $uploadDir . $uniqueFileName;
-        } else {
-            echo "<script>alert('Only PNG, JPG, AND JPEG files are allowed!')</script>";
-            echo '<script>window.location = "add_plot_listing.php";</script>';
-            exit;
-        }
-    }
-    
     // Insert query using MeekroDB
     $inserted = DB::insert('plot_listing', [
         'plot_num' => $plot_num,
         'plot_title' => $plot_title,
         'plot_location' => $plot_location,
         'plot_description' => $plot_description,
-        'plot_image' => $filePath  // Save the path to the uploaded file
+        'plot_image' => $plot_image
     ]);
 
     if ($inserted) {
@@ -71,6 +49,4 @@ if (isset($_POST['add-plot'])) {
     }
 }
 ?>
-
-
 
