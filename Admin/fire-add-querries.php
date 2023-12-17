@@ -34,6 +34,8 @@ if (isset($_POST['add-plot'])) {
     $plot_location = $_POST['plot_location'];
     $plot_description = $_POST['plot_description'];
 
+    $filePath = ''; // Initialize $filePath outside the if block
+
     if (isset($_FILES['plot_image'])) {
         $file = $_FILES['plot_image'];
     
@@ -48,11 +50,11 @@ if (isset($_POST['add-plot'])) {
     
             $filename = $uniqueFileName;
             $filePath = $uploadDir . $uniqueFileName;
-          } else {
-              echo "<script>alert('Only PNG, JPG, AND JPEG files are allowed!')</script>";
-              echo '<script>window.location = "add_plot_listing.php";</script>';
-              exit;
-          }
+        } else {
+            echo "<script>alert('Only PNG, JPG, AND JPEG files are allowed!')</script>";
+            echo '<script>window.location = "add_plot_listing.php";</script>';
+            exit;
+        }
     }
     
     // Insert query using MeekroDB
@@ -69,5 +71,6 @@ if (isset($_POST['add-plot'])) {
     }
 }
 ?>
+
 
 
