@@ -93,14 +93,15 @@
       </div>
       <div class="modal-body">
         <form action="" method="post">
-        <label for="bid-input" class="form-control">Add Bid Amount</label>
-        <input type="text" class="form-control" placeholder="Enter Bid Amoount Rs." name="bid" id="bid">
+        <input type="text" class="form-control" placeholder="Rs." name="bid" id="bid">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
     </div>
   </div>
 </div>
+
+

@@ -85,13 +85,13 @@ if (isset($_GET['id'])) {
                 <div class="row mb-3">
                   <label for="inputemail" class="col-sm-2 col-form-label">Plot Description</label>
                   <div class="col-sm-6">
-                  <textarea name="plot_description"  cols="30" rows="10"><?php echo $plot_description ?></textarea>
+                  <textarea name="plot_description" class="form-control" cols="30" rows="10"><?php echo $plot_description ?></textarea>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputemail" class="col-sm-2 col-form-label">Plot Image</label>
                   <div class="col-sm-6">
-                   <input type="file" name="plot_image" value='<?php echo $plot_image ?>'>
+                   <input type="file"  class="form-control" name="plot_image" value='<?php echo $plot_image ?>'>
                   </div>
                 </div>
 
