@@ -37,7 +37,6 @@ if (isset($_POST['add-plot'])) {
     $plot_image = $_POST['plot_image'];
     
 
-
     // Insert query using MeekroDB
     $inserted = DB::insert('plot_listing', [
         'plot_num' => $plot_num,
