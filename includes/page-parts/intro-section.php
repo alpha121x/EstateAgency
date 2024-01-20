@@ -40,7 +40,6 @@ if ($rows) {
     foreach ($rows as $row) {
 ?>
         <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url(<?php echo $row['plot_image']; ?>)">
-        <img src="<?php echo $row['plot_image']; ?>)" alt="">
             <div class="overlay overlay-a"></div>
             <div class="intro-content display-table">
                 <div class="table-cell">
@@ -82,16 +81,23 @@ if ($rows) {
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Your Bid.</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Enter Your Details.<input type="hidden" name="plot_num" value="<?php echo $row['plot_num']; ?>"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form action="" method="post">
-        <input type="text" class="form-control" placeholder="Rs." name="bid" id="bid">
+        <label for="name" class="form-control fw-bold">Username</label>
+        <input type="text" class="form-control" placeholder="Enter your username" name="username" id="username">
+        <br>
+        <label for="email" class="form-control fw-bold">Email</label>
+        <input type="email" class="form-control" placeholder="Enter your email" name="email" id="email">
+        <br>
+        <label for="bid" class="form-control fw-bold">Bid Amount</label>
+        <input type="number" class="form-control" placeholder="Rs." name="bid" id="bid">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-success">Submit</button>
         </form>
       </div>
     </div>
