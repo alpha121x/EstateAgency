@@ -40,6 +40,7 @@ if ($rows) {
     foreach ($rows as $row) {
 ?>
         <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url(<?php echo $row['plot_image']; ?>)">
+        <img src="<?php echo $row['plot_image']; ?>)" alt="">
             <div class="overlay overlay-a"></div>
             <div class="intro-content display-table">
                 <div class="table-cell">
