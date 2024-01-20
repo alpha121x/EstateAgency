@@ -34,8 +34,16 @@ if (isset($_POST['add-plot'])) {
     $plot_title = $_POST['plot_title'];
     $plot_location = $_POST['plot_location'];
     $plot_description = $_POST['plot_description'];
-    $plot_image = $_POST['plot_image'];
-    
+
+    // File Upload
+    $uploadsFolder = 'uploads/';
+    $plot_image = $uploadsFolder . basename($_FILES['plot_image']['name']);
+    $uploadSuccess = move_uploaded_file($_FILES['plot_image']['tmp_name'], $plot_image);
+
+    if (!$uploadSuccess) {
+        echo "Error uploading file.";
+        exit;
+    }
 
     // Insert query using MeekroDB
     $inserted = DB::insert('plot_listing', [
@@ -53,3 +61,4 @@ if (isset($_POST['add-plot'])) {
     }
 }
 ?>
+
