@@ -49,27 +49,33 @@ if (isset($_POST['update-plot'])) {
     $plot_location = $_POST['plot_location'];
     $plot_description = $_POST['plot_description'];
 
-    // File Upload
-    $uploadsFolder = 'uploads/';
-    $plot_image = $uploadsFolder . basename($_FILES['plot_image']['name']);
+    // Check if 'plot_image' key exists in the $_FILES array
+    if (isset($_FILES['plot_image'])) {
+        // File Upload
+        $uploadsFolder = 'uploads/';
+        $plot_image = $uploadsFolder . basename($_FILES['plot_image']['name']);
 
-    // Check if a new image was provided and update the file path accordingly
-    if ($_FILES['plot_image']['size'] > 0) {
-        // Remove the existing image file
-        $existingImage = DB::queryFirstField("SELECT plot_image FROM plot_listing WHERE plot_id=%i", $plot_edit_page_id);
-        if ($existingImage) {
-            unlink($existingImage);
-        }
+        // Check if a new image was provided and update the file path accordingly
+        if ($_FILES['plot_image']['size'] > 0) {
+            // Remove the existing image file
+            $existingImage = DB::queryFirstField("SELECT plot_image FROM plot_listing WHERE plot_id=%i", $plot_edit_page_id);
+            if ($existingImage) {
+                unlink($existingImage);
+            }
 
-        // Upload the new image
-        $uploadSuccess = move_uploaded_file($_FILES['plot_image']['tmp_name'], $plot_image);
+            // Upload the new image
+            $uploadSuccess = move_uploaded_file($_FILES['plot_image']['tmp_name'], $plot_image);
 
-        if (!$uploadSuccess) {
-            echo "Error uploading file.";
-            exit;
+            if (!$uploadSuccess) {
+                echo "Error uploading file.";
+                exit;
+            }
+        } else {
+            // If no new image provided, retain the existing image path
+            $plot_image = DB::queryFirstField("SELECT plot_image FROM plot_listing WHERE plot_id=%i", $plot_edit_page_id);
         }
     } else {
-        // If no new image provided, retain the existing image path
+        // If 'plot_image' key is not set in $_FILES, handle accordingly (e.g., set $plot_image to the existing path)
         $plot_image = DB::queryFirstField("SELECT plot_image FROM plot_listing WHERE plot_id=%i", $plot_edit_page_id);
     }
 
@@ -90,9 +96,10 @@ if (isset($_POST['update-plot'])) {
     // Check if the update was successful
     if ($updated) {
         header("Location: plot_listing.php");
-        exit(); // Ensure script termination after redirection
+        // Optionally redirect to another page or perform additional actions
     } else {
         echo "Error updating data in the database.";
     }
 }
 ?>
+
