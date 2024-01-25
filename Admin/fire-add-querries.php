@@ -34,6 +34,7 @@ if (isset($_POST['add-plot'])) {
     $plot_title = $_POST['plot_title'];
     $plot_location = $_POST['plot_location'];
     $plot_description = $_POST['plot_description'];
+    $plot_price = $_POST['plot_price'];
 
     // File Upload
     $uploadsFolder = 'uploads/';
@@ -51,6 +52,7 @@ if (isset($_POST['add-plot'])) {
         'plot_title' => $plot_title,
         'plot_location' => $plot_location,
         'plot_description' => $plot_description,
+        'plot_price' => $plot_price,
         'plot_image' => $plot_image // Save the file path in the database
     ]);
 

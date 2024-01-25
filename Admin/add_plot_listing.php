@@ -36,9 +36,15 @@
               <!-- Horizontal Form -->
               <form method="post" action="fire-add-querries.php" enctype="multipart/form-data">
                 <div class="row mb-3">
-                  <label for="inputusername" class="col-sm-2 col-form-label">Plot No:</label>
+                  <label for="inputusername" class="col-sm-2 col-form-label">Plot No</label>
                   <div class="col-sm-6">
                     <input type="text" class="form-control" placeholder="Enter Plot Num." name="plot_num">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputusername" class="col-sm-2 col-form-label">Plot Price</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" placeholder="Enter Plot Price" name="plot_price">
                   </div>
                 </div>
                 <div class="row mb-3">

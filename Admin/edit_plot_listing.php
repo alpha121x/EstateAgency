@@ -69,7 +69,12 @@ if (isset($_GET['id'])) {
                   <div class="col-sm-6">
                     <input type="text" class="form-control" value='<?php echo $user_data['plot_num']; ?>' name="plot_num">
                   </div>
-                </div> 
+                </div>
+                <div class="row mb-3">
+                  <label for="inputusername" class="col-sm-2 col-form-label">Plot Price</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" value='<?php echo $user_data['plot_price']; ?>' name="plot_price">
+                  </div> 
                 <div class="row mb-3">
                   <label for="inputusername" class="col-sm-2 col-form-label">Plot Title:</label>
                   <div class="col-sm-6">

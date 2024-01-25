@@ -55,8 +55,9 @@
                         <span class="color-b"><?php echo $row['plot_num']; ?> </span> <?php echo $row['plot_title']; ?>
                       </h1>
                       <p class="intro-subtitle intro-price">
-                        <a href="#"><span class="price-a">Buy | $ 12.000</span></a>
+                        <a href="#"><span class="price-a">Buy | $ <?php echo $row['plot_price']; ?></span></a>
                         <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><span class="price-a">Bid <i class="bi bi-coin"></i></span></a>
+                        <a href="#"><span class="price-a" data-bs-toggle="modal" data-bs-target="#exampleModal1">Live Updates <i class="bi bi-info"></i></span></a>
                       </p>
                     </div>
                   </div>
