@@ -1,8 +1,8 @@
 <?php require("auth.php"); ?>
+<?php require("db_config.php"); ?>
 <?php
-$user_id =  $_SESSION['user_id'];
-// Select the first row from the admin_users table
-$user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE id=%i",$user_id);
+// Use DB::queryFirstRow to get a single row directly
+$user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_SESSION['user']);
 ?>
 <!-- ======= Header ======= -->
 <header id="header" class="header fixed-top d-flex align-items-center">
