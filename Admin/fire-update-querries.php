@@ -6,13 +6,46 @@ include('db_config.php');
 if (isset($_POST['update-user'])) {
     $user_edit_page_id = $_POST['user-edit-page-id'];
     $username = $_POST['username'];
+    $first_name = $_POST['fname'];
+    $last_name = $_POST['lname'];
     $email = $_POST['email'];
     $user_type = $_POST['user_type'];
-    $user_image = $_POST['user_image'];
+
+    // Check if 'plot_image' key exists in the $_FILES array
+    if (isset($_FILES['user_image'])) {
+        // File Upload
+        $uploadsFolder = 'uploads/';
+        $plot_image = $uploadsFolder . basename($_FILES['user_image']['name']);
+
+        // Check if a new image was provided and update the file path accordingly
+        if ($_FILES['user_image']['size'] > 0) {
+            // Remove the existing image file
+            $existingImage = DB::queryFirstField("SELECT user_image FROM admin_users WHERE id=%i", $user_edit_page_id);
+            if ($existingImage) {
+                unlink($existingImage);
+            }
+
+            // Upload the new image
+            $uploadSuccess = move_uploaded_file($_FILES['user_image']['tmp_name'], $user_image);
+
+            if (!$uploadSuccess) {
+                echo "Error uploading file.";
+                exit;
+            }
+        } else {
+            // If no new image provided, retain the existing image path
+            $user_image = DB::queryFirstField("SELECT plot_image FROM admin_users WHERE id=%i", $user_edit_page_id);
+        }
+    } else {
+        // If 'plot_image' key is not set in $_FILES, handle accordingly (e.g., set $plot_image to the existing path)
+        $user_image = DB::queryFirstField("SELECT user_image FROM admin_users WHERE id=%i", $user_edit_page_id);
+    }
 
     // Update query using MeekroDB
     $updated = DB::update('admin_users', [
         'username' => $username,
+        'first_name' => $first_name,
+        'last_name' => $last_name,
         'email' => $email,
         'user_type' => $user_type,
         'user_image' => $user_image

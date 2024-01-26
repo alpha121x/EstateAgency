@@ -42,6 +42,18 @@
                   </div>
                 </div>
                 <div class="row mb-3">
+                  <label for="inputusername" class="col-sm-2 col-form-label">First Name</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" placeholder="Enter name" name="fname">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputusername" class="col-sm-2 col-form-label">Last Name</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" placeholder="Enter name" name="lname">
+                  </div>
+                </div>
+                <div class="row mb-3">
                   <label for="inputfname" class="col-sm-2 col-form-label">Password</label>
                   <div class="col-sm-6">
                     <input type="password" class="form-control" placeholder="Enter Password" name="password">

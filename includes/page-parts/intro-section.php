@@ -20,7 +20,7 @@
                   <p class="intro-subtitle intro-price">
                     <a href="#"><span class="price-a">Buy | $ 12.000</span></a>
                     <a href="#"><span class="price-a" data-bs-toggle="modal" data-bs-target="#exampleModal">Bid <i class="bi bi-coin"></i></span></a>
-                     <a href="#"><span class="price-a" data-bs-toggle="modal" data-bs-target="#exampleModal1">Live Updates <i class="bi bi-info"></i></span></a>
+                    <a href="#"><span class="price-a" data-bs-toggle="modal" data-bs-target="#exampleModal1">Live Updates <i class="bi bi-info"></i></span></a>
                   </p>
                 </div>
               </div>
@@ -29,49 +29,59 @@
         </div>
       </div>
     </div>
-    <?php
-    require_once "Admin/include/classes/meekrodb.2.3.class.php";
-    require('Admin/db_config.php');
 
-    // Fetch data from the plot_listing table using MeekroDB
-    $rows = DB::query("SELECT * FROM plot_listing");
-
-    // Check if there are results
-    if ($rows) {
-      foreach ($rows as $row) {
-    ?>
-        <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url(<?php echo $row['plot_image']; ?>)">
-          <div class="overlay overlay-a"></div>
-          <div class="intro-content display-table">
-            <div class="table-cell">
-              <div class="container">
-                <div class="row">
-                  <div class="col-lg-8">
-                    <div class="intro-body">
-                      <p class="intro-title-top"><?php echo $row['plot_location']; ?>
-                        <br> <?php echo $row['plot_num']; ?>
-                      </p>
-                      <h1 class="intro-title mb-4">
-                        <span class="color-b"><?php echo $row['plot_num']; ?> </span> <?php echo $row['plot_title']; ?>
-                      </h1>
-                      <p class="intro-subtitle intro-price">
-                        <a href="#"><span class="price-a">Buy | $ <?php echo $row['plot_price']; ?></span></a>
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><span class="price-a">Bid <i class="bi bi-coin"></i></span></a>
-                        <a href="#"><span class="price-a" data-bs-toggle="modal" data-bs-target="#exampleModal1">Live Updates <i class="bi bi-info"></i></span></a>
-                      </p>
-                    </div>
-                  </div>
+    <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url(assets/img/slide-2.jpg)">
+      <div class="overlay overlay-a"></div>
+      <div class="intro-content display-table">
+        <div class="table-cell">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8">
+                <div class="intro-body">
+                  <p class="intro-title-top">Doral, Florida
+                    <br> 78345
+                  </p>
+                  <h1 class="intro-title mb-4">
+                    <span class="color-b">204 </span> Rino
+                    <br> Venda Road Five
+                  </h1>
+                  <p class="intro-subtitle intro-price">
+                    <a href="#"><span class="price-a">Buy | $ 12.000</span></a>
+                    <a href="#"><span class="price-a">Bid <i class="bi bi-coin"></i></span></a>
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-    <?php
-      }
-    } else {
-      echo "0 results";
-    }
-    ?>
+      </div>
+    </div>
+    <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url(assets/img/slide-3.jpg)">
+      <div class="overlay overlay-a"></div>
+      <div class="intro-content display-table">
+        <div class="table-cell">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8">
+                <div class="intro-body">
+                  <p class="intro-title-top">Doral, Florida
+                    <br> 78345
+                  </p>
+                  <h1 class="intro-title mb-4">
+                    <span class="color-b">204 </span> Alira
+                    <br> Roan Road One
+                  </h1>
+                  <p class="intro-subtitle intro-price">
+                    <a href="#"><span class="price-a">Buy | $ 12.000</span></a>
+                    <a href="#"><span class="price-a">Bid <i class="bi bi-coin"></i></span></a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
   </div>
@@ -116,8 +126,8 @@
       </div>
       <div class="modal-body">
         <h5>Bid 1: Rs.1000,0000</h3>
-        <h5>Bid 2: Rs.900,0000</h3>
-        <h5>Bid 3: Rs.870,0000</h3>
+          <h5>Bid 2: Rs.900,0000</h3>
+            <h5>Bid 3: Rs.870,0000</h3>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
@@ -126,121 +136,3 @@
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url(assets/img/slide-2.jpg)">
-    <div class="overlay overlay-a"></div>
-    <div class="intro-content display-table">
-      <div class="table-cell">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-8">
-              <div class="intro-body">
-                <p class="intro-title-top">Doral, Florida
-                  <br> 78345
-                </p>
-                <h1 class="intro-title mb-4">
-                  <span class="color-b">204 </span> Rino
-                  <br> Venda Road Five
-                </h1>
-                <p class="intro-subtitle intro-price">
-                  <a href="#"><span class="price-a">Buy | $ 12.000</span></a>
-                  <a href="#"><span class="price-a">Bid <i class="bi bi-coin"></i></span></a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url(assets/img/slide-3.jpg)">
-    <div class="overlay overlay-a"></div>
-    <div class="intro-content display-table">
-      <div class="table-cell">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-8">
-              <div class="intro-body">
-                <p class="intro-title-top">Doral, Florida
-                  <br> 78345
-                </p>
-                <h1 class="intro-title mb-4">
-                  <span class="color-b">204 </span> Alira
-                  <br> Roan Road One
-                </h1>
-                <p class="intro-subtitle intro-price">
-                  <a href="#"><span class="price-a">Buy | $ 12.000</span></a>
-                  <a href="#"><span class="price-a">Bid <i class="bi bi-coin"></i></span></a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->

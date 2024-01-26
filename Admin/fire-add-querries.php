@@ -4,14 +4,28 @@ require('db_config.php');
 
 if (isset($_POST['add-user'])) {
     $username = $_POST['username'];
+    $first_name = $_POST['fname'];
+    $last_name = $_POST['lname'];
     $password = $_POST['password'];
     $email = $_POST['email'];
     $user_type = $_POST['user_type'];
     $user_image = $_POST['user_image'];
 
+     // File Upload
+     $uploadsFolder = 'uploads/';
+     $user_image = $uploadsFolder . basename($_FILES['user_iamge']['name']);
+     $uploadSuccess = move_uploaded_file($_FILES['user_image']['tmp_name'], $user_image);
+ 
+     if (!$uploadSuccess) {
+         echo "Error uploading file.";
+         exit;
+     }
+
     // Insert query using MeekroDB
     $inserted = DB::insert('admin_users', [
         'username' => $username,
+        'first_name' => $first_name,
+        'last_name' => $last_name,
         'password' => $password,
         'email' => $email,
         'user_type' => $user_type,

@@ -12,6 +12,8 @@ if (isset($_GET['id'])) {
         // Access user data using the fetched associative array
         $id = $user_data['id'];
         $username = $user_data['username'];
+        $firstname = $user_data['first_name'];
+        $lastname = $user_data['last_name'];
         $email = $user_data['email'];
         $user_type = $user_data['user_type'];
         $user_image = $user_data['user_image'];
@@ -65,6 +67,18 @@ if (isset($_GET['id'])) {
                   <label for="inputusername" class="col-sm-2 col-form-label"><input type="hidden" name="user-edit-page-id" value='<?php echo $id; ?>'>Username</label>
                   <div class="col-sm-6">
                     <input type="text" class="form-control" value='<?php echo $username; ?>' name="username">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputusername" class="col-sm-2 col-form-label">First Name</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" value='<?php echo $firstname; ?>' placeholder="Enter name" name="fname">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="inputusername" class="col-sm-2 col-form-label">Last Name</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" value='<?php echo $lastname; ?>' placeholder="Enter name" name="lname">
                   </div>
                 </div> 
                 <div class="row mb-3">
