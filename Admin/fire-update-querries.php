@@ -87,7 +87,6 @@ if (isset($_POST['update-user'])) {
 }
 ?>
 
-
 <?php
 // Update user password
 if (isset($_POST['update-password'])) {
@@ -144,6 +143,7 @@ if (isset($_POST['update-plot'])) {
         // If 'plot_image' key is not set in $_FILES, handle accordingly (e.g., set $plot_image to the existing path)
         $plot_image = DB::queryFirstField("SELECT plot_image FROM plot_listing WHERE plot_id=%i", $plot_edit_page_id);
     }
+
 
     // Update query using MeekroDB
     $updated = DB::update(
