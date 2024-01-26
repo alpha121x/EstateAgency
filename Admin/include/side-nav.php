@@ -19,9 +19,9 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin') {
            </a>
          </li>
          <li class="nav-item">
-           <a class="nav-link collapsed"  href="admin-profile.php">
+           <a class="nav-link collapsed"  href="users_profile.php">
            <i class="bi bi-person-fill-lock"></i>
-             <span>Admin Profile</span>
+             <span>User Profile</span>
            </a>
          </li>
          <li class="nav-item">
@@ -61,6 +61,12 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin') {
              <span>Users</span>
            </a>
          </li>
+         <li class="nav-item">
+         <a class="nav-link collapsed"  href="users_profile.php">
+         <i class="bi bi-person-fill-lock"></i>
+           <span>User Profile</span>
+         </a>
+       </li>
          <li class="nav-item">
            <a class="nav-link collapsed"  href="plot_listing.php">
            <i class="bi bi-person-fill-lock"></i>

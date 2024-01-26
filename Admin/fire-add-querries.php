@@ -9,7 +9,6 @@ if (isset($_POST['add-user'])) {
     $password = $_POST['password'];
     $email = $_POST['email'];
     $user_type = $_POST['user_type'];
-    $user_image = $_POST['user_image'];
 
      // File Upload
      $uploadsFolder = 'uploads/';

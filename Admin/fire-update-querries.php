@@ -65,7 +65,7 @@ if (isset($_POST['update-password'])) {
     $updated_password = DB::update('admin_users', ['password' => $password], 'LIMIT 1');
 
     if ($updated_password) {
-        header("Location: admin-profile.php");
+        header("Location: users_profile.php");
     }
 }
 ?>

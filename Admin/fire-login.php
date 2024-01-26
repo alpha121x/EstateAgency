@@ -15,6 +15,9 @@ if (isset($_POST['login'])) {
 
         // Store user information in session variables
         $_SESSION['user'] = $username;
+        $_SESSION['first_name'] = $row['first_name'];
+        $_SESSION['first_name'] = $row['last_name'];
+        $_SESSION['first_name'] = $row['email'];
         $_SESSION['user_type'] = $row['user_type']; // Assuming 'user_type' is the column name
 
         header("Location: index.php");

@@ -41,7 +41,7 @@ if ($firstAdminUser) {
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-          <li class="breadcrumb-item active">Admin Profile</li>
+          <li class="breadcrumb-item active">User Profile</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
