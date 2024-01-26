@@ -3,10 +3,10 @@
 
 <head>
   <title>Pages / Login - NiceAdmin Bootstrap Template</title>
-  
-  
- <?php include"include/linked-files.php" ?>
-  
+
+
+  <?php include "include/linked-files.php" ?>
+
 
 </head>
 
@@ -41,7 +41,7 @@
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Username</label>
                       <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                        <span class="input-group-text" id="inputGroupPrepend"><i class='bx bx-user text-primary fs-4'></i></i></span>
                         <input type="text" name="username" class="form-control" id="yourUsername" required>
                         <div class="invalid-feedback">Please enter your username.</div>
                       </div>
@@ -49,21 +49,21 @@
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                      <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend"><i class='bx bx-lock text-primary fs-4'></i></span>
+                        <input type="password" name="password" class="form-control" id="yourPassword" required>
+                        <div class="invalid-feedback">Please enter your password!</div>
                       </div>
                     </div>
+
+                    <!-- <div class="col-12">
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
+    <label class="form-check-label" for="rememberMe">Remember me</label>
+  </div>
+</div> -->
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit" name="login">Login</button>
-                    </div>
-                    <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a href="pages-register.html">Create an account</a></p>
                     </div>
                   </form>
 
@@ -82,7 +82,7 @@
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <?php include"include/script-files.php" ?>
+  <?php include "include/script-files.php" ?>
 
 </body>
 
