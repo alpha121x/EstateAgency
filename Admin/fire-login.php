@@ -19,7 +19,6 @@ if (isset($_POST['login'])) {
         $_SESSION['first_name'] = $row['first_name'];
         $_SESSION['first_name'] = $row['last_name'];
         $_SESSION['first_name'] = $row['email'];
-        $_SESSION['user_image'] = $row['user_image'];
         $_SESSION['user_type'] = $row['user_type']; // Assuming 'user_type' is the column name
         
 

@@ -114,7 +114,3 @@ if (isset($_POST['add-bid'])) {
 }
 ?>
 
-
-
-
-

@@ -1,12 +1,11 @@
 <?php require("auth.php"); ?>
-<?php
+<!-- <?php
 $user_id =  $_SESSION['user_id'];
 // Select the first row from the admin_users table
 $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE id=%i",$user_id);
-?>
+?> -->
 <!-- ======= Header ======= -->
 <header id="header" class="header fixed-top d-flex align-items-center">
-
 <div class="d-flex align-items-center justify-content-between">
   <a href="index.html" class="logo d-flex align-items-center">
     <img src="assets/img/logo.png" alt="">
