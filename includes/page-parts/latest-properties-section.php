@@ -112,7 +112,8 @@
                   </div>
                 </div>
               </div>
-            </div><!-- End carousel item -->
+            </div>
+            <!-- End carousel item -->
 
             <div class="carousel-item-b swiper-slide">
               <div class="card-box-a card-shadow">
@@ -208,7 +209,8 @@
                   </div>
                 </div>
               </div>
-            </div><!-- End carousel item -->
+            </div>
+            <!-- End carousel item -->
           </div>
         </div>
         <div class="propery-carousel-pagination carousel-pagination"></div>
