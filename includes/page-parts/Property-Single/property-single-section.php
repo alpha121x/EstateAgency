@@ -15,12 +15,8 @@
     <div class="row justify-content-center">
       <div class="col-lg-8">
         <div id="property-single-carousel" class="swiper">
-          <div class="swiper-wrapper">
             <div class="carousel-item-b swiper-slide">
-              <img src="assets/img/slide-1.jpg" alt="">
-            </div>
-            <div class="carousel-item-b swiper-slide">
-              <img src="assets/img/slide-2.jpg" alt="">
+              <img src="Admin/<?php echo $propertyDetails['plot_image']; ?>" alt="">
             </div>
           </div>
         </div>
