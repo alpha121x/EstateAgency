@@ -15,10 +15,12 @@
     <div class="row justify-content-center">
       <div class="col-lg-8">
         <div id="property-single-carousel" class="swiper">
+          <div class="swiper-wrapper">
             <div class="carousel-item-b swiper-slide">
-              <img src="Admin/<?php echo $propertyDetails['plot_image']; ?>" alt="">
+              <img src="Admin/<?php echo $propertyDetails['plot_image']; ?>" alt="" width="1920" height="960">
             </div>
           </div>
+
         </div>
         <div class="property-single-carousel-pagination carousel-pagination"></div>
       </div>
