@@ -3,27 +3,31 @@ include("db_config.php");
 
 // Check if user ID is provided in the URL
 if (isset($_GET['id'])) {
-    $user_id = intval($_GET['id']);  // Convert to integer to ensure it's a valid ID
+  $user_id = intval($_GET['id']);  // Convert to integer to ensure it's a valid ID
 
-    // SQL query to fetch user data based on user ID using MeekroDB
-    $user_data = DB::queryFirstRow("SELECT * FROM plot_listing WHERE plot_id = %i", $user_id);
+  // SQL query to fetch user data based on user ID using MeekroDB
+  $user_data = DB::queryFirstRow("SELECT * FROM plot_listing WHERE plot_id = %i", $user_id);
 
-    if ($user_data) {
-        // Access user data using the fetched associative array
-        $id = $user_data['plot_id'];
-        $plot_num = $user_data['plot_num'];
-        $plot_title = $user_data['plot_title'];
-        $plot_location = $user_data['plot_location'];
-        $plot_description = $user_data['plot_description'];
-        $plot_image = $user_data['plot_image'];  // Assuming the correct column name is 'user_address'
+  if ($user_data) {
+    // Access user data using the fetched associative array
+    $id = $user_data['plot_id'];
+    $plot_num = $user_data['plot_num'];
+    $plot_title = $user_data['plot_title'];
+    $plot_location = $user_data['plot_location'];
+    $plot_description = $user_data['plot_description'];
+    $property_type = $user_data['property_type'];
+    $plot_area = $user_data['plot_area'];
+    $beds = $user_data['beds'];
+    $baths = $user_data['baths'];
+    $plot_image = $user_data['plot_image'];  // Assuming the correct column name is 'user_address'
 
-    } else {
-        echo "User not found";
-        // Handle the case where the user ID doesn't exist in the database
-    }
+  } else {
+    echo "User not found";
+    // Handle the case where the user ID doesn't exist in the database
+  }
 } else {
-    echo "User ID not provided";
-    // Handle the case where no user ID is provided in the URL
+  echo "User ID not provided";
+  // Handle the case where no user ID is provided in the URL
 }
 ?>
 
@@ -33,15 +37,15 @@ if (isset($_GET['id'])) {
 
 <head>
   <title>Edit Plot Listing- Form</title>
-  <?php include"include/linked-files.php" ?>
+  <?php include "include/linked-files.php" ?>
 </head>
 
 <body>
 
-  
-  <?php include"include/header-nav.php" ?>  
- 
-  <?php include"include/side-nav.php" ?> 
+
+  <?php include "include/header-nav.php" ?>
+
+  <?php include "include/side-nav.php" ?>
 
   <main id="main" class="main">
 
@@ -61,58 +65,88 @@ if (isset($_GET['id'])) {
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Form</h5>
-            
+
               <!-- Horizontal Form -->
               <form method="post" action="fire-update-querries.php" enctype="multipart/form-data">
                 <div class="row mb-3">
-                  <label for="inputusername" class="col-sm-2 col-form-label"><input type="hidden" name="plot_listing_edit_page_id" value='<?php echo $id; ?>'>Plot No</label>
+                  <label for="plot_listing_edit_page_id" class="col-sm-2 col-form-label">Plot No</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" value='<?php echo $user_data['plot_num']; ?>' name="plot_num">
+                    <input type="text" class="form-control" value='<?php echo $user_data['plot_num']; ?>' name="plot_num" readonly>
+                    <input type="hidden" name="plot_listing_edit_page_id" value='<?php echo $id; ?>'>
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputusername" class="col-sm-2 col-form-label">Plot Price</label>
+                  <label for="inputusername" class="col-sm-2 col-form-label">Plot Area</label>
+                  <div class="col-sm-6">
+                    <input type="number" value="<?php echo $plot_area ?>" required class="form-control" placeholder="m" required name="plot_area">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="propertyType" class="col-sm-2 col-form-label">Property Type</label>
+                  <div class="col-sm-6">
+                    <select class="form-select" required name="property_type" id="propertyType">
+                      <option value="House" <?php if ($user_data['property_type'] == 'House') echo 'selected'; ?>>House</option>
+                      <option value="Property" <?php if ($user_data['property_type'] == 'Property') echo 'selected'; ?>>Property</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="beds" class="col-sm-2 col-form-label">Beds</label>
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control" placeholder="Enter Number of Beds" name="beds" value='<?php echo $user_data['beds']; ?>'>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="baths" class="col-sm-2 col-form-label">Baths</label>
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control" placeholder="Enter Number of Baths" name="baths" value='<?php echo $user_data['baths']; ?>'>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="plot_price" class="col-sm-2 col-form-label">Plot Price</label>
                   <div class="col-sm-6">
                     <input type="text" class="form-control" value='<?php echo $user_data['plot_price']; ?>' name="plot_price">
-                  </div> 
+                  </div>
+                </div>
                 <div class="row mb-3">
-                  <label for="inputusername" class="col-sm-2 col-form-label">Plot Title:</label>
+                  <label for="plot_title" class="col-sm-2 col-form-label">Plot Title:</label>
                   <div class="col-sm-6">
                     <input type="text" class="form-control" value='<?php echo $user_data['plot_title']; ?>' name="plot_title">
                   </div>
-                </div> 
+                </div>
                 <div class="row mb-3">
-                  <label for="inputusername" class="col-sm-2 col-form-label">Plot Location</label>
+                  <label for="plot_location" class="col-sm-2 col-form-label">Plot Location</label>
                   <div class="col-sm-6">
                     <input type="text" class="form-control" value='<?php echo $user_data['plot_location']; ?>' name="plot_location">
                   </div>
-                </div> 
+                </div>
                 <div class="row mb-3">
-                  <label for="inputemail" class="col-sm-2 col-form-label">Plot Description</label>
+                  <label for="plot_description" class="col-sm-2 col-form-label">Plot Description</label>
                   <div class="col-sm-6">
-                  <textarea name="plot_description" class="form-control" cols="30" rows="10"><?php echo $plot_description ?></textarea>
+                    <textarea name="plot_description" class="form-control" cols="30" rows="10"><?php echo $user_data['plot_description']; ?></textarea>
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputemail" class="col-sm-2 col-form-label">Plot Image</label>
+                  <label for="plot_image" class="col-sm-2 col-form-label">Plot Image</label>
                   <div class="col-sm-6">
-                   <input type="file"  class="form-control" name="plot_image" value='<?php echo $plot_image ?>'>
+                    <input type="file" class="form-control" name="plot_image">
+                    <?php if ($user_data['plot_image']) : ?>
+                      <img src="<?php echo $user_data['plot_image']; ?>" alt="Current Image" style="max-width: 200px; margin-top: 10px;">
+                    <?php endif; ?>
                   </div>
                 </div>
 
-                   
-                </div>
-                
                 <div class="text-center">
                   <button type="submit" class="btn btn-primary" name="update-plot"><i class='bx bx-upload'></i> Save</button>
                 </div>
                 <br>
-              </form><!-- End Horizontal Form -->
+              </form>
+
 
             </div>
           </div>
 
-      
+
 
         </div>
       </div>
@@ -120,44 +154,13 @@ if (isset($_GET['id'])) {
 
   </main><!-- End #main -->
 
-  <?php include"include/footer.php" ?> 
+  <?php include "include/footer.php" ?>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <?php include"include/script-files.php" ?>
+  <?php include "include/script-files.php" ?>
 
 </body>
 
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

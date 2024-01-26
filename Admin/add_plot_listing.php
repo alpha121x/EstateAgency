@@ -4,15 +4,15 @@
 
 <head>
   <title>Add Posts - Form</title>
-  <?php include"include/linked-files.php" ?>
+  <?php include "include/linked-files.php" ?>
 </head>
 
 <body>
 
-  
-  <?php include"include/header-nav.php" ?>  
- 
-  <?php include"include/side-nav.php" ?> 
+
+  <?php include "include/header-nav.php" ?>
+
+  <?php include "include/side-nav.php" ?>
 
   <main id="main" class="main">
 
@@ -38,100 +38,97 @@
                 <div class="row mb-3">
                   <label for="inputusername" class="col-sm-2 col-form-label">Plot No</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" placeholder="Enter Plot Num." name="plot_num">
+                    <input type="text" class="form-control" placeholder="Enter Plot Num." required name="plot_num">
                   </div>
                 </div>
                 <div class="row mb-3">
+                  <label for="inputusername" class="col-sm-2 col-form-label">Plot Area</label>
+                  <div class="col-sm-6">
+                    <input type="number" required class="form-control" placeholder="m" required name="plot_area">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="propertyType" class="col-sm-2 col-form-label">Property Type</label>
+                  <div class="col-sm-6">
+                    <select class="form-select" required name="property_type" id="propertyType">
+                      <option value="House">House</option>
+                      <option value="Property">Property</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="beds" class="col-sm-2 col-form-label">Beds</label>
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control" placeholder="Enter Number of Beds" name="beds">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="baths" class="col-sm-2 col-form-label">Baths</label>
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control" placeholder="Enter Number of Baths" name="baths">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
                   <label for="inputusername" class="col-sm-2 col-form-label">Plot Price</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" placeholder="Enter Plot Price" name="plot_price">
+                    <input type="text" class="form-control" required placeholder="Enter Plot Price" name="plot_price">
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputusername" class="col-sm-2 col-form-label">Plot Title</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" placeholder="Enter Plot Title.." name="plot_title">
+                    <input type="text" class="form-control" required placeholder="Enter Plot Title.." name="plot_title">
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputusername" class="col-sm-2 col-form-label">Plot Location</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" placeholder="Enter Plot Location.." name="plot_location">
+                    <input type="text" class="form-control" required placeholder="Enter Plot Location.." name="plot_location">
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputemail" class="col-sm-2 col-form-label">Plot Description</label>
                   <div class="col-sm-6">
-                   <textarea class="form-control" name="plot_description" cols="30" rows="10"></textarea>
+                    <textarea class="form-control" required name="plot_description" cols="30" rows="10"></textarea>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputemail" class="col-sm-2 col-form-label">Add Image</label>
                   <div class="col-sm-6">
-                   <input type="file" class="form-control" name="plot_image">
+                    <input type="file" required class="form-control" name="plot_image">
                   </div>
                 </div>
 
 
-                   
-                </div>
-                
-                <div class="text-center">
-                  <button type="submit" class="btn btn-primary" name="add-plot"><i class='bx bx-upload'></i> Add</button>
-                  <button type="reset" class="btn btn-secondary" name="reset">Reset</button>
-                </div>
-                <br>
-              </form><!-- End Horizontal Form -->
 
             </div>
+
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary" name="add-plot"><i class='bx bx-upload'></i> Add</button>
+              <button type="reset" class="btn btn-secondary" name="reset">Reset</button>
+            </div>
+            <br>
+            </form><!-- End Horizontal Form -->
+
           </div>
-
-      
-
         </div>
+
+
+
+      </div>
       </div>
     </section>
 
   </main><!-- End #main -->
 
-  <?php include"include/footer.php" ?> 
+  <?php include "include/footer.php" ?>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <?php include"include/script-files.php" ?>
+  <?php include "include/script-files.php" ?>
 
 </body>
 
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

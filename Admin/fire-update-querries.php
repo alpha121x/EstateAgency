@@ -113,6 +113,10 @@ if (isset($_POST['update-plot'])) {
     $plot_location = $_POST['plot_location'];
     $plot_description = $_POST['plot_description'];
     $plot_price = $_POST['plot_price'];
+    $plot_area = $_POST['plot_area'];
+    $property_type = $_POST['property_type'];
+    $beds = $_POST['beds'];
+    $baths = $_POST['baths'];
 
     // Check if 'plot_image' key exists in the $_FILES array
     if (isset($_FILES['plot_image'])) {
@@ -154,6 +158,10 @@ if (isset($_POST['update-plot'])) {
             'plot_location' => $plot_location,
             'plot_description' => $plot_description,
             'plot_price' => $plot_price,
+            'property_type' => $property_type,
+            'plot_area' => $plot_area,
+            'beds' => $beds,
+            'baths' => $baths,
             'plot_image' => $plot_image
         ],
         'plot_id=%i',
