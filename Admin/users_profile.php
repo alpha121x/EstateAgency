@@ -56,7 +56,7 @@ if ($firstAdminUser) {
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-              <img src="assets/img/abbas.jpeg" alt="Profile" class="rounded-circle">
+              <img src="<?php echo $user_image; ?>" alt="Profile" class="rounded-circle">
               <h2><?php echo $username ?></h2>
               <h3>Web Developer</h3>
               <div class="social-links mt-2">
