@@ -1,4 +1,9 @@
 <?php require("auth.php"); ?>
+<?php
+$user_id =  $_SESSION['user_id'];
+// Select the first row from the admin_users table
+$user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE id=%i",$user_id);
+?>
 <!-- ======= Header ======= -->
 <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -170,22 +175,22 @@
     <li class="nav-item dropdown pe-3">
 
       <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-        <img src="assets/img/abbas.jpeg" alt="Profile" class="rounded-circle">
+        <img src="<?php echo $user_data['user_image']; ?>" alt="Profile" class="rounded-circle">
         <span class="d-none d-md-block dropdown-toggle ps-2">
         </span>
       </a><!-- End Profile Iamge Icon -->
 
       <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
         <li class="dropdown-header">
-          <h6>Abbas Chaudhry</h6>
-          <span>Web Developer</span>
+          <h6><?php echo $user_data['username']; ?></h6>
+          <span><?php echo $user_data['user_type']; ?></span>
         </li>
         <li>
           <hr class="dropdown-divider">
         </li>
 
         <li>
-          <a class="dropdown-item d-flex align-items-center" href="admin-profile.php">
+          <a class="dropdown-item d-flex align-items-center" href="users_profile.php">
             <i class="bi bi-person"></i>
             <span>My Profile</span>
           </a>
