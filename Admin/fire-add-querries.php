@@ -109,7 +109,7 @@ if (isset($_POST['add-bid'])) {
     ]);
 
     if ($inserted) {
-        header("Location: property-grid-single-section.php");
+        header("Location: property-grid.php");
     }
 }
 ?>

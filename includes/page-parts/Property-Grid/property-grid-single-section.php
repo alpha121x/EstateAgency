@@ -27,7 +27,8 @@
                 <div class="card-body-a">
                   <div class="price-box d-flex">
                     <span class="price-a">Buy | $ <?php echo $property['plot_price']; ?></span>
-                    <a href="#"><span class="price-a" data-bs-toggle="modal" data-bs-target="#exampleModal">Bid <i class="bi bi-coin"></i></span></a>
+                    &nbsp;
+                    <span type="button" class="price-a" data-bs-toggle="modal" data-bs-target="#exampleModal">Bid</span>
                   </div>
                   <a href="property-single.php?id=<?php echo $property['plot_id'];  ?>" class="link-a">Click here to view
                     <span class="bi bi-chevron-right"></span>
