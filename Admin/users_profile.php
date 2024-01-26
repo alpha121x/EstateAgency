@@ -58,7 +58,7 @@ if ($firstAdminUser) {
 
               <img src="<?php echo $user_image; ?>" alt="Profile" class="rounded-circle">
               <h2><?php echo $username ?></h2>
-              <h3>Web Developer</h3>
+              <h3><?php echo $_SESSION['user_type']; ?></h3>
               <div class="social-links mt-2">
                 <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
                 <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
@@ -135,7 +135,7 @@ if ($firstAdminUser) {
                     <div class="row mb-3">
                       <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
                       <div class="col-md-8 col-lg-9">
-                        <img src="assets/img/<?php echo $user_image ?>" class="form-control" alt="Profile" name="photo">
+                        <img src="<?php echo $user_data['user_image'] ?>" class="form-control" alt="Profile" name="photo">
                         <div class="col-sm-6">
                         <input type="file" class="form-control" name="photo">
                         </div>
