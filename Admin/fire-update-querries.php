@@ -11,35 +11,67 @@ if (isset($_POST['update-user'])) {
     $email = $_POST['email'];
     $user_type = $_POST['user_type'];
 
-    // Check if 'plot_image' key exists in the $_FILES array
-    if (isset($_FILES['user_image'])) {
-        // File Upload
-        $uploadsFolder = 'uploads/';
-        $user_image = $uploadsFolder . basename($_FILES['user_image']['name']);
+    $profile_picture = $_FILES['user_image'];
 
-        // Check if a new image was provided and update the file path accordingly
-        if ($_FILES['user_image']['size'] > 0) {
-            // Remove the existing image file
-            $existingImage = DB::queryFirstField("SELECT user_image FROM admin_users WHERE id=%i", $user_edit_page_id);
-            if ($existingImage) {
-                unlink($existingImage);
-            }
+    // File upload code
+    $fname = $_FILES['user_image']['name'];
 
-            // Upload the new image
-            $uploadSuccess = move_uploaded_file($_FILES['user_image']['tmp_name'], $user_image);
+    if($fname!=null)
+    {
+    $photo="uploads/".$fname; // variable for insert into database
+    $target_dir = "uploads/";
+    $target_file = $target_dir . basename($_FILES["user_image"]["name"]);
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-            if (!$uploadSuccess) {
-                echo "Error uploading file.";
-                exit;
-            }
-        } else {
-            // If no new image provided, retain the existing image path
-            $user_image = DB::queryFirstField("SELECT user_image FROM admin_users WHERE id=%i", $user_edit_page_id);
+        // Check file size
+        if ($_FILES["user_image"]["size"] > 102400) 
+        {
+            $_SESSION['imageSize'] = true;
+            header("Location:admin_users.php");
+            $uploadOk = 0;
+            exit();
         }
-    } else {
-        // If 'plot_image' key is not set in $_FILES, handle accordingly (e.g., set $plot_image to the existing path)
-        $user_image = DB::queryFirstField("SELECT user_image FROM admin_users WHERE id=%i", $user_edit_page_id);
+        // Allow certain file formats
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif" ) 
+        {
+            $_SESSION['fileType'] = true;
+            header("Location:admin_users.php"); 
+            $uploadOk = 0;
+            exit();
+        }
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) 
+        {
+            $_SESSION['error'] = true;
+            header("Location:admin_users.php");
+        // if everything is ok, try to upload file
+        } 
     }
+
+    if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) 
+    {
+        $sts=mysqli_query($cn,"UPDATE admin SET username='$admin_name', password='$hashed_password', mobile='$admin_mobile', usertype='$usertype', profile_picture='$photo' WHERE email='$admin_email'");
+        if($sts){
+        
+            $_SESSION['status'] = true;
+            header("Location:admin_users.php");  
+        }
+            
+    } 
+    else 
+    {
+        $sts=mysqli_query($cn,"UPDATE admin SET username='$admin_name', password='$hashed_password', mobile='$admin_mobile', usertype='$usertype' WHERE email='$admin_email'");
+            header("Location:admin_users.php"); 
+            if($sts){
+        
+                $_SESSION['status'] = true;
+                header("Location:admin_users.php");  
+            } 
+    }
+
+
 
     // Update query using MeekroDB
     $updated = DB::update('admin_users', [
