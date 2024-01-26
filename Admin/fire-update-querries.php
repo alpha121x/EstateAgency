@@ -11,83 +11,83 @@ if (isset($_POST['update-user'])) {
     $email = $_POST['email'];
     $user_type = $_POST['user_type'];
 
-    $profile_picture = $_FILES['user_image'];
-
     // File upload code
     $fname = $_FILES['user_image']['name'];
 
-    if($fname!=null)
-    {
-    $photo="uploads/".$fname; // variable for insert into database
-    $target_dir = "uploads/";
-    $target_file = $target_dir . basename($_FILES["user_image"]["name"]);
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+    if ($fname != null) {
+        $target_dir = "uploads/";
+        $target_file = $target_dir . basename($_FILES["user_image"]["name"]);
 
         // Check file size
-        if ($_FILES["user_image"]["size"] > 102400) 
-        {
+        if ($_FILES["user_image"]["size"] > 102400) {
             $_SESSION['imageSize'] = true;
-            header("Location:admin_users.php");
-            $uploadOk = 0;
+            header("Location: admin_users.php");
             exit();
         }
+
         // Allow certain file formats
-        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif" ) 
-        {
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
             $_SESSION['fileType'] = true;
-            header("Location:admin_users.php"); 
-            $uploadOk = 0;
+            header("Location: admin_users.php");
             exit();
         }
-        // Check if $uploadOk is set to 0 by an error
-        if ($uploadOk == 0) 
-        {
-            $_SESSION['error'] = true;
-            header("Location:admin_users.php");
-        // if everything is ok, try to upload file
-        } 
-    }
 
-    if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) 
-    {
-        $sts=mysqli_query($cn,"UPDATE admin SET username='$admin_name', password='$hashed_password', mobile='$admin_mobile', usertype='$usertype', profile_picture='$photo' WHERE email='$admin_email'");
-        if($sts){
-        
-            $_SESSION['status'] = true;
-            header("Location:admin_users.php");  
+        // Move uploaded file
+        if (!move_uploaded_file($_FILES["user_image"]["tmp_name"], $target_file)) {
+            $_SESSION['user'] = true;
+            header("Location: admin_users.php");
+            exit();
         }
-            
-    } 
-    else 
-    {
-        $sts=mysqli_query($cn,"UPDATE admin SET username='$admin_name', password='$hashed_password', mobile='$admin_mobile', usertype='$usertype' WHERE email='$admin_email'");
-            header("Location:admin_users.php"); 
-            if($sts){
-        
-                $_SESSION['status'] = true;
-                header("Location:admin_users.php");  
-            } 
+
+        $photo = $target_file;
+
+        // Check if 'user_image' is set in the database
+        $userDetails = DB::queryFirstRow("SELECT user_image FROM admin_users WHERE id=%i", $user_edit_page_id);
+
+        if ($userDetails['user_image'] == null) {
+            // Insert 'user_image' field if there was no previous image
+            $sts = DB::update('admin_users', ['user_image' => $photo], 'id=%i', $user_edit_page_id);
+
+            if (!$sts) {
+                $_SESSION['user'] = true;
+                header("Location: admin_users.php");
+                exit();
+            }
+        } else {
+            // Update 'user_image' field if there was a previous image
+            $sts = DB::update('admin_users', ['user_image' => $photo], 'id=%i', $user_edit_page_id);
+
+            if (!$sts) {
+                $_SESSION['user'] = true;
+                header("Location: admin_users.php");
+                exit();
+            }
+        }
     }
 
-
-
-    // Update query using MeekroDB
+    // Update user details using MeekroDB
     $updated = DB::update('admin_users', [
         'username' => $username,
         'first_name' => $first_name,
         'last_name' => $last_name,
         'email' => $email,
-        'user_type' => $user_type,
-        'user_image' => $user_image
+        'user_type' => $user_type
     ], 'id=%i', $user_edit_page_id);
 
     if ($updated) {
+        $_SESSION['status'] = true;
         header("Location: admin_users.php");
+        exit();
+    } else {
+        $_SESSION['error'] = true;
+        header("Location: admin_users.php");
+        exit();
     }
 }
 ?>
+
+
 <?php
 // Update user password
 if (isset($_POST['update-password'])) {

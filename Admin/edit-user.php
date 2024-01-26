@@ -62,7 +62,7 @@ if (isset($_GET['id'])) {
               <h5 class="card-title">Form</h5>
             
               <!-- Horizontal Form -->
-              <form method="post" action="fire-update-querries.php" enctype="form-data">
+              <form method="post" action="fire-update-querries.php" enctype="multipart/form-data">
                 <div class="row mb-3">
                   <label for="inputusername" class="col-sm-2 col-form-label"><input type="hidden" name="user-edit-page-id" value='<?php echo $id; ?>'>Username</label>
                   <div class="col-sm-6">

@@ -9,19 +9,17 @@ if (isset($_POST['add-user'])) {
     $password = $_POST['password'];
     $email = $_POST['email'];
     $user_type = $_POST['user_type'];
-    
-    $user_image = $_FILES['user_image'];
-   
 
-     // File Upload
-     $uploadsFolder = 'uploads/';
-     $user_image = $uploadsFolder . basename($_FILES['user_image']['name']);
-     $uploadSuccess = move_uploaded_file($_FILES['user_image']['tmp_name'], $user_image);
- 
-     if (!$uploadSuccess) {
-         echo "Error uploading file.";
-         exit;
-     }
+   $photo = $_FILES['user_image'];
+
+    $photo_name = $_FILES['user_image']['name'];
+    $photo_tmp_name = $_FILES['user_image']['tmp_name'];
+    $photo_size = $_FILES['user_image']['size'];
+    $photo_type = $_FILES['user_image']['type'];
+    
+    $photo_dir = "uploads/$u_name" .$photo_name;
+    
+    move_uploaded_file($photo_tmp_name , $photo_dir);
 
     // Insert query using MeekroDB
     $inserted = DB::insert('admin_users', [
@@ -31,7 +29,7 @@ if (isset($_POST['add-user'])) {
         'password' => $password,
         'email' => $email,
         'user_type' => $user_type,
-        'user_image' => $user_image
+        'user_image' => $photo_dir
     ]);
 
     if ($inserted) {
