@@ -27,6 +27,7 @@
                 <div class="card-body-a">
                   <div class="price-box d-flex">
                     <span class="price-a">Buy | $ <?php echo $property['plot_price']; ?></span>
+                    <a href="#"><span class="price-a" data-bs-toggle="modal" data-bs-target="#exampleModal">Bid <i class="bi bi-coin"></i></span></a>
                   </div>
                   <a href="property-single.php?id=<?php echo $property['plot_id'];  ?>" class="link-a">Click here to view
                     <span class="bi bi-chevron-right"></span>
@@ -95,4 +96,31 @@
       </div>
     </div>
   </div>
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Enter Your Details.</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="Admin/fire-add-querries.php" method="post">
+          <label for="name" class="form-control fw-bold">Username<input type="hidden" name="plot_id" value="<?php echo $property['plot_id'];  ?>"></label>
+          <input type="text" class="form-control" placeholder="Enter your username" name="username" id="username">
+          <br>
+          <label for="email" class="form-control fw-bold">Email</label>
+          <input type="email" class="form-control" placeholder="Enter your email" name="email" id="email">
+          <br>
+          <label for="bid" class="form-control fw-bold">Bid Amount</label>
+          <input type="number" class="form-control" placeholder="Rs." name="bid" id="bid">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        <button type="submit" name="add-bid" class="btn btn-success">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 </section>

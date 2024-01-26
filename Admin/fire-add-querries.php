@@ -87,4 +87,30 @@ if (isset($_POST['add-plot'])) {
     }
 }
 ?>
+ <!-- For adding bids -->
+<?php
+require_once "include/classes/meekrodb.2.3.class.php";
+require('db_config.php');
+
+if (isset($_POST['add-bid'])) {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $bid = $_POST['bid'];
+    $plot_id = $_POST['plot_id'];
+
+
+
+    // Insert query using MeekroDB
+    $inserted = DB::insert('plot_bidding', [
+        'user_name' => $username,
+        'user_email' => $email,
+        'bid' => $bid,
+        'plot_id' => $plot_id
+    ]);
+
+    if ($inserted) {
+        header("Location: property-grid-single-section.php");
+    }
+}
+?>
 
