@@ -9,10 +9,13 @@ if (isset($_POST['add-user'])) {
     $password = $_POST['password'];
     $email = $_POST['email'];
     $user_type = $_POST['user_type'];
+    
+    $user_image = $_FILES['user_image'];
+   
 
      // File Upload
      $uploadsFolder = 'uploads/';
-     $user_image = $uploadsFolder . basename($_FILES['user_iamge']['name']);
+     $user_image = $uploadsFolder . basename($_FILES['user_image']['name']);
      $uploadSuccess = move_uploaded_file($_FILES['user_image']['tmp_name'], $user_image);
  
      if (!$uploadSuccess) {

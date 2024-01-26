@@ -15,7 +15,7 @@ if (isset($_POST['update-user'])) {
     if (isset($_FILES['user_image'])) {
         // File Upload
         $uploadsFolder = 'uploads/';
-        $plot_image = $uploadsFolder . basename($_FILES['user_image']['name']);
+        $user_image = $uploadsFolder . basename($_FILES['user_image']['name']);
 
         // Check if a new image was provided and update the file path accordingly
         if ($_FILES['user_image']['size'] > 0) {
@@ -34,7 +34,7 @@ if (isset($_POST['update-user'])) {
             }
         } else {
             // If no new image provided, retain the existing image path
-            $user_image = DB::queryFirstField("SELECT plot_image FROM admin_users WHERE id=%i", $user_edit_page_id);
+            $user_image = DB::queryFirstField("SELECT user_image FROM admin_users WHERE id=%i", $user_edit_page_id);
         }
     } else {
         // If 'plot_image' key is not set in $_FILES, handle accordingly (e.g., set $plot_image to the existing path)

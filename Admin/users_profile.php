@@ -1,9 +1,12 @@
 <?php
+include('auth.php');
 require_once "include/classes/meekrodb.2.3.class.php";
 include("db_config.php"); // Include your database connection file
 
+
+$user_id =  $_SESSION['user_id'];
 // Select the first row from the admin_users table
-$firstAdminUser = DB::queryFirstRow("SELECT * FROM admin_users LIMIT 1");
+$firstAdminUser = DB::queryFirstRow("SELECT * FROM admin_users WHERE id=%i",$user_id);
 
 if ($firstAdminUser) {
     // Access individual columns like $firstAdminUser['column_name']
@@ -75,7 +78,7 @@ if ($firstAdminUser) {
               <ul class="nav nav-tabs nav-tabs-bordered">
               <?php
                 // Check if the user is an admin
-                if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin') {
+                if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'user') {
                     echo'<li class="nav-item">
                     <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
                   </li>
