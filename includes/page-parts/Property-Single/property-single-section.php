@@ -17,7 +17,7 @@
         <div id="property-single-carousel" class="swiper">
           <div class="swiper-wrapper">
             <div class="carousel-item-b swiper-slide">
-              <img src="Admin/<?php echo $propertyDetails['plot_image']; ?>" alt="" width="1920" height="960">
+              <img src="Admin/<?php echo $propertyDetails['plot_image']; ?>" alt="">
             </div>
           </div>
 
