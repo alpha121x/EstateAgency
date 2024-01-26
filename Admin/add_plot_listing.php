@@ -42,6 +42,21 @@
                   </div>
                 </div>
                 <div class="row mb-3">
+                  <label for="plotStatus" class="col-sm-2 col-form-label">Plot Status</label>
+                  <div class="col-sm-6">
+                    <select class="form-select" required name="plot_status" id="plotStatus">
+                      <option value="1">For Sale</option>
+                      <option value="2">For Rent</option>
+                      <option value="3">Sold</option>
+                      <option value="4">Under Contract</option>
+                      <option value="5">Reserved</option>
+                      <option value="6">Development in Progress</option>
+                      <option value="7">Not Available</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
                   <label for="inputusername" class="col-sm-2 col-form-label">Plot Area</label>
                   <div class="col-sm-6">
                     <input type="number" required class="form-control" placeholder="m" required name="plot_area">

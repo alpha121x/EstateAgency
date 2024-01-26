@@ -76,6 +76,21 @@ if (isset($_GET['id'])) {
                   </div>
                 </div>
                 <div class="row mb-3">
+                  <label for="plotStatus" class="col-sm-2 col-form-label">Plot Status</label>
+                  <div class="col-sm-6">
+                    <select class="form-select" required name="plot_status" id="plotStatus">
+                      <option value="1" <?php echo ($user_data['plot_status'] == 'For Sale') ? 'selected' : ''; ?>>For Sale</option>
+                      <option value="2" <?php echo ($user_data['plot_status'] == 'For Rent') ? 'selected' : ''; ?>>For Rent</option>
+                      <option value="3" <?php echo ($user_data['plot_status'] == 'Sold') ? 'selected' : ''; ?>>Sold</option>
+                      <option value="4" <?php echo ($user_data['plot_status'] == 'Under Contract') ? 'selected' : ''; ?>>Under Contract</option>
+                      <option value="5" <?php echo ($user_data['plot_status'] == 'Reserved') ? 'selected' : ''; ?>>Reserved</option>
+                      <option value="6" <?php echo ($user_data['plot_status'] == 'Development in Progress') ? 'selected' : ''; ?>>Development in Progress</option>
+                      <option value="7" <?php echo ($user_data['plot_status'] == 'Not Available') ? 'selected' : ''; ?>>Not Available</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
                   <label for="inputusername" class="col-sm-2 col-form-label">Plot Area</label>
                   <div class="col-sm-6">
                     <input type="number" value="<?php echo $plot_area ?>" required class="form-control" placeholder="m" required name="plot_area">
