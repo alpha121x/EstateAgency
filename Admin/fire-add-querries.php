@@ -88,7 +88,7 @@ if (isset($_POST['add-plot'])) {
 }
 ?>
  <!-- For adding bids -->
-<?php
+ <?php
 require_once "include/classes/meekrodb.2.3.class.php";
 require('db_config.php');
 
@@ -97,8 +97,6 @@ if (isset($_POST['add-bid'])) {
     $email = $_POST['email'];
     $bid = $_POST['bid'];
     $plot_id = $_POST['plot_id'];
-
-
 
     // Insert query using MeekroDB
     $inserted = DB::insert('plot_bidding', [
@@ -109,10 +107,32 @@ if (isset($_POST['add-bid'])) {
     ]);
 
     if ($inserted) {
-        header("Location: property-grid.php");
+
+        // Customize message for the bid notification
+        $messageTitle = "New Bid Entered for Plot ID: " . $plot_id;
+        $message = "A new bid has been entered by " . $username . " with email " . $email . " for Plot ID: " . $plot_id . " with a bid amount of $" . $bid . ". <a href=\"#\"><strong>Click here</strong></a> to check the detail";
+
+        // Inserting notification into the database
+        DB::insert("notifications", array(
+            'title' => $messageTitle,
+            'is_read' => 0,
+            'plot_id' => $plot_id,
+            'created_by' => $username,
+            'class' => 'bg-info', // You can customize the class as needed
+            'message' => $message,
+        ));
+
+        // Redirect to the same page after successful insertion
+        header("Location: " . $_SERVER['HTTP_REFERER']);
+        exit(); // Stop further execution
+    }
+    else {
+        // Handle insertion failure
+        echo "Error inserting bid. Please try again.";
     }
 }
 ?>
+
 
 
 
