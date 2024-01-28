@@ -110,7 +110,7 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
             <?php foreach ($messages as $message) : ?>
               <li class="message-item">
                 <a href="#">
-                  <img src="assets/img/messages.png" alt="" class="rounded-circle">
+                  <img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
                   <div>
                     <h4><?php echo $message['name']; ?></h4>
                     <p><?php echo substr($message['message'], 0, 50); ?>...</p>
