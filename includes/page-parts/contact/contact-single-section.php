@@ -1,4 +1,25 @@
 <?php include("Admin/db_config.php") ?>
+<?php
+if(isset($_POST['send-msg'])){
+  $name = $_POST['name'];
+  $email = $_POST['email'];
+  $subject = $_POST['subject'];
+  $message = $_POST['message'];
+
+   $inserted = DB::insert('contact_messages', array(
+    'name' => $name,
+    'email' => $email,
+    'subject' => $subject,
+    'message' => $message
+  ));
+
+  if($inserted){
+    echo "<script>alert('Message Sent Successfully')</script>";
+  }else{
+    echo "<script>alert('Message Not Sent')</script>";
+  }
+}
+?>
 <section class="contact">
       <div class="container">
         <div class="row">
@@ -12,7 +33,7 @@
           <div class="col-sm-12 section-t8">
             <div class="row">
               <div class="col-md-7">
-                <form action="Admin/forms/contact.php" method="post">
+                <form action="" method="post">
                   <div class="row">
                     <div class="col-md-6 mb-3">
                       <div class="form-group">
