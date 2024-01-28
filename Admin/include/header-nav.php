@@ -102,7 +102,7 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
         </ul><!-- End Notification Dropdown Items -->
       </li>
       <!-- End Notification Nav -->
-      
+
       <?php
       // Fetch messages from the contact_messages table
       $messages = DB::query("SELECT * FROM contact_messages ORDER BY id DESC LIMIT 3");
@@ -150,6 +150,9 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
                 setTimeout(function() {
                   var audio = new Audio('assets/sounds/messages.mp3');
                   audio.play();
+
+                  // Show a pop-up alert
+                  alert('You have unread messages!');
                 }, <?php echo $delay; ?>);
               </script>
             <?php
@@ -161,7 +164,6 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
 
             <!-- Your existing code for displaying messages goes here -->
 
-
             <li class="dropdown-footer">
               <a href="#">Show all messages</a>
             </li>
@@ -171,12 +173,13 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
       } else {
         // If there are no messages
         echo '<li class="nav-item dropdown">
-            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                <i class="bi bi-chat-left-text"></i>
-            </a>
-          </li>';
+        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-chat-left-text"></i>
+        </a>
+      </li>';
       }
       ?>
+
       <!-- End Messages Nav -->
 
       <li class="nav-item dropdown pe-3">
