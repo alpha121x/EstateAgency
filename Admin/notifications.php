@@ -69,7 +69,8 @@
                                                 <td>
                                                     <a href=''><i class="bi bi-eye-fill"></i></a>
 
-                                                    <a href="#" id="markAsRead"><i class="bi bi-alarm-fill"></i></a>
+                                                    <a href="notifications.php" data-notification-id="<?php echo $notification['id']; ?>" id="markAsRead"><i class="bi bi-alarm-fill"></i></a>
+
                                                 </td>
                                             </tr>
                                     <?php
@@ -93,53 +94,70 @@
 
     </main><!-- End #main -->
 
-    <!-- Include jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <?php
+    // notifications.php
 
-<?php
-// Your database connection and session handling code goes here
+    // Check if it's an AJAX request and the notification_id parameter is set
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['notification_id'])) {
+        // Include your database configuration and connection code here
+        require_once "include/classes/meekrodb.2.3.class.php";
+        require('db_config.php');
 
-// Update the 'is_read' status for the notifications (example query)
-// Adjust this query based on your database schema
-$updated = DB::update('notifications', ['is_read' => 1], 'your_condition_here');
+        $notificationId = $_POST['notification_id'];
 
-if ($updated) {
-    echo json_encode(['success' => true]);
-} else {
-    echo json_encode(['success' => false]);
-}
-?>
+        // Update the database to mark the specific notification as read
+        $updated = DB::update('notifications', ['is_read' => 1], 'id=%i', $notificationId);
+
+        if ($updated) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false]);
+        }
+
+        exit(); // Stop further execution
+    }
+
+    // Handle other parts of your server-side code below if needed
+    ?>
 
 
-<!-- Your script -->
-<script>
-$(document).ready(function() {
-    $('#markAsRead').on('click', function(e) {
-        e.preventDefault();
-        
-        // Perform AJAX request to mark notifications as read
-        $.ajax({
-            url: '', // Update with your server-side script
-            type: 'POST',
-            dataType: 'json',
-            success: function(response) {
-                if (response.success) {
-                    // Update the UI or perform additional actions if needed
-                    console.log('Notifications marked as read.');
-                    
-                    // Add code to update the UI as needed
-                    // For example, hide or change the icon color
-                } else {
-                    console.error('Failed to mark notifications as read.');
-                }
-            },
-            error: function(error) {
-                console.error('Error in AJAX request:', error);
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('#markAsRead').forEach(function(markAsReadBtn) {
+                markAsReadBtn.addEventListener('click', function() {
+                    var notificationId = this.getAttribute('data-notification-id');
+                    markNotificationAsRead(notificationId);
+                });
+            });
+
+            function markNotificationAsRead(notificationId) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'notifications.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            try {
+                                var response = JSON.parse(xhr.responseText);
+                                if (response.success) {
+                                    // Update your UI or perform any additional actions
+                                } else {
+                                    // Handle error
+                                }
+                            } catch (error) {
+                                console.error('Error parsing JSON response:', error);
+                                // Handle parsing error
+                            }
+                        } else {
+                            console.error('HTTP request failed with status:', xhr.status);
+                            // Handle HTTP request error
+                        }
+                    }
+                };
+                xhr.send('notification_id=' + notificationId);
             }
         });
-    });
-});
-</script>
+    </script>
 
 
     <?php include("include/footer.php") ?>
