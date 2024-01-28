@@ -31,6 +31,17 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
         </a>
       </li><!-- End Search Icon-->
 
+
+      <!-- alert pop up -->
+      <div id="message-alert" class="alert alert-success alert-dismissible position-absolute top-0 start-50 translate-middle-x mt-1 ms-4" role="alert" style="display: none;">
+        <strong>You have unread messages.</strong>
+      </div>
+
+      <div id="notification-alert" class="alert alert-success alert-dismissible position-absolute top-0 start-50 translate-middle-x mt-1 ms-4" role="alert" style="display: none;">
+        <strong>You have unread notifications.</strong>
+      </div>
+
+      <!-- Notification Nav -->
       <?php
       // Separate query to fetch the count of new notifications
       $notificationCount = DB::queryFirstField("SELECT COUNT(*) FROM notifications WHERE is_read = 0");
@@ -83,18 +94,29 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
           <?php
           // Check if the sound notification has been played in the current session
           if (!isset($_SESSION['notification_sound_played']) && $notificationCount > 0) {
-            // Play the sound notification
           ?>
             <script>
+              // Function to show the hidden div
+              function showNotificationAlert() {
+                var notificationAlert = document.getElementById('notification-alert');
+                notificationAlert.style.display = 'block';
+
+                setTimeout(function() {
+                  notificationAlert.style.display = 'none';
+                }, 3000); // 5000 milliseconds (5 seconds) for the alert to fade away
+              }
+
               var audio = new Audio('assets/sounds/notifications.mp3');
               audio.play();
+              showNotificationAlert(); // Call the function to show the hidden div
+
+              // Set the session variable to indicate that the sound has been played
+              <?php $_SESSION['notification_sound_played'] = true; ?>
             </script>
           <?php
-
-            // Set the session variable to indicate that the sound has been played
-            $_SESSION['notification_sound_played'] = true;
           }
           ?>
+
 
           <li class="dropdown-footer">
             <a href="#">Show all notifications</a>
@@ -144,20 +166,32 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
             if (!isset($_SESSION['messages_sound_played']) && count($messages) > 0) {
               // Set a delay (in milliseconds) before playing the sound
               $delay = 5000; // 5000 milliseconds (5 seconds)
-
             ?>
               <script>
+                // Function to show the hidden div
+                function showmessageAlert() {
+                  var messageAlert = document.getElementById('message-alert');
+                  messageAlert.style.display = 'block';
+
+                  setTimeout(function() {
+                    messageAlert.style.display = 'none';
+                  }, 3000); // 5000 milliseconds (5 seconds) for the alert to fade away
+                }
+
                 setTimeout(function() {
                   var audio = new Audio('assets/sounds/messages.mp3');
                   audio.play();
+                  showmessageAlert(); // Call the function to show the hidden div
                 }, <?php echo $delay; ?>);
+
+                // Set the session variable to indicate that the sound has been played
+                <?php $_SESSION['messages_sound_played'] = true; ?>
               </script>
             <?php
-
-              // Set the session variable to indicate that the sound has been played
-              $_SESSION['messages_sound_played'] = true;
             }
             ?>
+
+
 
             <!-- Your existing code for displaying messages goes here -->
 
@@ -177,6 +211,7 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
       }
       ?>
       <!-- End Messages Nav -->
+
 
       <li class="nav-item dropdown pe-3">
 
