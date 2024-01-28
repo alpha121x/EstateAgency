@@ -80,6 +80,22 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
           endforeach;
           ?>
 
+          <?php
+          // Check if the sound notification has been played in the current session
+          if (!isset($_SESSION['notification_sound_played']) && $notificationCount > 0) {
+            // Play the sound notification
+          ?>
+            <script>
+              var audio = new Audio('assets/sounds/notifications.mp3');
+              audio.play();
+            </script>
+          <?php
+
+            // Set the session variable to indicate that the sound has been played
+            $_SESSION['notification_sound_played'] = true;
+          }
+          ?>
+
           <li class="dropdown-footer">
             <a href="#">Show all notifications</a>
           </li>
@@ -121,6 +137,22 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
                 <hr class="dropdown-divider">
               </li>
             <?php endforeach; ?>
+
+            <?php
+          // Check if the sound notification has been played in the current session
+          if (!isset($_SESSION['messsages_sound_played']) && count($messages) > 0) {
+            // Play the sound notification
+          ?>
+            <script>
+              var audio = new Audio('assets/sounds/messages.mp3');
+              audio.play();
+            </script>
+          <?php
+
+            // Set the session variable to indicate that the sound has been played
+            $_SESSION['messages_sound_played'] = true;
+          }
+          ?>
 
             <li class="dropdown-footer">
               <a href="#">Show all messages</a>
