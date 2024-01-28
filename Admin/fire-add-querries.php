@@ -98,6 +98,9 @@ if (isset($_POST['add-bid'])) {
     $bid = $_POST['bid'];
     $plot_id = $_POST['plot_id'];
 
+    $plot_num = DB::queryFirstField("SELECT plot_num FROM plot_listing WHERE plot_id = %i", $plot_id);
+
+
     // Insert query using MeekroDB
     $inserted = DB::insert('plot_bidding', [
         'user_name' => $username,
@@ -109,7 +112,7 @@ if (isset($_POST['add-bid'])) {
     if ($inserted) {
 
         // Customize message for the bid notification
-        $messageTitle = "New Bid Entered for Plot ID: " . $plot_id;
+        $messageTitle = "New Bid Entered for Plot NO: " . $plot_num;
         $message = "A new bid has been entered by " . $username . " with email " . $email . " for Plot ID: " . $plot_id . " with a bid amount of $" . $bid . ". <a href=\"#\"><strong>Click here</strong></a> to check the detail";
 
         // Inserting notification into the database
@@ -118,7 +121,6 @@ if (isset($_POST['add-bid'])) {
             'is_read' => 0,
             'plot_id' => $plot_id,
             'created_by' => $username,
-            'class' => 'bg-info', // You can customize the class as needed
             'message' => $message,
         ));
 

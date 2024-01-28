@@ -36,7 +36,7 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
       $notificationCount = DB::queryFirstField("SELECT COUNT(*) FROM notifications WHERE is_read = 0");
 
       // Assume you have a MeekroDB query to fetch notifications
-      $notifications = DB::query("SELECT * FROM notifications WHERE is_read = 0 ORDER BY id ASC");
+      $notifications = DB::query("SELECT * FROM notifications WHERE is_read = 0 ORDER BY id DESC");
 
       // Counter to limit the loop iterations
       $counter = 0;
@@ -70,8 +70,7 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
               <i class="bi bi-exclamation-circle text-warning"></i>
               <div>
                 <h4><?php echo $notification['title']; ?></h4>
-                <p><?php echo substr($notification['message'], 0, 50); ?>...</p>
-                <p><?php echo $notification['created_by']; ?></p>
+                <p><?php echo substr($notification['message'], 0, 35); ?>...</p>
               </div>
             </li>
             <li>
