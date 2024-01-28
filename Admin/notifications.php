@@ -53,8 +53,7 @@
                                 <tbody>
                                     <?php
                                     include("db_config.php");
-                                    require_once("include/classes/meekrodb.2.3.class.php");
-
+                                  
                                     // Select all users from the admin_users table
                                     $users = DB::query("SELECT * FROM notifications WHERE is_read = 0 ORDER BY id DESC");
 
