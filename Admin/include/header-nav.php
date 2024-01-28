@@ -102,6 +102,7 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
         </ul><!-- End Notification Dropdown Items -->
       </li>
       <!-- End Notification Nav -->
+      
       <?php
       // Fetch messages from the contact_messages table
       $messages = DB::query("SELECT * FROM contact_messages ORDER BY id DESC LIMIT 3");
@@ -139,20 +140,27 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
             <?php endforeach; ?>
 
             <?php
-          // Check if the sound notification has been played in the current session
-          if (!isset($_SESSION['messsages_sound_played']) && count($messages) > 0) {
-            // Play the sound notification
-          ?>
-            <script>
-              var audio = new Audio('assets/sounds/messages.mp3');
-              audio.play();
-            </script>
-          <?php
+            // Check if the sound notification has been played in the current session
+            if (!isset($_SESSION['messages_sound_played']) && count($messages) > 0) {
+              // Set a delay (in milliseconds) before playing the sound
+              $delay = 5000; // 5000 milliseconds (5 seconds)
 
-            // Set the session variable to indicate that the sound has been played
-            $_SESSION['messages_sound_played'] = true;
-          }
-          ?>
+            ?>
+              <script>
+                setTimeout(function() {
+                  var audio = new Audio('assets/sounds/messages.mp3');
+                  audio.play();
+                }, <?php echo $delay; ?>);
+              </script>
+            <?php
+
+              // Set the session variable to indicate that the sound has been played
+              $_SESSION['messages_sound_played'] = true;
+            }
+            ?>
+
+            <!-- Your existing code for displaying messages goes here -->
+
 
             <li class="dropdown-footer">
               <a href="#">Show all messages</a>
