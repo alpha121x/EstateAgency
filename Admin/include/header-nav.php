@@ -70,7 +70,6 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
               <i class="bi bi-exclamation-circle text-warning"></i>
               <div>
                 <h4><?php echo $notification['title']; ?></h4>
-                <p><?php echo substr($notification['message'], 0, 35); ?>...</p>
               </div>
             </li>
             <li>

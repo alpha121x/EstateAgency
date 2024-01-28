@@ -31,6 +31,12 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin') {
            </a>
          </li>
          <li class="nav-item">
+         <a class="nav-link collapsed"  href="notifications.php">
+         <i class="bi bi-person-fill-lock"></i>
+           <span>Notifications</span>
+         </a>
+       </li>
+         <li class="nav-item">
            <a class="nav-link collapsed"  href="plot_listing.php">
            <i class="bi bi-person-fill-lock"></i>
              <span>Plot Listing</span>

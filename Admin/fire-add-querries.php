@@ -113,7 +113,7 @@ if (isset($_POST['add-bid'])) {
 
         // Customize message for the bid notification
         $messageTitle = "New Bid Entered for Plot NO: " . $plot_num;
-        $message = "A new bid has been entered by " . $username . " with email " . $email . " for Plot ID: " . $plot_id . " with a bid amount of $" . $bid . ". <a href=\"#\"><strong>Click here</strong></a> to check the detail";
+        $message = "A new bid has been entered by " . $username . " with email " . $email . " for Plot ID: " . $plot_id . " with a bid amount of $" . $bid;
 
         // Inserting notification into the database
         DB::insert("notifications", array(
