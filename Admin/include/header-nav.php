@@ -150,9 +150,6 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
                 setTimeout(function() {
                   var audio = new Audio('assets/sounds/messages.mp3');
                   audio.play();
-
-                  // Show a pop-up alert
-                  alert('You have unread messages!');
                 }, <?php echo $delay; ?>);
               </script>
             <?php
@@ -173,13 +170,12 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
       } else {
         // If there are no messages
         echo '<li class="nav-item dropdown">
-        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-chat-left-text"></i>
-        </a>
-      </li>';
+            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                <i class="bi bi-chat-left-text"></i>
+            </a>
+          </li>';
       }
       ?>
-
       <!-- End Messages Nav -->
 
       <li class="nav-item dropdown pe-3">
