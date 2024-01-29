@@ -1,5 +1,4 @@
 <?php
-require_once "include/classes/meekrodb.2.3.class.php";
 include('db_config.php');
 
 // Update user details
@@ -88,12 +87,15 @@ if (isset($_POST['update-user'])) {
 ?>
 
 <?php
+include('db_config.php');
 // Update user password
 if (isset($_POST['update-password'])) {
     $password = $_POST['renewpassword'];
+    
+    $id = $_POST['id'];
 
     // Update query using MeekroDB
-    $updated_password = DB::update('admin_users', ['password' => $password], 'LIMIT 1');
+    $updated_password = DB::update('admin_users', ['password' => $password], ['id' => $id]); // Assuming 'id' is the primary key
 
     if ($updated_password) {
         header("Location: users_profile.php");
@@ -101,8 +103,8 @@ if (isset($_POST['update-password'])) {
 }
 ?>
 
+
 <?php
-require_once "include/classes/meekrodb.2.3.class.php";
 require('db_config.php');
 
 if (isset($_POST['update-plot'])) {

@@ -250,6 +250,8 @@ if ($firstAdminUser) {
                       </div>
                     </div>
 
+                    <input type="hidden" value="<?php echo $id; ?>" name="id">
+
                     <div class="row mb-3">
                       <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
                       <div class="col-md-8 col-lg-9">
