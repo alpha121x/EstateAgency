@@ -25,7 +25,6 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item">Tables</li>
                     <li class="breadcrumb-item active">Notifications</li>
                 </ol>
             </nav>
@@ -37,48 +36,43 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Notifications</h5>
-                            <p>View All</p>
+                            <h5 class="card-title">Datatables</h5>
+                            <p>Edit Messagess record.</p>
 
                             <!-- Table with stripped rows -->
-                            <div class="table-responsive">
-                                <table class="table table-bordered" style="background-color: white;">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Title</th>
-                                            <th>Message</th>
-                                            <th class="text-center">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        include("db_config.php");
+                            <table class="table table-bordered" style="background-color: white;">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Title</th>
+                                        <th>Message</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    include("db_config.php");
 
-                                        // Select all users from the admin_users table
-                                        $users = DB::query("SELECT * FROM notifications WHERE is_read = 0 ORDER BY id DESC");
+                                    // Select all users from the admin_users table
+                                    $users = DB::query("SELECT * FROM notifications WHERE is_read = 0 ORDER BY id DESC");
 
-                                        if ($users) {
-                                            $index = 1;
-                                            foreach ($users as $user) {
-                                        ?>
-                                                <tr>
-                                                    <td><?php echo $index; ?></td>
-                                                    <td><?php echo $user['title']; ?></td>
-                                                    <td><?php echo $user['message']; ?></td>
-                                                    <td class="text-center">
-                                                        <a href="notifications.php" data-notification-id="<?php echo $user['id']; ?>" id="markAsRead" class="btn btn-success btn-sm">View</a>
-                                                    </td>
-                                                </tr>
-                                        <?php
-                                                $index++;
-                                            }
+                                    if ($users) {
+                                        foreach ($users as $user) {
+                                    ?>
+                                            <tr>
+                                                <td><?php echo $user['id']; ?></td>
+                                                <td><?php echo $user['title']; ?></td>
+                                                <td><?php echo $user['message']; ?></td>
+                                                <td>
+                                                    <a href="edit-messages.php?id=<?php echo $user['id']; ?>" class="btn btn-primary btn-sm">Edit</a>
+                                                    <a href="delete-messages.php?id=<?php echo $user['id']; ?>" class="btn btn-danger btn-sm">Delete</a>
+                                                </td>
+                                            </tr>
+                                    <?php
                                         }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
-
+                                    }
+                                    ?>
+                            </table>
                             <!-- End Table with stripped rows -->
 
                         </div>
