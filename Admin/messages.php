@@ -47,7 +47,6 @@
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Subject</th>
-                                            <th>Message</th>
                                             <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
@@ -67,7 +66,6 @@
                                                     <td><?php echo $user['name']; ?></td>
                                                     <td><?php echo $user['email']; ?></td>
                                                     <td><?php echo $user['subject']; ?></td>
-                                                    <td><?php echo $user['message']; ?></td>
                                                     <td  class="text-center">
                                                         <a href="#" class="btn btn-success btn-sm">View</a>
                                                         <a href="#" class="btn btn-danger btn-sm">Delete</a>
