@@ -95,9 +95,11 @@ if (isset($_POST['update-password'])) {
     $id = $_POST['id'];
 
     // Update query using MeekroDB
-    $updated_password = DB::update('admin_users', ['password' => $password], ['id' => $id]); // Assuming 'id' is the primary key
+    $updated = DB::update('admin_users', [
+        'password' => $password
+    ], 'id=%i', $id);
 
-    if ($updated_password) {
+    if ($updated) {
         header("Location: users_profile.php");
     }
 }
