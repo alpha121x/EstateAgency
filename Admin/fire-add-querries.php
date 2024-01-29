@@ -1,5 +1,4 @@
 <?php
-require_once "include/classes/meekrodb.2.3.class.php";
 require('db_config.php');
 
 if (isset($_POST['add-user'])) {
@@ -40,7 +39,6 @@ if (isset($_POST['add-user'])) {
 
 
 <?php
-require_once "include/classes/meekrodb.2.3.class.php";
 require('db_config.php');
 
 if (isset($_POST['add-plot'])) {
@@ -89,7 +87,6 @@ if (isset($_POST['add-plot'])) {
 ?>
  <!-- For adding bids -->
  <?php
-require_once "include/classes/meekrodb.2.3.class.php";
 require('db_config.php');
 
 if (isset($_POST['add-bid'])) {
