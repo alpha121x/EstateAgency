@@ -119,7 +119,7 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
 
 
           <li class="dropdown-footer">
-            <a href="#">Show all notifications</a>
+            <a href="notifications.php">Show all notifications</a>
           </li>
         </ul><!-- End Notification Dropdown Items -->
       </li>
@@ -196,7 +196,7 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
             <!-- Your existing code for displaying messages goes here -->
 
             <li class="dropdown-footer">
-              <a href="#">Show all messages</a>
+              <a href="messages.php">Show all messages</a>
             </li>
           </ul><!-- End Messages Dropdown Items -->
         </li>

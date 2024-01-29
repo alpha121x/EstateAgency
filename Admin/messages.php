@@ -21,11 +21,11 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Notifications</h1>
+            <h1>Messages</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Notifications</li>
+                    <li class="breadcrumb-item active">Messages</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -36,8 +36,8 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Datatables</h5>
-                            <p>Edit Messagess record.</p>
+                            <h5 class="card-title">Messages</h5>
+                            <p>View All</p>
 
                             <!-- Table with stripped rows -->
                                 <table class="table table-bordered" style="background-color: white;">
