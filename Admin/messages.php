@@ -40,39 +40,47 @@
                             <p>Edit Messagess record.</p>
 
                             <!-- Table with stripped rows -->
-                            <table class="table table-bordered" style="background-color: white;">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Title</th>
-                                        <th>Message</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    include("db_config.php");
+                                <table class="table table-bordered" style="background-color: white;">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Subject</th>
+                                            <th>Message</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        include("db_config.php");
 
-                                    // Select all users from the admin_users table
-                                    $users = DB::query("SELECT * FROM notifications WHERE is_read = 0 ORDER BY id DESC");
+                                        // Select all users from the admin_users table
+                                        $users = DB::query("SELECT * FROM contact_messages ORDER BY id DESC LIMIT 100");
 
-                                    if ($users) {
-                                        foreach ($users as $user) {
-                                    ?>
-                                            <tr>
-                                                <td><?php echo $user['id']; ?></td>
-                                                <td><?php echo $user['title']; ?></td>
-                                                <td><?php echo $user['message']; ?></td>
-                                                <td>
-                                                    <a href="edit-messages.php?id=<?php echo $user['id']; ?>" class="btn btn-primary btn-sm">Edit</a>
-                                                    <a href="delete-messages.php?id=<?php echo $user['id']; ?>" class="btn btn-danger btn-sm">Delete</a>
-                                                </td>
-                                            </tr>
-                                    <?php
+                                        if ($users) {
+                                            $index = 1;
+                                            foreach ($users as $user) {
+                                        ?>
+                                                <tr>
+                                                    <td><?php echo $index; ?></td>
+                                                    <td><?php echo $user['name']; ?></td>
+                                                    <td><?php echo $user['email']; ?></td>
+                                                    <td><?php echo $user['subject']; ?></td>
+                                                    <td><?php echo $user['message']; ?></td>
+                                                    <td  class="text-center">
+                                                        <a href="#" class="btn btn-success btn-sm">View</a>
+                                                        <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                                                    </td>
+                                                </tr>
+                                        <?php
+                                                $index++;
+                                            }
                                         }
-                                    }
-                                    ?>
-                            </table>
+                                        ?>
+                                    </tbody>
+                                </table>
+
                             <!-- End Table with stripped rows -->
 
                         </div>
@@ -83,71 +91,6 @@
         </section>
 
     </main><!-- End #main -->
-
-    <?php
-    // notifications.php
-
-    // Check if it's an AJAX request and the notification_id parameter is set
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['notification_id'])) {
-        // Include your database configuration and connection code here
-        require_once "include/classes/meekrodb.2.3.class.php";
-        require('db_config.php');
-
-        $notificationId = $_POST['notification_id'];
-
-        // Update the database to mark the specific notification as read
-        $updated = DB::update('notifications', ['is_read' => 1], 'id=%i', $notificationId);
-
-        if ($updated) {
-            echo json_encode(['success' => true]);
-        } else {
-            echo json_encode(['success' => false]);
-        }
-
-        exit(); // Stop further execution
-    }
-
-    // Handle other parts of your server-side code below if needed
-    ?>
-
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.querySelectorAll('#markAsRead').forEach(function(markAsReadBtn) {
-                markAsReadBtn.addEventListener('click', function() {
-                    var notificationId = this.getAttribute('data-notification-id');
-                    markNotificationAsRead(notificationId);
-                });
-            });
-
-            function markNotificationAsRead(notificationId) {
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', 'notifications.php', true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4) {
-                        if (xhr.status === 200) {
-                            try {
-                                var response = JSON.parse(xhr.responseText);
-                                if (response.success) {
-                                    // Update your UI or perform any additional actions
-                                } else {
-                                    // Handle error
-                                }
-                            } catch (error) {
-                                console.error('Error parsing JSON response:', error);
-                                // Handle parsing error
-                            }
-                        } else {
-                            console.error('HTTP request failed with status:', xhr.status);
-                            // Handle HTTP request error
-                        }
-                    }
-                };
-                xhr.send('notification_id=' + notificationId);
-            }
-        });
-    </script>
 
 
     <?php include("include/footer.php") ?>

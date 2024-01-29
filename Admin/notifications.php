@@ -56,7 +56,7 @@
                                         include("db_config.php");
 
                                         // Select all users from the admin_users table
-                                        $users = DB::query("SELECT * FROM notifications WHERE is_read = 0 ORDER BY id DESC");
+                                        $users = DB::query("SELECT * FROM notifications WHERE is_read = 0 ORDER BY id DESC LIMIT 100");
 
                                         if ($users) {
                                             $index = 1;
@@ -67,7 +67,7 @@
                                                     <td><?php echo $user['title']; ?></td>
                                                     <td><?php echo $user['message']; ?></td>
                                                     <td class="text-center">
-                                                        <a href="notifications.php" data-notification-id="<?php echo $user['id']; ?>" id="markAsRead" class="btn btn-success btn-sm">View</a>
+                                                        <a href="notifications_single.php" data-notification-id="<?php echo $user['id']; ?>" id="markAsRead" class="btn btn-success btn-sm">View</a>
                                                     </td>
                                                 </tr>
                                         <?php
