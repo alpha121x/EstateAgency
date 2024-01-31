@@ -93,7 +93,7 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
 
           <?php
           // Check if the sound notification has been played in the current session
-          if (!isset($_SESSION['notification_sound_played']) || $_SESSION['user'] && $notificationCount > 0) {
+          if (!isset($_SESSION['notification_sound_played']) && $notificationCount > 0) {
           ?>
             <script>
               // Function to show the hidden div
@@ -163,7 +163,7 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
 
             <?php
             // Check if the sound notification has been played in the current session
-            if (!isset($_SESSION['messages_sound_played']) || $_SESSION['user'] && count($messages) > 0) {
+            if (!isset($_SESSION['messages_sound_played']) && count($messages) > 0) {
               // Set a delay (in milliseconds) before playing the sound
               $delay = 4000; // 5000 milliseconds (5 seconds)
             ?>

@@ -32,7 +32,7 @@ if (isset($_POST['add-user'])) {
     ]);
 
     if ($inserted) {
-        header("Location: add-user-profile.php");
+        header("Location: add-user-profile");
     }
 }
 ?>
@@ -79,7 +79,7 @@ if (isset($_POST['add-plot'])) {
     ]);
 
     if ($inserted) {
-        header("Location: add_plot_listing.php");
+        header("Location: add_plot_listing");
     } else {
         echo "Error inserting data into the database.";
     }
@@ -132,6 +132,46 @@ if (isset($_POST['add-bid'])) {
 }
 ?>
 
+<?php 
+require('db_config.php');
+if (isset($_POST['add-post'])) {
+    $post_category = $_POST['post_category'];
+    $post_title = $_POST['post_title'];
+    $date_posted = $_POST['date_posted'];
+
+    // File Upload
+    $uploadsFolder = 'uploads';
+    $post_image = $uploadsFolder . basename($_FILES['post_image']['name']);
+    $uploadSuccess = move_uploaded_file($_FILES['post_image']['tmp_name'], $post_image);
+
+    if (!$uploadSuccess) {
+        echo "Error uploading file.";
+        exit;
+    }
+
+    // Insert query using MeekroDB
+    $inserted = DB::insert('posts', [
+        'post_category' => $post_category,
+        'post_title' => $post_title,
+        'date_posted' => $date_posted,
+        'post_image' => $post_image // Save the file path in the database
+    ]);
+
+    if ($inserted) {
+        header("Location: add-posts");
+    } else {
+        echo "Error inserting data into the database.";
+    }
+}
+
+
+
+
+
+
+
+
+?>
 
 
 

@@ -4,15 +4,15 @@
 
 <head>
   <title>Add User Profile</title>
-  <?php include"include/linked-files.php" ?>
+  <?php include("include/linked-files.php") ?>
 </head>
 
 <body>
 
   
-  <?php include"include/header-nav.php" ?>  
+  <?php include("include/header-nav.php") ?>  
  
-  <?php include"include/side-nav.php" ?> 
+  <?php include("include/side-nav.php") ?> 
 
   <main id="main" class="main">
 
@@ -34,7 +34,7 @@
               <h5 class="card-title">Form</h5>
 
               <!-- Horizontal Form -->
-              <form method="post" action="fire-add-querries.php" enctype="multipart/form-data">
+              <form method="post" action="fire-add-querries" enctype="multipart/form-data">
                 <div class="row mb-3">
                   <label for="inputusername" class="col-sm-2 col-form-label">Username</label>
                   <div class="col-sm-6">
@@ -100,11 +100,11 @@
 
   </main><!-- End #main -->
 
-  <?php include"include/footer.php" ?> 
+  <?php include("include/footer.php") ?> 
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <?php include"include/script-files.php" ?>
+  <?php include("include/script-files.php") ?>
 
 </body>
 
