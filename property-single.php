@@ -3,7 +3,7 @@
 
 <head>
 
-  <title>EstateAgency Bootstrap Template - Index</title>
+  <title>Property Single</title>
 
   <?php include("includes/linked-files.php") ?>
   

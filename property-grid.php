@@ -3,7 +3,7 @@
 
 <head>
 
-  <title>EstateAgency - Properties</title>
+  <title>Properties</title>
 
   <?php include("includes/linked-files.php") ?>
 

@@ -3,7 +3,7 @@
 
 <head>
 
-  <title>EstateAgency - Agent Single</title>
+  <title>Agent Single</title>
 
   <?php include("includes/linked-files.php") ?>
 
