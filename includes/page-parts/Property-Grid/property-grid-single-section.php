@@ -5,6 +5,23 @@
       require_once "Admin/include/classes/meekrodb.2.3.class.php";
       require('Admin/db_config.php'); // Make sure you include your database configuration file
 
+      $propertiesPerPage = 6;
+
+// Get the current page number from the URL
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+// Calculate the offset for the query
+$offset = ($page - 1) * $propertiesPerPage;
+
+// Fetch data from the plot_listing table with pagination
+$properties = DB::query("SELECT * FROM plot_listing ORDER BY plot_id DESC LIMIT %i OFFSET %i", $propertiesPerPage, $offset);
+
+// Fetch the total number of properties for pagination
+$totalProperties = DB::queryFirstField("SELECT COUNT(*) FROM plot_listing");
+
+// Calculate the total number of pages
+$totalPages = ceil($totalProperties / $propertiesPerPage);
+
 
       // Fetch data from the database
       $properties = DB::query("SELECT * FROM plot_listing");
@@ -71,32 +88,33 @@
     </div>
     
     <div class="row">
-      <div class="col-sm-12">
-        <nav class="pagination-a">
-          <ul class="pagination justify-content-end">
-            <li class="page-item disabled">
-              <a class="page-link" href="#" tabindex="-1">
-                <span class="bi bi-chevron-left"></span>
-              </a>
+    <div class="col-sm-12">
+      <nav class="pagination-a">
+        <ul class="pagination justify-content-end">
+          <!-- Previous Page Link -->
+          <li class="page-item <?php echo ($page <= 1) ? 'disabled' : ''; ?>">
+            <a class="page-link" href="?page=<?php echo ($page > 1) ? $page - 1 : 1; ?>" tabindex="-1">
+              <span class="bi bi-chevron-left"></span>
+            </a>
+          </li>
+
+          <!-- Page Numbers -->
+          <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+            <li class="page-item <?php echo ($page == $i) ? 'active' : ''; ?>">
+              <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
             </li>
-            <li class="page-item">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item active">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item next">
-              <a class="page-link" href="#">
-                <span class="bi bi-chevron-right"></span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+          <?php endfor; ?>
+
+          <!-- Next Page Link -->
+          <li class="page-item <?php echo ($page >= $totalPages) ? 'disabled' : ''; ?>">
+            <a class="page-link" href="?page=<?php echo ($page < $totalPages) ? $page + 1 : $totalPages; ?>">
+              <span class="bi bi-chevron-right"></span>
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
+  </div>
   </div>
 </section>
 

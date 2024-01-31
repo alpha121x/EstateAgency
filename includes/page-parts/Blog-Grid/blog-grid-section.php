@@ -4,8 +4,23 @@
       <?php
       include('Admin/db_config.php');
 
-      // Fetch data from the posts table
-      $posts = DB::query("SELECT * FROM posts ORDER BY date_posted DESC LIMIT 5");
+      // Define the number of posts per page
+      $postsPerPage = 6;
+      
+      // Get the current page number from the URL
+      $page = isset($_GET['page']) ? $_GET['page'] : 1;
+      
+      // Calculate the offset for the query
+      $offset = ($page - 1) * $postsPerPage;
+      
+      // Fetch data from the posts table with pagination
+      $posts = DB::query("SELECT * FROM posts ORDER BY date_posted DESC LIMIT %i OFFSET %i", $postsPerPage, $offset);
+      
+      // Fetch the total number of posts for pagination
+      $totalPosts = DB::queryFirstField("SELECT COUNT(*) FROM posts");
+      
+      // Calculate the total number of pages
+      $totalPages = ceil($totalPosts / $postsPerPage);
 
       if ($posts) {
         foreach ($posts as $post) {
@@ -42,31 +57,32 @@
 
     </div>
     <div class="row">
-      <div class="col-sm-12">
-        <nav class="pagination-a">
-          <ul class="pagination justify-content-end">
-            <li class="page-item disabled">
-              <a class="page-link" href="#" tabindex="-1">
-                <span class="bi bi-chevron-left"></span>
-              </a>
+    <div class="col-sm-12">
+      <nav class="pagination-a">
+        <ul class="pagination justify-content-end">
+          <!-- Previous Page Link -->
+          <li class="page-item <?php echo ($page <= 1) ? 'disabled' : ''; ?>">
+            <a class="page-link" href="?page=<?php echo ($page > 1) ? $page - 1 : 1; ?>" tabindex="-1">
+              <span class="bi bi-chevron-left"></span>
+            </a>
+          </li>
+
+          <!-- Page Numbers -->
+          <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+            <li class="page-item <?php echo ($page == $i) ? 'active' : ''; ?>">
+              <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
             </li>
-            <li class="page-item">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item active">
-              <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item next">
-              <a class="page-link" href="#">
-                <span class="bi bi-chevron-right"></span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
+          <?php endfor; ?>
+
+          <!-- Next Page Link -->
+          <li class="page-item <?php echo ($page >= $totalPages) ? 'disabled' : ''; ?>">
+            <a class="page-link" href="?page=<?php echo ($page < $totalPages) ? $page + 1 : $totalPages; ?>">
+              <span class="bi bi-chevron-right"></span>
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
+  </div>
   </div>
 </section>
