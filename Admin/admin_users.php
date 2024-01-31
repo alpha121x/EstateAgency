@@ -1,12 +1,12 @@
 <?php require("auth.php") ?>
-<?php require("db_config") ?>
+<?php include("db_config.php") ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-  <title>Dashboard</title>
+  <title>Users</title>
 
   <?php include("include/linked-files.php") ?>
 
@@ -39,7 +39,7 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Datatables</h5>
-              <p>Eidt Users record.</p>
+              <p>Users record.</p>
 
               <!-- Table with stripped rows -->
               <table class="table datatable">

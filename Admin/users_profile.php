@@ -27,7 +27,7 @@ if ($firstAdminUser) {
 <html lang="en">
 
 <head>
-  <title>User Profile</title>
+  <title>Users Profile</title>
   <?php include("include/linked-files.php") ?>
 </head>
 

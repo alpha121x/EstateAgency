@@ -93,7 +93,7 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
 
           <?php
           // Check if the sound notification has been played in the current session
-          if (!isset($_SESSION['notification_sound_played']) && $notificationCount > 0) {
+          if (!isset($_SESSION['notification_sound_played']) || $_SESSION['user'] && $notificationCount > 0) {
           ?>
             <script>
               // Function to show the hidden div
