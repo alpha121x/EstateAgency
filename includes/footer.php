@@ -95,19 +95,19 @@
           <nav class="nav-footer">
             <ul class="list-inline">
               <li class="list-inline-item">
-                <a href="#">Home</a>
+                <a href="index">Home</a>
               </li>
               <li class="list-inline-item">
-                <a href="#">About</a>
+                <a href="about">About</a>
               </li>
               <li class="list-inline-item">
-                <a href="#">Property</a>
+                <a href="property-grid">Property</a>
               </li>
               <li class="list-inline-item">
-                <a href="#">Blog</a>
+                <a href="blog-grid">Blog</a>
               </li>
               <li class="list-inline-item">
-                <a href="#">Contact</a>
+                <a href="contact">Contact</a>
               </li>
             </ul>
           </nav>
@@ -138,11 +138,11 @@
           <div class="copyright-footer">
             <p class="copyright color-text-a">
               &copy; Copyright
-              <span class="color-a">EstateAgency</span> All Rights Reserved.
+              <span class="color-a text-danger fw-bold">EstateAgency</span> All Rights Reserved.
             </p>
           </div>
           <div class="credits">
-            Designed by <a href="#">Abbas Ch</a>
+            Designed by <a href="#"><span class="fw-bold text-success">Abbas Ch</span></a>
           </div>
         </div>
       </div>

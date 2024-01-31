@@ -38,19 +38,19 @@
                 <div class="row mb-3">
                   <label for="inputusername" class="col-sm-2 col-form-label">Post Category</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" placeholder="Enter Username" name="post_category">
+                    <input type="text" class="form-control" placeholder="Enter category" name="post_category">
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputusername" class="col-sm-2 col-form-label">Post Title</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" placeholder="Enter name" name="post_title">
+                    <input type="text" class="form-control" placeholder="Enter title" name="post_title">
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputusername" class="col-sm-2 col-form-label">Date</label>
                   <div class="col-sm-6">
-                    <input type="date" class="form-control" placeholder="Enter name" name="date_posted">
+                    <input type="date" class="form-control" placeholder="Enter date" name="date_posted">
                   </div>
                 </div>
                 <div class="row mb-3">
