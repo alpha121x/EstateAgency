@@ -17,7 +17,7 @@ if ($properties) {
               <h2 class="title-a">Latest Properties</h2>
             </div>
             <div class="title-link">
-              <a href="property-grid.php">All Property
+              <a href="property-grid">All Property
                 <span class="bi bi-chevron-right"></span>
               </a>
             </div>

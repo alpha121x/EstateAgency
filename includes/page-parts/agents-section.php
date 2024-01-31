@@ -7,7 +7,7 @@
                 <h2 class="title-a">Best Agents</h2>
               </div>
               <div class="title-link">
-                <a href="agents-grid.html">All Agents
+                <a href="agents-grid">All Agents
                   <span class="bi bi-chevron-right"></span>
                 </a>
               </div>

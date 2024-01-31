@@ -11,35 +11,25 @@
        <ul class="navbar-nav">
 
          <li class="nav-item">
-           <a class="nav-link active" href="index.php">Home</a>
+           <a class="nav-link active" href="index">Home</a>
          </li>
 
          <li class="nav-item">
-           <a class="nav-link " href="about.php">About</a>
+           <a class="nav-link " href="about">About</a>
          </li>
 
          <li class="nav-item">
-           <a class="nav-link " href="property-grid.php">Property</a>
+           <a class="nav-link " href="property-grid">Property</a>
          </li>
 
          <li class="nav-item">
-           <a class="nav-link " href="blog-grid.php">Blog</a>
-         </li>
-
-         <li class="nav-item dropdown">
-           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-           <div class="dropdown-menu">
-             <a class="dropdown-item " href="property-single.php">Property Single</a>
-             <a class="dropdown-item " href="blog-single.php">Blog Single</a>
-             <a class="dropdown-item " href="agents-grid.php">Agents Grid</a>
-             <a class="dropdown-item " href="agent-single.php">Agent Single</a>
-           </div>
+           <a class="nav-link " href="blog-grid">Blog</a>
          </li>
          <li class="nav-item">
-           <a class="nav-link " href="contact.php">Contact</a>
+           <a class="nav-link " href="contact">Contact</a>
          </li>
          <li class="nav-item">
-           <a class="nav-link " target="_blank" href="Admin/index.php">Admin Panel</a>
+           <a class="nav-link " target="_blank" href="Admin/index">Admin Panel</a>
          </li>
        </ul>
      </div>

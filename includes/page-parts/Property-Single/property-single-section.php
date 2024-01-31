@@ -1,6 +1,5 @@
 <section class="property-single nav-arrow-b">
   <?php
-  require_once "Admin/include/classes/meekrodb.2.3.class.php";
   require('Admin/db_config.php'); // Make sure you include your database configuration file
 
   // Assuming you have the property ID in the URL
