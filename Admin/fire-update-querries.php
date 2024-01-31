@@ -184,3 +184,63 @@ if (isset($_POST['update-plot'])) {
 }
 ?>
 
+<?php
+// write for updating posts
+include('db_config.php');
+if (isset($_POST['update-post'])) {
+    $edit_id = $_POST['edit_posts_id'];
+    $post_category = $_POST['post_category'];
+    $post_title = $_POST['post_title'];
+    $post_content = $_POST['post_content'];
+    $date_posted = $_POST['date_posted'];
+    $post_image = $_POST['post_image'];
+
+   // Check if 'post_image' key exists in the $_FILES array
+   if (isset($_FILES['post_image'])) {
+    // File Upload
+    $uploadsFolder = 'uploads/';
+    $post_image = $uploadsFolder . basename($_FILES['post_image']['name']);
+
+    // Check if a new image was provided and update the file path accordingly
+    if ($_FILES['post_image']['size'] > 0) {
+        // Remove the existing image file
+        $existingImage = DB::queryFirstField("SELECT post_image FROM posts WHERE id=%i", $edit_id);
+        if ($existingImage) {
+            unlink($existingImage);
+        }
+
+        // Upload the new image
+        $uploadSuccess = move_uploaded_file($_FILES['post_image']['tmp_name'], $post_image);
+
+        if (!$uploadSuccess) {
+            echo "Error uploading file.";
+            exit;
+        }
+    } else {
+        // If no new image provided, retain the existing image path
+        $post_image = DB::queryFirstField("SELECT post_image FROM posts WHERE id=%i", $edit_id);
+    }
+} else {
+    // If 'plot_image' key is not set in $_FILES, handle accordingly (e.g., set $plot_image to the existing path)
+    $post_image = DB::queryFirstField("SELECT post_image FROM posts WHERE id=%i", $edit_id);
+}
+
+    // Update post details using MeekroDB
+    $updated = DB::update('posts', [
+        'post_category' => $post_category,
+        'post_title' => $post_title,
+        'post_content' => $post_content, 
+        'date_posted' => $date_posted,
+        'post_image' => $post_image,
+    ], 'id=%i', $edit_id);
+
+    if ($updated) {
+        header("Location: posts");
+        exit();
+    } else {
+        header("Location: posts");
+        exit();
+    }
+    
+}
+?>

@@ -25,9 +25,6 @@
     <?php include("includes/page-parts/Blog-Single/intro-section.php") ?>
    <!-- End Intro Single-->
 
-    <!-- ======= Blog Single ======= -->
-    <?php include("includes/page-parts/Blog-Single/blog-single-section.php") ?>
-    <!-- End Blog Single-->
 
   </main><!-- End #main -->
 

@@ -137,10 +137,11 @@ require('db_config.php');
 if (isset($_POST['add-post'])) {
     $post_category = $_POST['post_category'];
     $post_title = $_POST['post_title'];
+    $post_content = $_POST['post_content'];
     $date_posted = $_POST['date_posted'];
 
     // File Upload
-    $uploadsFolder = 'uploads';
+    $uploadsFolder = 'uploads/';
     $post_image = $uploadsFolder . basename($_FILES['post_image']['name']);
     $uploadSuccess = move_uploaded_file($_FILES['post_image']['tmp_name'], $post_image);
 
@@ -153,6 +154,7 @@ if (isset($_POST['add-post'])) {
     $inserted = DB::insert('posts', [
         'post_category' => $post_category,
         'post_title' => $post_title,
+        'post_content' => $post_content,
         'date_posted' => $date_posted,
         'post_image' => $post_image // Save the file path in the database
     ]);
