@@ -36,7 +36,7 @@ if (isset($_GET['id'])) {
 <html lang="en">
 
 <head>
-  <title>Edit Plot Listing- Form</title>
+  <title>Edit Plot Listing</title>
   <?php include "include/linked-files.php" ?>
 </head>
 

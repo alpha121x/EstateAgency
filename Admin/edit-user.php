@@ -31,16 +31,16 @@ if (isset($_GET['id'])) {
 <html lang="en">
 
 <head>
-  <title>Edit user- Form</title>
-  <?php include"include/linked-files.php" ?>
+  <title>Edit User</title>
+  <?php include("include/linked-files.php") ?>
 </head>
 
 <body>
 
   
-  <?php include"include/header-nav.php" ?>  
+  <?php include("include/header-nav.php") ?>  
  
-  <?php include"include/side-nav.php" ?> 
+  <?php include("include/side-nav.php") ?> 
 
   <main id="main" class="main">
 
@@ -121,11 +121,11 @@ if (isset($_GET['id'])) {
 
   </main><!-- End #main -->
 
-  <?php include"include/footer.php" ?> 
+  <?php include("include/footer.php") ?> 
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <?php include"include/script-files.php" ?>
+  <?php include("include/script-files.php") ?>
 
 </body>
 

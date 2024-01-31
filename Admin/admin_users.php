@@ -1,11 +1,12 @@
 <?php require("auth.php") ?>
+<?php require("db_config") ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-  <title>Dashboard - NiceAdmin</title>
+  <title>Dashboard</title>
 
   <?php include("include/linked-files.php") ?>
 

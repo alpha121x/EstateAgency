@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-  <title>Add User Profile - Form</title>
+  <title>Add User Profile</title>
   <?php include"include/linked-files.php" ?>
 </head>
 

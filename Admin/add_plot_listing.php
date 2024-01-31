@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-  <title>Add Posts - Form</title>
+  <title>Add Posts</title>
   <?php include "include/linked-files.php" ?>
 </head>
 
@@ -21,7 +21,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-          <li class="breadcrumb-item">Add Posts Lisintings</li>
+          <li class="breadcrumb-item">Add Posts Lisinting</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
