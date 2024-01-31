@@ -7,7 +7,7 @@
                 <h2 class="title-a">Latest News</h2>
               </div>
               <div class="title-link">
-                <a href="blog-grid.html">All News
+                <a href="blog-grid.php">All News
                   <span class="bi bi-chevron-right"></span>
                 </a>
               </div>
