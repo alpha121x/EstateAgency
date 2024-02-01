@@ -20,7 +20,7 @@
               <div class="card-header-d">
                 <div class="card-title-d align-self-center">
                   <h3 class="title-d">
-                    <a href="agent-single&agent_id=<?php echo $agent['agent_id']; ?>" class="link-two"><?php echo $agent['agent_name']; ?></a>
+                  <a href="agent-single.php?agent_id=<?php echo $agent['agent_id']; ?>" class="link-two"><?php echo $agent['agent_name']; ?></a>
                   </h3>
                 </div>
               </div>
