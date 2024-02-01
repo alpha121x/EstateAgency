@@ -17,7 +17,6 @@
         <div class="row">
         <?php
       // Include necessary files and configurations
-      require_once "Admin/include/classes/meekrodb.2.3.class.php";
       require('Admin/db_config.php'); // Include your database configuration file
 
       // Fetch data from the agents table
