@@ -165,6 +165,53 @@ if (isset($_POST['add-post'])) {
         echo "Error inserting data into the database.";
     }
 }
+?>
+
+<?php 
+require('db_config.php');
+if(isset($_POST['add-agent'])) {
+$agent_name = $_POST['agent_name'];
+$agent_about = $_POST['agent_about'];
+$agent_phone = $_POST['agent_phone'];
+$agent_email = $_POST['agent_email'];
+
+// File Upload
+$uploadsFolder = 'uploads/';
+$agent_image = $uploadsFolder . basename($_FILES['agent_image']['name']);
+$uploadSuccess = move_uploaded_file($_FILES['agent_image']['tmp_name'], $agent_image);
+
+if (!$uploadSuccess) {
+    echo "Error uploading file.";
+    exit;
+}
+
+// Insert query using MeekroDB
+$inserted = DB::insert('agents', [
+    'agent_name' => $agent_name,
+    'agent_about' => $agent_about,
+    'agent_phone' => $agent_phone,
+    'agent_email' => $agent_email,
+    'agent_image' => $agent_image // Save the file path in the database
+]);
+
+if ($inserted) {
+    header("Location: add-agents");
+} else {
+    echo "Error inserting data into the database.";
+}
+
+
+
+
+
+
+
+
+
+
+
+}
+
 
 
 

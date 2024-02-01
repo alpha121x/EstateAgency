@@ -54,6 +54,12 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin') {
              <span>Add Plots Listing</span>
            </a>
          </li>
+         <li class="nav-item">
+           <a class="nav-link collapsed"  href="add-agents">
+           <i class="bi bi-person-fill-lock"></i>
+             <span>Add Agents</span>
+           </a>
+         </li>
    </aside><!-- End Sidebar-->';
 } else {
     echo'<!-- ======= Sidebar ======= -->

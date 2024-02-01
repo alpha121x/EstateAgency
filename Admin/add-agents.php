@@ -50,7 +50,7 @@
                 <div class="row mb-3">
                   <label for="inputusername" class="col-sm-2 col-form-label">Phone</label>
                   <div class="col-sm-6">
-                    <input type="number" class="form-control" placeholder="Enter Phone" name="date_posted">
+                    <input type="number" class="form-control" placeholder="Enter Phone" name="agent_phone">
                   </div>
                 </div>
                 <div class="row mb-3">
@@ -69,7 +69,7 @@
                 </div>
                 
                 <div class="text-center">
-                  <button type="submit" class="btn btn-primary" name="add-post"><i class='bx bx-upload'></i> Add</button>
+                  <button type="submit" class="btn btn-primary" name="add-agent"><i class='bx bx-upload'></i> Add</button>
                   <button type="reset" class="btn btn-secondary" name="reset">Reset</button>
                 </div>
                 <br>

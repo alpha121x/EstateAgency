@@ -10,7 +10,7 @@
                 <div class="card-header-d">
                   <div class="card-title-d align-self-center">
                     <h3 class="title-d">
-                      <a href="#" class="link-two">Margaret Sotillo
+                      <a href="agent-single" class="link-two">Margaret Sotillo
                         <br> Escala</a>
                     </h3>
                   </div>
