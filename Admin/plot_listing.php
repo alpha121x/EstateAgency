@@ -78,7 +78,7 @@
                         <td>
                           <a href='edit_plot_listing.php?id=<?php echo $id; ?>'><i class="bi bi-pencil-square"></i></a>
                           |
-                          <a href='delete.php?deleteid=<?php echo $id; ?>'><i class="bi bi-trash"></i></a>
+                          <a href='delete-plot_lisitng?deleteid=<?php echo $id; ?>'><i class="bi bi-trash"></i></a>
                         </td>
 
                       </tr>

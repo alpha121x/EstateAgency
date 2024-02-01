@@ -94,6 +94,7 @@ if (isset($_POST['add-bid'])) {
     $email = $_POST['email'];
     $bid = $_POST['bid'];
     $plot_id = $_POST['plot_id'];
+    $user_id = $_SESSION['user_id'];
 
     $plot_num = DB::queryFirstField("SELECT plot_num FROM plot_listing WHERE plot_id = %i", $plot_id);
 
