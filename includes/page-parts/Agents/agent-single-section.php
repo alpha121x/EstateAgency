@@ -36,14 +36,6 @@
                         <strong>Email: </strong>
                         <span class="color-text-a"> agents@example.com</span>
                       </p>
-                      <p>
-                        <strong>skype: </strong>
-                        <span class="color-text-a"> Margaret.Es</span>
-                      </p>
-                      <p>
-                        <strong>Email: </strong>
-                        <span class="color-text-a"> agents@example.com</span>
-                      </p>
                     </div>
                   </div>
                   <div class="socials-footer">
