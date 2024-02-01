@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-  <title>Add Posts</title>
+  <title>Add Agents</title>
   <?php include("include/linked-files.php") ?>
 </head>
 
@@ -21,7 +21,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-          <li class="breadcrumb-item">Add Posts</li>
+          <li class="breadcrumb-item">Add Agents</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -36,33 +36,33 @@
               <!-- Horizontal Form -->
               <form method="post" action="fire-add-querries" enctype="multipart/form-data">
                 <div class="row mb-3">
-                  <label for="inputusername" class="col-sm-2 col-form-label">Post Category</label>
+                  <label for="inputusername" class="col-sm-2 col-form-label">Agent Name</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" placeholder="Enter category" name="post_category">
+                    <input type="text" class="form-control" placeholder="Enter Name" name="agent_name">
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputusername" class="col-sm-2 col-form-label">Post Title</label>
+                  <label for="inputusername" class="col-sm-2 col-form-label">Agent About</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" placeholder="Enter title" name="post_title">
+                    <textarea name="agent_about" class="form-control" placeholder="Enter content" cols="30" rows="10"></textarea>
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputusername" class="col-sm-2 col-form-label">Post Content</label>
+                  <label for="inputusername" class="col-sm-2 col-form-label">Phone</label>
                   <div class="col-sm-6">
-                    <textarea name="post_content" class="form-control" placeholder="Enter content" cols="30" rows="10"></textarea>
+                    <input type="number" class="form-control" placeholder="Enter Phone" name="date_posted">
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputusername" class="col-sm-2 col-form-label">Date</label>
+                  <label for="inputusername" class="col-sm-2 col-form-label">Email</label>
                   <div class="col-sm-6">
-                    <input type="date" class="form-control" placeholder="Enter date" name="date_posted">
+                    <input type="email" class="form-control" placeholder="Enter Email" name="agent_email">
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputimage" class="col-sm-2 col-form-label">Add Post Image</label>
+                  <label for="inputimage" class="col-sm-2 col-form-label">Add Agent Image</label>
                   <div class="col-sm-6">
-                    <input type="file" class="form-control" name="post_image">
+                    <input type="file" class="form-control" name="agent_image">
                   </div>
                 </div>
                    

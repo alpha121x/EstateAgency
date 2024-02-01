@@ -38,10 +38,10 @@
             <div class="card-box-c foo">
               <div class="card-header-c d-flex">
                 <div class="card-box-ico">
-                  <span class="bi bi-calendar4-week"></span>
+                  <span class="bi bi-shop"></span>
                 </div>
                 <div class="card-title-c align-self-center">
-                  <h2 class="title-c">Loans</h2>
+                  <h2 class="title-c">Buy</h2>
                 </div>
               </div>
               <div class="card-body-c">
@@ -53,7 +53,7 @@
               </div>
               <div class="card-footer-c">
                 <a href="#" class="link-c link-icon">Read more
-                  <span class="bi bi-calendar4-week"></span>
+                <span class="bi bi-chevron-right"></span>
                 </a>
               </div>
             </div>
