@@ -244,3 +244,72 @@ if (isset($_POST['update-post'])) {
     
 }
 ?>
+<?php
+include('db_config.php');
+
+if (isset($_POST['update-agent'])) {
+    $edit_id = $_POST['edit_agent_id'];
+    $agent_name = $_POST['agent_name'];
+    $agent_email = $_POST['agent_email'];
+    $agent_phone = $_POST['agent_phone'];
+    $agent_image = $_POST['agent_image'];
+
+    // Check if 'agent_image' key exists in the $_FILES array
+    if (isset($_FILES['agent_image'])) {
+        // File Upload
+        $uploadsFolder = 'uploads/';
+        $agent_image = $uploadsFolder . basename($_FILES['agent_image']['name']);
+
+        // Check if a new image was provided and update the file path accordingly
+        if ($_FILES['agent_image']['size'] > 0) {
+            // Remove the existing image file
+            $existingImage = DB::queryFirstField("SELECT agent_image FROM agents WHERE agent_id=%i", $edit_id);
+            if ($existingImage) {
+                unlink($existingImage);
+            }
+
+            // Check image dimensions
+            list($width, $height) = getimagesize($_FILES['agent_image']['tmp_name']);
+            $maxWidth = 800;
+            $maxHeight = 900;
+
+            if ($width <= $maxWidth && $height <= $maxHeight) {
+                // Upload the new image
+                $uploadSuccess = move_uploaded_file($_FILES['agent_image']['tmp_name'], $agent_image);
+
+                if (!$uploadSuccess) {
+                    echo "Error uploading file.";
+                    exit;
+                }
+            } else {
+                // Display alert for invalid image dimensions
+                echo "<script>alert('Image dimensions must be less than or equal to 800x900 pixels.');</script>";
+                echo "<script>window.location.href='edit-agents.php?agent_id={$edit_id}';</script>";
+                exit;
+            }
+        } else {
+            // If no new image provided, retain the existing image path
+            $agent_image = DB::queryFirstField("SELECT agent_image FROM agents WHERE agent_id=%i", $edit_id);
+        }
+    } else {
+        // If 'agent_image' key is not set in $_FILES, handle accordingly (e.g., set $agent_image to the existing path)
+        $agent_image = DB::queryFirstField("SELECT agent_image FROM agents WHERE agent_id=%i", $edit_id);
+    }
+
+    // Update agent details using MeekroDB
+    $updated = DB::update('agents', [
+        'agent_name' => $agent_name,
+        'agent_email' => $agent_email,
+        'agent_phone' => $agent_phone,
+        'agent_image' => $agent_image,
+    ], 'agent_id=%i', $edit_id);
+
+    if ($updated) {
+        header("Location: edit-agents.php?agent_id={$edit_id}");
+        exit();
+    } else {
+        header("Location: agents");
+        exit();
+    }
+}
+?>
