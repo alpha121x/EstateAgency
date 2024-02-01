@@ -49,26 +49,31 @@ if ($properties) {
                       </a>
                     </div>
                     <div class="card-footer-a">
-                      <ul class="card-info d-flex justify-content-around">
-                        <li>
-                          <h4 class="card-info-title">Area</h4>
-                          <span>340m
-                            <sup>2</sup>
-                          </span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Beds</h4>
-                          <span>2</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Baths</h4>
-                          <span>4</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Garages</h4>
-                          <span>1</span>
-                        </li>
-                      </ul>
+                    <ul class="card-info d-flex justify-content-around">
+                    <li>
+                      <h4 class="card-info-title">Area</h4>
+                      <span><?php echo $property['plot_area']; ?>m
+                        <sup>2</sup>
+                      </span>
+                    </li>
+                    <?php if ($property['property_type'] == 'House') : ?>
+                      <li>
+                        <h4 class="card-info-title">Beds</h4>
+                        <span><?php echo $property['beds']; ?></span>
+                      </li>
+                      <li>
+                        <h4 class="card-info-title">Baths</h4>
+                        <span><?php echo $property['baths']; ?></span>
+                      </li>
+                      <li>
+                        <h4 class="card-info-title">Garages</h4>
+                        <span>1</span>
+                      </li>
+                    <?php else : ?>
+                      <!-- Display only the 'Area' for property types other than 'House' -->
+                    <?php endif; ?>
+
+                  </ul>
                     </div>
                   </div>
                 </div>
