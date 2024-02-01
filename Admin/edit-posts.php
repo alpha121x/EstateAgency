@@ -29,7 +29,7 @@ if (isset($_GET['post_id'])) {
 <html lang="en">
 
 <head>
-  <title>Add Posts</title>
+  <title>Edit Posts</title>
   <?php include("include/linked-files.php") ?>
 </head>
 
@@ -43,11 +43,11 @@ if (isset($_GET['post_id'])) {
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Add Posts</h1>
+      <h1>Edit Posts</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-          <li class="breadcrumb-item">Add Posts</li>
+          <li class="breadcrumb-item">Edit Posts</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -77,7 +77,7 @@ if (isset($_GET['post_id'])) {
                 <div class="row mb-3">
                   <label for="inputusername" class="col-sm-2 col-form-label">Post Content</label>
                   <div class="col-sm-6">
-                    <textarea name="post_content" value="<?php echo $post_content; ?>" class="form-control" placeholder="Enter content" cols="30" rows="10"></textarea>
+                    <textarea name="post_content"  class="form-control" placeholder="Enter content" cols="30" rows="10"><?php echo $post_content; ?></textarea>
                   </div>
                 </div>
                 <div class="row mb-3">
