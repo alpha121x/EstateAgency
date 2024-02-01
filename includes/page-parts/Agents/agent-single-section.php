@@ -1,3 +1,10 @@
+<?php
+include('Admin/db_config.php');
+// get the post id from the url
+$id = $_GET['agent_id'];
+// get the post category from the database
+$agent = DB::queryFirstRow("SELECT * FROM agents WHERE agent_id=%i", $id);
+?>
 <section class="agent-single">
       <div class="container">
         <div class="row">
@@ -5,36 +12,30 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="agent-avatar-box">
-                  <img src="assets/img/agent-7.jpg" alt="" class="agent-avatar img-fluid">
+                  <img src="Admin/<?php echo $agent['agent_image']; ?>" alt="" class="agent-avatar img-fluid">
                 </div>
               </div>
               <div class="col-md-5 section-md-t3">
                 <div class="agent-info-box">
                   <div class="agent-title">
                     <div class="title-box-d">
-                      <h3 class="title-d">Margaret Stone
-                        <br> Escala
-                      </h3>
+                      <h3 class="title-d"><?php echo $agent['agent_name']; ?></h3>
                     </div>
                   </div>
                   <div class="agent-content mb-3">
-                    <p class="content-d color-text-a">
-                      Sed porttitor lectus nibh. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.
-                      Vivamus suscipit tortor
-                      eget felis porttitor volutpat. Vivamus suscipit tortor eget felis porttitor volutpat.
-                    </p>
+                    <p class="content-d color-text-a"><?php echo $agent['agent_about']; ?></p>
                     <div class="info-agents color-a">
                       <p>
                         <strong>Phone: </strong>
-                        <span class="color-text-a"> +54 356 945234 </span>
+                        <span class="color-text-a"><?php echo $agent['agent_phone']; ?></span>
                       </p>
                       <p>
                         <strong>Mobile: </strong>
-                        <span class="color-text-a"> 999 123 456 789</span>
+                        <span class="color-text-a"><?php echo $agent['agent_phone']; ?></span>
                       </p>
                       <p>
                         <strong>Email: </strong>
-                        <span class="color-text-a"> agents@example.com</span>
+                        <span class="color-text-a"><?php echo $agent['agent_email']; ?></span>
                       </p>
                     </div>
                   </div>

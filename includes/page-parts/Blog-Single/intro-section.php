@@ -1,5 +1,5 @@
 <?php
-include('Admin/db_config.php');
+require('Admin/db_config.php');
 // get the post id from the url
 $id = $_GET['post_id'];
 // get the post category from the database
