@@ -57,7 +57,7 @@
                   require_once("include/classes/meekrodb.2.3.class.php");
 
                   // Select all users from the admin_users table
-                  $plots = DB::query("SELECT * FROM plot_listing");
+                  $plots = DB::query("SELECT * FROM plot_listing ORDER BY plot_id ASC LIMIT 10");
 
                   if ($plots) {
                     foreach ($plots as $plot) {

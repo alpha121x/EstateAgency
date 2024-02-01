@@ -3,23 +3,24 @@ include("db_config.php");
 
 // Check if user ID is provided in the URL
 if (isset($_GET['id'])) {
-  $user_id = intval($_GET['id']);  // Convert to integer to ensure it's a valid ID
+  $id = intval($_GET['id']);  // Convert to integer to ensure it's a valid ID
 
   // SQL query to fetch user data based on user ID using MeekroDB
-  $user_data = DB::queryFirstRow("SELECT * FROM plot_listing WHERE plot_id = %i", $user_id);
+  $plots = DB::queryFirstRow("SELECT * FROM plot_listing WHERE plot_id = %i", $id);
 
-  if ($user_data) {
+  if ($plots) {
     // Access user data using the fetched associative array
-    $id = $user_data['plot_id'];
-    $plot_num = $user_data['plot_num'];
-    $plot_title = $user_data['plot_title'];
-    $plot_location = $user_data['plot_location'];
-    $plot_description = $user_data['plot_description'];
-    $property_type = $user_data['property_type'];
-    $plot_area = $user_data['plot_area'];
-    $beds = $user_data['beds'];
-    $baths = $user_data['baths'];
-    $plot_image = $user_data['plot_image'];  // Assuming the correct column name is 'user_address'
+    $id = $plots['plot_id'];
+    $plot_num = $plots['plot_num'];
+    $plot_price = $plots['plot_price'];
+    $plot_title = $plots['plot_title'];
+    $plot_location = $plots['plot_location'];
+    $plot_description = $plots['plot_description'];
+    $property_type = $plots['property_type'];
+    $plot_area = $plots['plot_area'];
+    $beds = $plots['beds'];
+    $baths = $plots['baths'];
+    $plot_image = $plots['plot_image'];  // Assuming the correct column name is 'user_address'
 
   } else {
     echo "User not found";
@@ -71,7 +72,7 @@ if (isset($_GET['id'])) {
                 <div class="row mb-3">
                   <label for="plot_listing_edit_page_id" class="col-sm-2 col-form-label">Plot No</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" value='<?php echo $user_data['plot_num']; ?>' name="plot_num" readonly>
+                    <input type="text" class="form-control" value='<?php echo $plot_num; ?>' name="plot_num" required>
                     <input type="hidden" name="plot_listing_edit_page_id" value='<?php echo $id; ?>'>
                   </div>
                 </div>
@@ -79,13 +80,13 @@ if (isset($_GET['id'])) {
                   <label for="plotStatus" class="col-sm-2 col-form-label">Plot Status</label>
                   <div class="col-sm-6">
                     <select class="form-select" required name="plot_status" id="plotStatus">
-                      <option value="1" <?php echo ($user_data['plot_status'] == 'For Sale') ? 'selected' : ''; ?>>For Sale</option>
-                      <option value="2" <?php echo ($user_data['plot_status'] == 'For Rent') ? 'selected' : ''; ?>>For Rent</option>
-                      <option value="3" <?php echo ($user_data['plot_status'] == 'Sold') ? 'selected' : ''; ?>>Sold</option>
-                      <option value="4" <?php echo ($user_data['plot_status'] == 'Under Contract') ? 'selected' : ''; ?>>Under Contract</option>
-                      <option value="5" <?php echo ($user_data['plot_status'] == 'Reserved') ? 'selected' : ''; ?>>Reserved</option>
-                      <option value="6" <?php echo ($user_data['plot_status'] == 'Development in Progress') ? 'selected' : ''; ?>>Development in Progress</option>
-                      <option value="7" <?php echo ($user_data['plot_status'] == 'Not Available') ? 'selected' : ''; ?>>Not Available</option>
+                      <option value="1" <?php echo ($property_type == 'For Sale') ? 'selected' : ''; ?>>For Sale</option>
+                      <option value="2" <?php echo ($property_type == 'For Rent') ? 'selected' : ''; ?>>For Rent</option>
+                      <option value="3" <?php echo ($property_type == 'Sold') ? 'selected' : ''; ?>>Sold</option>
+                      <option value="4" <?php echo ($property_type == 'Under Contract') ? 'selected' : ''; ?>>Under Contract</option>
+                      <option value="5" <?php echo ($property_type == 'Reserved') ? 'selected' : ''; ?>>Reserved</option>
+                      <option value="6" <?php echo ($property_type == 'Development in Progress') ? 'selected' : ''; ?>>Development in Progress</option>
+                      <option value="7" <?php echo ($property_type == 'Not Available') ? 'selected' : ''; ?>>Not Available</option>
                     </select>
                   </div>
                 </div>
@@ -100,53 +101,53 @@ if (isset($_GET['id'])) {
                   <label for="propertyType" class="col-sm-2 col-form-label">Property Type</label>
                   <div class="col-sm-6">
                     <select class="form-select" required name="property_type" id="propertyType">
-                      <option value="House" <?php if ($user_data['property_type'] == 'House') echo 'selected'; ?>>House</option>
-                      <option value="Property" <?php if ($user_data['property_type'] == 'Property') echo 'selected'; ?>>Property</option>
+                      <option value="House" <?php if ($property_type == 'House') echo 'selected'; ?>>House</option>
+                      <option value="Property" <?php if ($property_type == 'Property') echo 'selected'; ?>>Property</option>
                     </select>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="beds" class="col-sm-2 col-form-label">Beds</label>
                   <div class="col-sm-6">
-                    <input type="number" class="form-control" placeholder="Enter Number of Beds" name="beds" value='<?php echo $user_data['beds']; ?>'>
+                    <input type="number" class="form-control" placeholder="Enter Number of Beds" name="beds" value='<?php echo $beds; ?>'>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="baths" class="col-sm-2 col-form-label">Baths</label>
                   <div class="col-sm-6">
-                    <input type="number" class="form-control" placeholder="Enter Number of Baths" name="baths" value='<?php echo $user_data['baths']; ?>'>
+                    <input type="number" class="form-control" placeholder="Enter Number of Baths" name="baths" value='<?php echo $baths; ?>'>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="plot_price" class="col-sm-2 col-form-label">Plot Price</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" value='<?php echo $user_data['plot_price']; ?>' name="plot_price">
+                    <input type="text" class="form-control" value='<?php echo $plot_price; ?>' name="plot_price">
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="plot_title" class="col-sm-2 col-form-label">Plot Title:</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" value='<?php echo $user_data['plot_title']; ?>' name="plot_title">
+                    <input type="text" class="form-control" value='<?php echo $plot_title; ?>' name="plot_title">
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="plot_location" class="col-sm-2 col-form-label">Plot Location</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" value='<?php echo $user_data['plot_location']; ?>' name="plot_location">
+                    <input type="text" class="form-control" value='<?php echo $plot_location; ?>' name="plot_location">
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="plot_description" class="col-sm-2 col-form-label">Plot Description</label>
                   <div class="col-sm-6">
-                    <textarea name="plot_description" class="form-control" cols="30" rows="10"><?php echo $user_data['plot_description']; ?></textarea>
+                    <textarea name="plot_description" class="form-control" cols="30" rows="10"><?php echo $plot_description; ?></textarea>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="plot_image" class="col-sm-2 col-form-label">Plot Image</label>
                   <div class="col-sm-6">
                     <input type="file" class="form-control" name="plot_image">
-                    <?php if ($user_data['plot_image']) : ?>
-                      <img src="<?php echo $user_data['plot_image']; ?>" alt="Current Image" style="max-width: 200px; margin-top: 10px;">
+                    <?php if ($plot_image) : ?>
+                      <img src="<?php echo $plot_image; ?>" alt="Current Image" style="max-width: 200px; margin-top: 10px;">
                     <?php endif; ?>
                   </div>
                 </div>

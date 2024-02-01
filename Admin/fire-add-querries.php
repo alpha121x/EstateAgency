@@ -40,6 +40,7 @@ if (isset($_POST['add-user'])) {
 
 <?php
 require('db_config.php');
+require("auth.php");
 
 if (isset($_POST['add-plot'])) {
     $plot_num = $_POST['plot_num'];
@@ -52,6 +53,7 @@ if (isset($_POST['add-plot'])) {
     $beds = $_POST['beds'];
     $baths = $_POST['baths'];
     $plot_area = $_POST['plot_area'];
+    $username = $_SESSION['user'];
 
     // File Upload
     $uploadsFolder = 'uploads/';
@@ -67,6 +69,7 @@ if (isset($_POST['add-plot'])) {
     $inserted = DB::insert('plot_listing', [
         'plot_num' => $plot_num,
         'plot_title' => $plot_title,
+        'username' => $username,
         'plot_location' => $plot_location,
         'plot_description' => $plot_description,
         'plot_price' => $plot_price,
@@ -94,7 +97,6 @@ if (isset($_POST['add-bid'])) {
     $email = $_POST['email'];
     $bid = $_POST['bid'];
     $plot_id = $_POST['plot_id'];
-    $user_id = $_SESSION['user_id'];
 
     $plot_num = DB::queryFirstField("SELECT plot_num FROM plot_listing WHERE plot_id = %i", $plot_id);
 
