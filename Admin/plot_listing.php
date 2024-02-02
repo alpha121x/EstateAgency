@@ -21,12 +21,11 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Data Tables</h1>
+      <h1>Plot Lisiting</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active">Data</li>
+          <li class="breadcrumb-item">Plot Listing</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -37,8 +36,8 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Datatables</h5>
-              <p>Edit Plots record.</p>
+              <h5 class="card-title">Plot Lisitng</h5>
+              <p>View All</p>
 
               <!-- Table with stripped rows -->
               <table class="table datatable">
