@@ -1,16 +1,3 @@
-<?php
-// File path for the counter
-$counterFilePath = 'counter.txt';
-
-// Read the current count from the file
-$currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counterFilePath)) : 0;
-
-// Increment the count for each visit
-$currentCount++;
-
-// Write the updated count back to the file
-file_put_contents($counterFilePath, $currentCount);
-?>
 <!DOCTYPE html>
 <html lang="en">
 

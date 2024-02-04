@@ -41,6 +41,22 @@ $currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counte
                 </ul>
               </div>
 
+              <?php
+
+              function getWebsiteViewerCount()
+              {
+                // Check if the cookie is set
+                if (isset($_COOKIE['visit_count'])) {
+                  // Retrieve and return the count from the cookie
+                  return intval($_COOKIE['visit_count']);
+                } else {
+                  // If the cookie is not set, return 0
+                  return 0;
+                }
+              }
+
+              ?>
+
               <div class="card-body">
                 <h5 class="card-title">Website Viewers <span>| Today</span></h5>
 
@@ -49,12 +65,13 @@ $currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counte
                     <i class="bi bi-eye"></i>
                   </div>
                   <div class="ps-3">
-                    <h6><?php echo $currentCount; ?></h6>
-                    <span class="text-success small pt-1 fw-bold">15%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
+                    <h6 id="website-viewer-count"><?php echo getWebsiteViewerCount(); ?></h6>
+                    <span class="text-success small pt-1 fw-bold">15%</span>
+                    <span class="text-muted small pt-2 ps-1">increase</span>
                   </div>
                 </div>
               </div>
+
             </div>
           </div><!-- End Website Viewers Card -->
 
