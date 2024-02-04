@@ -74,6 +74,15 @@ $currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counte
                 </ul>
               </div>
 
+              <?php
+              include('db_config.php');
+
+
+              // Query to get the total number of bids for this month
+              $totalBids = DB::queryFirstField("SELECT COUNT(*) FROM plot_bidding");
+
+              // Display the total bids count
+              ?>
               <div class="card-body">
                 <h5 class="card-title">Total Bids <span>| This Month</span></h5>
 
@@ -82,12 +91,13 @@ $currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counte
                     <i class="bi bi-gift"></i>
                   </div>
                   <div class="ps-3">
-                    <h6>78</h6>
-                    <span class="text-success small pt-1 fw-bold">10%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
+                    <h6><?php echo $totalBids; ?></h6>
+                    <!-- You can calculate percentage increase if needed -->
+                    <!-- <span class="text-success small pt-1 fw-bold">10%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
                   </div>
                 </div>
               </div>
+
 
             </div>
           </div><!-- End Total Bids Card -->
@@ -108,6 +118,14 @@ $currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counte
                 </ul>
               </div>
 
+              <?php
+              include('db_config.php');
+
+              // Query to get the total amount of bids for this year
+              $totalAmount = DB::queryFirstField("SELECT SUM(bid) FROM plot_bidding");
+
+              // Display the total bids amount
+              ?>
               <div class="card-body">
                 <h5 class="card-title">Total Bids Amounts <span>| This Year</span></h5>
 
@@ -116,13 +134,13 @@ $currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counte
                     <i class="bi bi-cash"></i>
                   </div>
                   <div class="ps-3">
-                    <h6>$12,450</h6>
-                    <span class="text-danger small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
-
+                    <h6>Rs.<?php echo number_format($totalAmount, 2); ?></h6>
+                    <!-- You can calculate percentage decrease if needed -->
+                    <!-- <span class="text-danger small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">decrease</span> -->
                   </div>
                 </div>
-
               </div>
+
             </div>
           </div><!-- End Total Bids Amounts Card -->
 
