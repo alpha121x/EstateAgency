@@ -1,3 +1,4 @@
+<?php include("visit_count.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 
