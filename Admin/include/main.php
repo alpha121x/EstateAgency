@@ -28,18 +28,6 @@ $currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counte
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card viewers-card">
 
-              <div class="filter">
-                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                  <li class="dropdown-header text-start">
-                    <h6>Filter</h6>
-                  </li>
-
-                  <li><a class="dropdown-item" href="#">Today</a></li>
-                  <li><a class="dropdown-item" href="#">This Month</a></li>
-                  <li><a class="dropdown-item" href="#">This Year</a></li>
-                </ul>
-              </div>
 
               <?php
 
@@ -78,30 +66,19 @@ $currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counte
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card bids-card">
 
-              <div class="filter">
-                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                  <li class="dropdown-header text-start">
-                    <h6>Filter</h6>
-                  </li>
-
-                  <li><a class="dropdown-item" href="#">Today</a></li>
-                  <li><a class="dropdown-item" href="#">This Month</a></li>
-                  <li><a class="dropdown-item" href="#">This Year</a></li>
-                </ul>
-              </div>
+            
 
               <?php
               include('db_config.php');
 
 
               // Query to get the total number of bids for this month
-              $totalBids = DB::queryFirstField("SELECT COUNT(*) FROM plot_bidding");
+              $totalBids = DB::queryFirstField("SELECT COUNT(*) FROM plot_bidding WHERE DATE(bid_date) = CURDATE()");
 
               // Display the total bids count
               ?>
               <div class="card-body">
-                <h5 class="card-title">Total Bids <span>| This Month</span></h5>
+                <h5 class="card-title">Total Bids <span>| Today</span></h5>
 
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -122,29 +99,17 @@ $currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counte
           <div class="col-xxl-4 col-xl-12">
             <div class="card info-card amounts-card">
 
-              <div class="filter">
-                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                  <li class="dropdown-header text-start">
-                    <h6>Filter</h6>
-                  </li>
-
-                  <li><a class="dropdown-item" href="#">Today</a></li>
-                  <li><a class="dropdown-item" href="#">This Month</a></li>
-                  <li><a class="dropdown-item" href="#">This Year</a></li>
-                </ul>
-              </div>
 
               <?php
               include('db_config.php');
 
-              // Query to get the total amount of bids for this year
-              $totalAmount = DB::queryFirstField("SELECT SUM(bid) FROM plot_bidding");
+              // Query to get the total amount of bids for this day
+              $totalAmount = DB::queryFirstField("SELECT SUM(bid) FROM plot_bidding WHERE DATE(bid_date) = CURDATE()");
 
               // Display the total bids amount
               ?>
               <div class="card-body">
-                <h5 class="card-title">Total Bids Amounts <span>| This Year</span></h5>
+                <h5 class="card-title">Total Bids Amounts <span>| Today</span></h5>
 
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -166,18 +131,7 @@ $currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counte
 
         <!-- News & Updates Traffic -->
         <div class="card">
-          <div class="filter">
-            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-              <li class="dropdown-header text-start">
-                <h6>Filter</h6>
-              </li>
-
-              <li><a class="dropdown-item" href="#">Today</a></li>
-              <li><a class="dropdown-item" href="#">This Month</a></li>
-              <li><a class="dropdown-item" href="#">This Year</a></li>
-            </ul>
-          </div>
+    
 
           <?php
           include('db_config.php');

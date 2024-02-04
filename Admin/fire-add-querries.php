@@ -98,15 +98,18 @@ if (isset($_POST['add-bid'])) {
     $bid = $_POST['bid'];
     $plot_id = $_POST['plot_id'];
 
-    $plot_num = DB::queryFirstField("SELECT plot_num FROM plot_listing WHERE plot_id = %i", $plot_id);
+    // Get the current date and time
+    $bid_date = date("Y-m-d H:i:s");
 
+    $plot_num = DB::queryFirstField("SELECT plot_num FROM plot_listing WHERE plot_id = %i", $plot_id);
 
     // Insert query using MeekroDB
     $inserted = DB::insert('plot_bidding', [
         'user_name' => $username,
         'user_email' => $email,
         'bid' => $bid,
-        'plot_id' => $plot_id
+        'plot_id' => $plot_id,
+        'bid_date' => $bid_date, // Include bid_date in the insert
     ]);
 
     if ($inserted) {
@@ -122,18 +125,19 @@ if (isset($_POST['add-bid'])) {
             'plot_id' => $plot_id,
             'created_by' => $username,
             'message' => $message,
+            // 'bid_date' => $bid_date, // Include bid_date in the notification
         ));
 
         // Redirect to the same page after successful insertion
         header("Location: " . $_SERVER['HTTP_REFERER']);
         exit(); // Stop further execution
-    }
-    else {
+    } else {
         // Handle insertion failure
         echo "Error inserting bid. Please try again.";
     }
 }
 ?>
+
 
 <?php 
 require('db_config.php');
