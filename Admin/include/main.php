@@ -1,3 +1,11 @@
+<?php
+// File path for the viewer counter in the root directory
+$counterFilePath = '../counter.txt';
+
+// Read the current count from the file
+$currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counterFilePath)) : 0;
+?>
+
 <main id="main" class="main">
 
   <div class="pagetitle">
@@ -41,7 +49,7 @@
                     <i class="bi bi-eye"></i>
                   </div>
                   <div class="ps-3">
-                    <h6>2650</h6>
+                    <h6><?php echo $currentCount; ?></h6>
                     <span class="text-success small pt-1 fw-bold">15%</span> <span class="text-muted small pt-2 ps-1">increase</span>
 
                   </div>
