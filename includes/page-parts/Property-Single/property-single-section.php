@@ -11,19 +11,44 @@
   ?>
 
   <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <div id="property-single-carousel" class="swiper">
-          <div class="swiper-wrapper">
-            <div class="carousel-item-b swiper-slide">
-              <img src="Admin/<?php echo $propertyDetails['plot_image']; ?>" alt="">
-            </div>
-          </div>
+  <div class="row justify-content-center">
+  <!-- 75% space for image -->
+  <div class="col-lg-9">
+    <img src="Admin/<?php echo $propertyDetails['plot_image']; ?>" alt="" width="80%"  class="img-fluid">
+  </div>
 
-        </div>
-        <div class="property-single-carousel-pagination carousel-pagination"></div>
+  <!-- 25% space for Top 3 Bids -->
+  <div class="col-lg-3">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Top 3 Bids</h3>
+        <ul>
+          <?php
+          // Fetch top 3 highest bids from plot_bidding table
+          $topBids = DB::query("SELECT pb.bid_id, pb.plot_id, pb.user_name, pb.bid, pl.plot_num
+          FROM plot_bidding pb
+          JOIN plot_listing pl ON pb.plot_id = pl.plot_id
+          WHERE pb.plot_id = %i
+          ORDER BY pb.bid DESC
+          LIMIT 3", $propertyId);
+
+          foreach ($topBids as $bid) :
+            $plot_id = $bid['plot_id'];
+            $plot_num = DB::queryFirstField("SELECT plot_num FROM plot_listing WHERE plot_id = %i", $plot_id);
+          ?>
+            <li>
+              <strong><?php echo $bid['user_name']; ?>:</strong>
+              Bid Amount: Rs. <?php echo number_format($bid['bid']); ?> for Plot Num <?php echo $plot_num; ?>
+            </li>
+          <?php endforeach; ?>
+        </ul>
       </div>
     </div>
+  </div>
+</div>
+
+    <br>
+
 
     <div class="row">
       <div class="col-sm-12">
