@@ -7,20 +7,20 @@
 
       $propertiesPerPage = 6;
 
-// Get the current page number from the URL
-$page = isset($_GET['page']) ? $_GET['page'] : 1;
+      // Get the current page number from the URL
+      $page = isset($_GET['page']) ? $_GET['page'] : 1;
 
-// Calculate the offset for the query
-$offset = ($page - 1) * $propertiesPerPage;
+      // Calculate the offset for the query
+      $offset = ($page - 1) * $propertiesPerPage;
 
-// Fetch data from the plot_listing table with pagination
-$properties = DB::query("SELECT * FROM plot_listing ORDER BY plot_id DESC LIMIT %i OFFSET %i", $propertiesPerPage, $offset);
+      // Fetch data from the plot_listing table with pagination
+      $properties = DB::query("SELECT * FROM plot_listing ORDER BY plot_id DESC LIMIT %i OFFSET %i", $propertiesPerPage, $offset);
 
-// Fetch the total number of properties for pagination
-$totalProperties = DB::queryFirstField("SELECT COUNT(*) FROM plot_listing");
+      // Fetch the total number of properties for pagination
+      $totalProperties = DB::queryFirstField("SELECT COUNT(*) FROM plot_listing");
 
-// Calculate the total number of pages
-$totalPages = ceil($totalProperties / $propertiesPerPage);
+      // Calculate the total number of pages
+      $totalPages = ceil($totalProperties / $propertiesPerPage);
 
 
       // Fetch data from the database
@@ -86,62 +86,64 @@ $totalPages = ceil($totalProperties / $propertiesPerPage);
       }
       ?>
     </div>
-    
+
+
+
     <div class="row">
-    <div class="col-sm-12">
-      <nav class="pagination-a">
-        <ul class="pagination justify-content-end">
-          <!-- Previous Page Link -->
-          <li class="page-item <?php echo ($page <= 1) ? 'disabled' : ''; ?>">
-            <a class="page-link" href="?page=<?php echo ($page > 1) ? $page - 1 : 1; ?>" tabindex="-1">
-              <span class="bi bi-chevron-left"></span>
-            </a>
-          </li>
-
-          <!-- Page Numbers -->
-          <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
-            <li class="page-item <?php echo ($page == $i) ? 'active' : ''; ?>">
-              <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+      <div class="col-sm-12">
+        <nav class="pagination-a">
+          <ul class="pagination justify-content-end">
+            <!-- Previous Page Link -->
+            <li class="page-item <?php echo ($page <= 1) ? 'disabled' : ''; ?>">
+              <a class="page-link" href="?page=<?php echo ($page > 1) ? $page - 1 : 1; ?>" tabindex="-1">
+                <span class="bi bi-chevron-left"></span>
+              </a>
             </li>
-          <?php endfor; ?>
 
-          <!-- Next Page Link -->
-          <li class="page-item <?php echo ($page >= $totalPages) ? 'disabled' : ''; ?>">
-            <a class="page-link" href="?page=<?php echo ($page < $totalPages) ? $page + 1 : $totalPages; ?>">
-              <span class="bi bi-chevron-right"></span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+            <!-- Page Numbers -->
+            <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+              <li class="page-item <?php echo ($page == $i) ? 'active' : ''; ?>">
+                <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+              </li>
+            <?php endfor; ?>
+
+            <!-- Next Page Link -->
+            <li class="page-item <?php echo ($page >= $totalPages) ? 'disabled' : ''; ?>">
+              <a class="page-link" href="?page=<?php echo ($page < $totalPages) ? $page + 1 : $totalPages; ?>">
+                <span class="bi bi-chevron-right"></span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
-  </div>
   </div>
 </section>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Enter Your Details.</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form action="bid" method="post">
-              <label for="name" class="form-control fw-bold">Username<input type="hidden" name="plot_id" value="<?php echo $property['plot_id'];  ?>"></label>
-              <input type="text" class="form-control" placeholder="Enter your username" name="username" id="username">
-              <br>
-              <label for="email" class="form-control fw-bold">Email</label>
-              <input type="email" class="form-control" placeholder="Enter your email" name="email" id="email">
-              <br>
-              <label for="bid" class="form-control fw-bold">Bid Amount</label>
-              <input type="number" class="form-control" placeholder="Rs." name="bid" id="bid">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-            <button type="submit" name="add-bid" class="btn btn-success">Submit</button>
-            </form>
-          </div>
-        </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Enter Your Details.</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="bid" method="post">
+          <label for="name" class="form-control fw-bold">Username<input type="hidden" name="plot_id" value="<?php echo $property['plot_id'];  ?>"></label>
+          <input type="text" class="form-control" placeholder="Enter your username" name="username" id="username">
+          <br>
+          <label for="email" class="form-control fw-bold">Email</label>
+          <input type="email" class="form-control" placeholder="Enter your email" name="email" id="email">
+          <br>
+          <label for="bid" class="form-control fw-bold">Bid Amount</label>
+          <input type="number" class="form-control" placeholder="Rs." name="bid" id="bid">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        <button type="submit" name="add-bid" class="btn btn-success">Submit</button>
+        </form>
       </div>
     </div>
+  </div>
+</div>
