@@ -37,14 +37,14 @@ if ($properties) {
                   <div class="card-overlay-a-content">
                     <div class="card-header-a">
                       <h2 class="card-title-a">
-                        <a href="property-single.html"><?php echo $property['plot_num'] . ' ' . $property['plot_title']; ?></a>
+                        <a href="property-single.php?id=<?php echo $property['plot_id'];  ?>"><?php echo $property['plot_num'] . ' ' . $property['plot_title']; ?></a>
                       </h2>
                     </div>
                     <div class="card-body-a">
                       <div class="price-box d-flex">
                         <span class="price-a">Buy $ <?php echo $property['plot_price']; ?></span>
                       </div>
-                      <a href="#" class="link-a">Click here to view
+                      <a href="property-single.php?id=<?php echo $property['plot_id'];  ?>" class="link-a">Click here to view
                         <span class="bi bi-chevron-right"></span>
                       </a>
                     </div>
