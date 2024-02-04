@@ -28,37 +28,29 @@ $currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counte
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card viewers-card">
 
-
               <?php
+              require('db_config.php');
 
-              function getWebsiteViewerCount()
-              {
-                // Check if the cookie is set
-                if (isset($_COOKIE['visit_count'])) {
-                  // Retrieve and return the count from the cookie
-                  return intval($_COOKIE['visit_count']);
-                } else {
-                  // If the cookie is not set, return 0
-                  return 0;
-                }
-              }
+              // Fetch the website viewer count from the visited_count table
+              $currentDate = date('Y-m-d');
+              $websiteViewerCount = DB::queryFirstField("SELECT SUM(visit_count) FROM visited_count WHERE visit_datetime >= %s AND visit_datetime < %s", $currentDate . ' 00:00:00', $currentDate . ' 23:59:59');
 
               ?>
 
               <div class="card-body">
                 <h5 class="card-title">Website Viewers <span>| Today</span></h5>
-
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-eye"></i>
                   </div>
                   <div class="ps-3">
-                    <h6 id="website-viewer-count"><?php echo getWebsiteViewerCount(); ?></h6>
+                    <h6><?php echo $websiteViewerCount; ?></h6>
                     <span class="text-success small pt-1 fw-bold">15%</span>
                     <span class="text-muted small pt-2 ps-1">increase</span>
                   </div>
                 </div>
               </div>
+
 
             </div>
           </div><!-- End Website Viewers Card -->
@@ -66,7 +58,7 @@ $currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counte
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card bids-card">
 
-            
+
 
               <?php
               include('db_config.php');
@@ -131,7 +123,7 @@ $currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counte
 
         <!-- News & Updates Traffic -->
         <div class="card">
-    
+
 
           <?php
           include('db_config.php');
