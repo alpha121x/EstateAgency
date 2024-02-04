@@ -127,7 +127,7 @@ $totalPages = ceil($totalProperties / $propertiesPerPage);
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form action="Admin/fire-add-querries.php" method="post">
+            <form action="bid" method="post">
               <label for="name" class="form-control fw-bold">Username<input type="hidden" name="plot_id" value="<?php echo $property['plot_id'];  ?>"></label>
               <input type="text" class="form-control" placeholder="Enter your username" name="username" id="username">
               <br>
