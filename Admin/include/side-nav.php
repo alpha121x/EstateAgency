@@ -1,7 +1,4 @@
-<?php
-// Check if the user is an admin
-if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin') {
-    echo '<!-- ======= Sidebar ======= -->
+<!-- ======= Sidebar ======= -->
     <aside id="sidebar" class="sidebar">
    
    <ul class="sidebar-nav" id="sidebar-nav">
@@ -66,38 +63,4 @@ if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin') {
              <span>Add Agents</span>
            </a>
          </li>
-   </aside><!-- End Sidebar-->';
-} else {
-    echo'<!-- ======= Sidebar ======= -->
-    <aside id="sidebar" class="sidebar">
-   
-   <ul class="sidebar-nav" id="sidebar-nav">
-   
-     <li class="nav-item">
-       <a class="nav-link " href="index">
-       <i class="bi bi-journal-text"></i>
-         <span>Dashboard</span>
-       </a>
-     </li><!-- End Dashboard Nav --> 
-         <li class="nav-item">
-           <a class="nav-link collapsed"  href="admin_users">
-           <i class="bi bi-person-fill-lock"></i>
-             <span>Users</span>
-           </a>
-         </li>
-         <li class="nav-item">
-         <a class="nav-link collapsed"  href="users_profile">
-         <i class="bi bi-person-fill-lock"></i>
-           <span>User Profile</span>
-         </a>
-       </li>
-         <li class="nav-item">
-           <a class="nav-link collapsed"  href="plot_listing">
-           <i class="bi bi-person-fill-lock"></i>
-             <span>Plot Lisitng</span>
-           </a>
-         </li>
-   </aside><!-- End Sidebar-->';
-}
-?>
-
+   </aside><!-- End Sidebar-->
