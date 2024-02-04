@@ -88,9 +88,15 @@ if (isset($_POST['add-plot'])) {
     }
 }
 ?>
- <!-- For adding bids -->
- <?php
+<?php
 require('db_config.php');
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+// Load Composer's autoloader
+require '../vendor/autoload.php';
 
 if (isset($_POST['add-bid'])) {
     $username = $_POST['username'];
@@ -128,6 +134,37 @@ if (isset($_POST['add-bid'])) {
             // 'bid_date' => $bid_date, // Include bid_date in the notification
         ));
 
+        // Send email confirmation using PHPMailer
+        $mail = new PHPMailer(true);
+
+        try {
+            // Server settings
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.gmail.com'; // Set your SMTP server
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'abbasshakor0123@gmail.com'; // Your SMTP username
+            $mail->Password   = 'lwwlyrzqyawighog'; // Your SMTP password
+            $mail->SMTPSecure = 'tls';
+            $mail->Port       = 487;
+
+            // Recipients
+            $mail->setFrom('abbasshakor0123@gmail.com', 'EstateAgency');
+            $mail->addAddress($email, $username); // Add a recipient
+
+            // Content
+            $mail->isHTML(true);
+            $mail->Subject = 'Bid Confirmation';
+            $mail->Body    = 'Thank you for placing a bid. Your bid has been successfully recorded for Plot ID: ' . $plot_id . ' with a bid amount of $' . $bid;
+            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+            // Send the email
+            $mail->send();
+            echo 'Message has been sent';
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
+
         // Redirect to the same page after successful insertion
         header("Location: " . $_SERVER['HTTP_REFERER']);
         exit(); // Stop further execution
@@ -137,6 +174,7 @@ if (isset($_POST['add-bid'])) {
     }
 }
 ?>
+
 
 
 <?php 

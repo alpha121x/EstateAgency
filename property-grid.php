@@ -14,7 +14,7 @@
 
   <!-- ======= Property Search Section ======= -->
   <?php include("includes/property-search-section.php") ?>
-  <!-- End Property Search Section -->>
+  <!-- End Property Search Section -->
 
   <!-- ======= Header/Navbar ======= -->
   <?php include("includes/header-nav.php") ?>
