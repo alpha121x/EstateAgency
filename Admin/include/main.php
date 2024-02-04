@@ -65,7 +65,7 @@ $currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counte
 
 
               // Query to get the total number of bids for this month
-              $totalBids = DB::queryFirstField("SELECT COUNT(*) FROM plot_bidding WHERE DATE(bid_date) = CURDATE()");
+              $totalBids = DB::queryFirstField("SELECT COUNT(*) FROM plot_bidding WHERE DATE(bid_date) = %s", date('Y-m-d'));
 
               // Display the total bids count
               ?>
@@ -96,7 +96,7 @@ $currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counte
               include('db_config.php');
 
               // Query to get the total amount of bids for this day
-              $totalAmount = DB::queryFirstField("SELECT SUM(bid) FROM plot_bidding WHERE DATE(bid_date) = CURDATE()");
+              $totalAmount = DB::queryFirstField("SELECT SUM(bid) FROM plot_bidding WHERE DATE(bid_date) = %s", date('Y-m-d'));
 
               // Display the total bids amount
               ?>
