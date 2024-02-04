@@ -1,4 +1,5 @@
  <?php
+    include("Admin/db_config.php");
     $cookieName = 'visit_count';
     $cookieDateName = 'visit_date';
     
