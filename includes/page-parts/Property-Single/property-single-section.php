@@ -60,8 +60,8 @@
         // Content
         $mail->isHTML(true);
         $mail->Subject = 'Congratulations! You Won the Bidding';
-        $mail->Body    = 'Congratulations, ' . $topBidderName . '! Your bid of Rs. ' . number_format($topBidAmount) . ' ranked #1. You can now purchase the property.';
-        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        $mail->Body    = 'Congratulations, ' . $topBidderName . '! Your bid of Rs. ' . number_format($topBidAmount) . ' ranked #1. Visit our office or official website for further instructions on completing the purchase process.';
+        $mail->AltBody = 'Congratulations, ' . $topBidderName . '! Your bid of Rs. ' . number_format($topBidAmount) . ' ranked #1. Visit our office or official website for further instructions on completing the purchase process.';
         $mail->send();
         echo 'Email has been sent successfully.';
       } catch (Exception $e) {
