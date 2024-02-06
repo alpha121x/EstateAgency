@@ -98,7 +98,10 @@ if (isset($_GET['id'])) {
                 <div class="row mb-3">
                   <label for="inputimage" class="col-sm-2 col-form-label">Add user Image</label>
                   <div class="col-sm-6">
-                    <input type="file" class="form-control" name="user_image">
+                  <input type="file" class="form-control" name="user_image">
+                    <?php if ($user_image) : ?>
+                      <img src="<?php echo $user_image; ?>" alt="Current Image" style="max-width: 200px; margin-top: 10px;">
+                    <?php endif; ?> 
                   </div>
                 </div>
                    
