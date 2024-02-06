@@ -43,24 +43,24 @@
                 </div>
                 <div class="card-body-a">
                   <div class="price-box d-flex">
-                  <span class="price-a">
-                          <?php
-                          $statusLabels = [
-                            1 => 'For Sale',
-                            2 => 'For Rent',
-                            3 => 'Sold',
-                            4 => 'Under Contract',
-                            5 => 'Reserved',
-                            6 => 'Development in Progress',
-                            7 => 'Not Available'
-                          ];
+                    <span class="price-a">
+                      <?php
+                      $statusLabels = [
+                        1 => 'For Sale',
+                        2 => 'For Rent',
+                        3 => 'Sold',
+                        4 => 'Under Contract',
+                        5 => 'Reserved',
+                        6 => 'Development in Progress',
+                        7 => 'Not Available'
+                      ];
 
-                          $statusValue = $property['plot_status'];
-                          $statusLabel = isset($statusLabels[$statusValue]) ? $statusLabels[$statusValue] : 'Unknown Status';
+                      $statusValue = $property['plot_status'];
+                      $statusLabel = isset($statusLabels[$statusValue]) ? $statusLabels[$statusValue] : 'Unknown Status';
 
-                          echo $statusLabel . ' | Rs. ' . $property['plot_price'];
-                          ?>
-                        </span>
+                      echo $statusLabel . ' | Rs. ' . $property['plot_price'];
+                      ?>
+                    </span>
                     &nbsp;
                     <span type="button" class="price-a" data-bs-toggle="modal" data-bs-target="#exampleModal">Bid</span>
                   </div>

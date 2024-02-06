@@ -1,5 +1,12 @@
 <section class="property-single nav-arrow-b">
   <?php
+  // Use PHPMailer to send the email
+  require 'vendor/autoload.php'; // Include the PHPMailer autoload file
+
+  use PHPMailer\PHPMailer\PHPMailer;
+  use PHPMailer\PHPMailer\SMTP;
+  use PHPMailer\PHPMailer\Exception;
+
   require('Admin/db_config.php'); // Make sure you include your database configuration file
 
   // Assuming you have the property ID in the URL
@@ -7,6 +14,63 @@
 
   // Fetch property details from the plot_listing table
   $propertyDetails = DB::queryFirstRow("SELECT * FROM plot_listing WHERE plot_id = %i", $propertyId);
+
+  // Assuming $propertyDetails['added_on'] contains the added_on date from your database
+  $addedOnDate = strtotime($propertyDetails['added_on']);
+  $biddingEndDate = strtotime('+15 days', $addedOnDate);
+
+  // Get the current date
+  $currentDate = time();
+
+  // Check if bidding has ended
+  if ($currentDate >= $biddingEndDate) {
+    // Fetch the top bidder for the specific property
+    $topBidder = DB::queryFirstRow("
+        SELECT pb.user_name, pb.user_email, pb.bid
+        FROM plot_bidding pb
+        WHERE pb.plot_id = %i
+        ORDER BY CAST(pb.bid AS DECIMAL) DESC
+        LIMIT 1", $propertyId);
+
+    if ($topBidder) {
+      // Send congratulatory email to the top bidder
+      $topBidderName = $topBidder['user_name'];
+      $topBidAmount = $topBidder['bid'];
+      $topBidderEmail = $topBidder['user_email'];
+
+
+
+      try {
+        $mail = new PHPMailer(true);
+
+        // Server settings
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com'; // Set your SMTP server
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'abbasshakor0123@gmail.com'; // Your SMTP username
+        $mail->Password   = 'lwwlyrzqyawighog'; // Your SMTP password
+        $mail->SMTPSecure = 'tls';
+        $mail->Port       = 587;
+
+        // Recipients
+        $mail->setFrom('abbashakor0123@gmail.com', 'EstateAgency');
+        $mail->addAddress($topBidderEmail, $topBidderName); // Add the recipient
+
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = 'Congratulations! You Won the Bidding';
+        $mail->Body    = 'Congratulations, ' . $topBidderName . '! Your bid of Rs. ' . number_format($topBidAmount) . ' ranked #1. You can now purchase the property.';
+        $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+        $mail->send();
+        echo 'Email has been sent successfully.';
+      } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+      }
+    }
+  }
+
+
 
   ?>
 
