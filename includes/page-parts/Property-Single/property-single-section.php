@@ -21,7 +21,14 @@
       <div class="col-lg-3">
         <div class="row">
           <div class="col-md-12">
-            <h3>Top 3 Bids</h3>
+            <?php
+            // Assuming $propertyDetails['added_on'] contains the added_on date from your database
+            $addedOnDate = strtotime($propertyDetails['added_on']);
+            $currentDate = time();
+            $daysLeft = 15 - floor(($currentDate - $addedOnDate) / (60 * 60 * 24));
+
+            echo '<h4>Top 3 Bids (Bidding Time Left: ' . $daysLeft . ' days)</h4>';
+            ?>
             <ul>
               <?php
               // Fetch top 3 highest bids from plot_bidding table for a specific plot_id

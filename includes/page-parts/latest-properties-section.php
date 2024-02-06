@@ -61,7 +61,7 @@ if ($properties) {
                           ?>
                         </span>
                         &nbsp;
-                    <span type="button" class="price-a" data-bs-toggle="modal" data-bs-target="#exampleModal">Bid</span>
+                        <span type="button" class="price-a" data-bs-toggle="modal" data-bs-target="#exampleModal">Bid</span>
                       </div>
                       <a href="property-single.php?id=<?php echo $property['plot_id'];  ?>" class="link-a">Click here to view
                         <span class="bi bi-chevron-right"></span>
@@ -115,7 +115,15 @@ if ($properties) {
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Enter Your Details.</h1>
+        <?php
+        // Assuming $propertyDetails['added_on'] contains the added_on date from your database
+        $addedOnDate = strtotime($property['added_on']);
+        $currentDate = time();
+        $daysLeft = 15 - floor(($currentDate - $addedOnDate) / (60 * 60 * 24));
+
+        // Display the time left
+        echo '<h1 class="modal-title fs-5" id="exampleModalLabel">&nbsp;Bidding Time Left: ' . $daysLeft . ' days</h1>';
+        ?>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -127,7 +135,7 @@ if ($properties) {
           <input type="email" class="form-control" placeholder="Enter your email" name="email" id="email">
           <br>
           <label for="bid" class="form-control fw-bold">Bid Amount</label>
-          <input type="number" class="form-control" placeholder="Rs." name="bid" id="bid">
+          <input type="text" class="form-control" placeholder="Rs." name="bid" id="bid">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>

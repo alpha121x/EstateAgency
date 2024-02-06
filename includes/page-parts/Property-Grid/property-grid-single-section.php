@@ -154,7 +154,7 @@
           <input type="email" class="form-control" placeholder="Enter your email" name="email" id="email">
           <br>
           <label for="bid" class="form-control fw-bold">Bid Amount</label>
-          <input type="number" class="form-control" placeholder="Rs." name="bid" id="bid">
+          <input type="text" class="form-control" placeholder="Rs." name="bid" id="bid">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
