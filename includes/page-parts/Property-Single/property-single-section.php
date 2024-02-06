@@ -211,10 +211,6 @@
                   <strong>Email:</strong>
                   <span class="color-text-a">annabella@example.com</span>
                 </li>
-                <li class="d-flex justify-content-between">
-                  <strong>Skype:</strong>
-                  <span class="color-text-a">Annabela.ge</span>
-                </li>
               </ul>
               <div class="socials-a">
                 <ul class="list-inline">

@@ -91,10 +91,10 @@ $agent = DB::queryFirstRow("SELECT * FROM agents WHERE agent_id=%i", $id);
 
         $propertiesPerPage = 6;
 
-        $agentname = $agent['agent_name'];
+        $agentEmail = $agent['agent_email'];
 
-        // Fetch the first and last name from the admin_users table
-        $userInfo = DB::queryFirstRow("SELECT * FROM admin_users WHERE first_name = %s", $agentname);
+        // Fetch the email from the admin_users table
+        $userInfo = DB::queryFirstRow("SELECT * FROM admin_users WHERE email = %s", $agentEmail);
 
         // Access the first and last name from the $userInfo array
         $username = $userInfo['username'];
