@@ -23,6 +23,10 @@
          </li>
 
          <li class="nav-item">
+           <a class="nav-link " href="agents-grid">Agents</a>
+         </li>
+
+         <li class="nav-item">
            <a class="nav-link " href="blog-grid">Blog</a>
          </li>
          <li class="nav-item">

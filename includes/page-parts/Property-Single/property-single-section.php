@@ -39,7 +39,7 @@
       $topBidderName = $topBidder['user_name'];
       $topBidAmount = $topBidder['bid'];
       $topBidderEmail = $topBidder['user_email'];
-      
+
 
       try {
         $mail = new PHPMailer(true);
@@ -64,7 +64,7 @@
         $mail->Body    = 'Congratulations, ' . $topBidderName . '! Your bid of Rs. ' . $topBidAmount . ' ranked #1. Visit our office or official website for further instructions on completing the purchase process.';
         $mail->AltBody = 'Congratulations, ' . $topBidderName . '! Your bid of Rs. ' . $topBidAmount . ' ranked #1. Visit our office or official website for further instructions on completing the purchase process.';
         $mail->send();
-        echo 'Email has been sent successfully.';
+        // echo 'Email has been sent successfully.';
       } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
       }
@@ -92,29 +92,36 @@
             $currentDate = time();
             $daysLeft = 15 - floor(($currentDate - $addedOnDate) / (60 * 60 * 24));
 
-            echo '<h4>Top 3 Bids (Bidding Time Left: ' . $daysLeft . ' days)</h4>';
+            // Check if the plot_status is "Sale"
+            if ($propertyDetails['plot_status'] == '1') {
+              echo '<h4>Top 3 Bids (Bidding Time Left: ' . $daysLeft . ' days)</h4>';
             ?>
-            <ul>
-              <?php
-              // Fetch top 3 highest bids from plot_bidding table for a specific plot_id
-              $topBids = DB::query("
-              SELECT pb.bid_id, pb.plot_id, pb.user_name, pb.bid, pl.plot_num
-              FROM plot_bidding pb
-              JOIN plot_listing pl ON pb.plot_id = pl.plot_id
-              WHERE pb.plot_id = %i
-              GROUP BY pb.user_name
-              ORDER BY pb.bid DESC
-              LIMIT 3", $propertyId);
+              <ul>
+                <?php
+                // Fetch top 3 highest bids from plot_bidding table for a specific plot_id
+                $topBids = DB::query("
+            SELECT pb.bid_id, pb.plot_id, pb.user_name, pb.bid, pl.plot_num
+            FROM plot_bidding pb
+            JOIN plot_listing pl ON pb.plot_id = pl.plot_id
+            WHERE pb.plot_id = %i
+            GROUP BY pb.user_name
+            ORDER BY pb.bid DESC
+            LIMIT 3", $propertyId);
 
-              foreach ($topBids as $bid) :
-                $plot_id = $bid['plot_id'];
-                $plot_num = $bid['plot_num'];
-              ?>
-                <li>
-                  <strong><?php echo $bid['user_name']; ?>:</strong>
-                  Bid Amount: Rs. <?php echo $bid['bid']; ?>
-                </li>
-              <?php endforeach; ?>
+                foreach ($topBids as $bid) :
+                  $plot_id = $bid['plot_id'];
+                  $plot_num = $bid['plot_num'];
+                ?>
+                  <li>
+                    <strong><?php echo $bid['user_name']; ?>:</strong>
+                    Bid Amount: Rs. <?php echo $bid['bid']; ?>
+                  </li>
+                <?php endforeach; ?>
+              </ul>
+            <?php
+            }
+            ?>
+
 
 
             </ul>
@@ -167,7 +174,24 @@
                   </li>
                   <li class="d-flex justify-content-between">
                     <strong>Status:</strong>
-                    <span>Sale</span>
+                    <span>
+                      <?php
+                      $statusLabels = [
+                        1 => 'For Sale',
+                        2 => 'For Rent',
+                        3 => 'Sold',
+                        4 => 'Under Contract',
+                        5 => 'Reserved',
+                        6 => 'Development in Progress',
+                        7 => 'Not Available'
+                      ];
+
+                      $statusValue = $property['plot_status'];
+                      $statusLabel = isset($statusLabels[$statusValue]) ? $statusLabels[$statusValue] : 'Unknown Status';
+
+                      echo $statusLabel;
+                      ?>
+                    </span>
                   </li>
 
                   <?php if ($propertyDetails['property_type'] === 'House') : ?>
