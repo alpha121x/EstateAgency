@@ -65,7 +65,7 @@ if (isset($_POST['add-bid'])) {
             // Content
             $mail->isHTML(true);
             $mail->Subject = 'Bid Confirmation';
-            $mail->Body    = 'Thank you for placing a bid. Your bid has been successfully recorded for Plot Num: ' . $plot_num . ' with a bid amount of Rs.' . $bid;
+            $mail->Body = 'Thank you for placing a bid. Your bid has been successfully recorded for Plot Num: ' . $plot_num . ' with a bid amount of Rs.' . $bid . '. If your bid ranks in the top 3, you may have a chance to purchase it.';
             $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
             // Send the email
