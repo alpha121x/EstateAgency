@@ -58,7 +58,7 @@
                           $statusValue = $property['plot_status'];
                           $statusLabel = isset($statusLabels[$statusValue]) ? $statusLabels[$statusValue] : 'Unknown Status';
 
-                          echo $statusLabel . ' | $ ' . $property['plot_price'];
+                          echo $statusLabel . ' | Rs. ' . $property['plot_price'];
                           ?>
                         </span>
                     &nbsp;
