@@ -6,21 +6,21 @@ include("db_config.php"); // Include your database connection file
 
 $user_id =  $_SESSION['user_id'];
 // Select the first row from the admin_users table
-$firstAdminUser = DB::queryFirstRow("SELECT * FROM admin_users WHERE id=%i",$user_id);
+$firstAdminUser = DB::queryFirstRow("SELECT * FROM admin_users WHERE id=%i", $user_id);
 
 if ($firstAdminUser) {
-    // Access individual columns like $firstAdminUser['column_name']
-    $id = $firstAdminUser['id'];
-    $username = $firstAdminUser['username'];
-    $password = $firstAdminUser['password'];
-    $email = $firstAdminUser['email'];
-    $user_type = $firstAdminUser['user_type'];
-    $user_image = $firstAdminUser['user_image'];
+  // Access individual columns like $firstAdminUser['column_name']
+  $id = $firstAdminUser['id'];
+  $username = $firstAdminUser['username'];
+  $password = $firstAdminUser['password'];
+  $email = $firstAdminUser['email'];
+  $user_type = $firstAdminUser['user_type'];
+  $user_image = $firstAdminUser['user_image'];
 
-    // Process the data as needed
-    // Example: echo "User ID: $id, Username: $username, Email: $email, UserType: $user_type<br>";
+  // Process the data as needed
+  // Example: echo "User ID: $id, Username: $username, Email: $email, UserType: $user_type<br>";
 } else {
-    echo "No admin users found in the database.";
+  echo "No admin users found in the database.";
 }
 ?>
 <!DOCTYPE html>
@@ -33,13 +33,13 @@ if ($firstAdminUser) {
 
 <body>
 
-  
-  <?php include("include/header-nav.php") ?>  
- 
-  <?php include("include/side-nav.php") ?> 
+
+  <?php include("include/header-nav.php") ?>
+
+  <?php include("include/side-nav.php") ?>
 
   <main id="main" class="main">
-  <div class="pagetitle">
+    <div class="pagetitle">
       <h1>Profile</h1>
       <nav>
         <ol class="breadcrumb">
@@ -48,7 +48,7 @@ if ($firstAdminUser) {
         </ol>
       </nav>
     </div><!-- End Page Title -->
-    
+
     <section class="section profile">
       <div class="row">
         <div class="col-xl-4">
@@ -76,33 +76,21 @@ if ($firstAdminUser) {
             <div class="card-body pt-3">
               <!-- Bordered Tabs -->
               <ul class="nav nav-tabs nav-tabs-bordered">
-              <?php
-                // Check if the user is an admin
-                if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'user') {
-                    echo'<li class="nav-item">
-                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
-                  </li>
-  
-                  <li class="nav-item">
-                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
-                  </li>
-  
-                  <li class="nav-item">
-                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
-                  </li>
-  
-                  <li class="nav-item">
-                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
-                  </li>';
-                } else {
-                  echo'  <li class="nav-item">
+                <li class="nav-item">
                   <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
-                </li>';
-                }
-                ?>
+                </li>
 
-              
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+                </li>
 
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
+                </li>
               </ul>
               <div class="tab-content pt-2">
                 <div class="tab-pane fade show active profile-overview" id="profile-overview">
@@ -137,15 +125,15 @@ if ($firstAdminUser) {
                       <div class="col-md-8 col-lg-9">
                         <img src="<?php echo $user_data['user_image'] ?>" class="form-control" alt="Profile" name="photo">
                         <div class="col-sm-6">
-                        <input type="file" class="form-control" name="photo">
+                          <input type="file" class="form-control" name="photo">
                         </div>
                       </div>
-                      </div>
+                    </div>
 
                     <div class="row mb-3">
                       <label for="username" class="col-md-4 col-lg-3 col-form-label">Username</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="username" type="text" class="form-control"  value='<?php echo $username; ?>'>
+                        <input name="username" type="text" class="form-control" value='<?php echo $username; ?>'>
                       </div>
                     </div>
 
@@ -246,7 +234,7 @@ if ($firstAdminUser) {
                     <div class="row mb-3">
                       <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
                       <div class="col-md-8 col-lg-9">
-                        <input name="password"  type="password" value='<?php echo $password ?>' class="form-control" id="currentPassword">
+                        <input name="password" type="password" value='<?php echo $password ?>' class="form-control" id="currentPassword">
                       </div>
                     </div>
 
@@ -284,7 +272,7 @@ if ($firstAdminUser) {
 
   </main><!-- End #main -->
 
-  <?php include("include/footer.php") ?> 
+  <?php include("include/footer.php") ?>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -294,34 +282,3 @@ if ($firstAdminUser) {
 <script src="jquery/jquery.min.js"></script>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
