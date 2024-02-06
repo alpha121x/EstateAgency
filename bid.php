@@ -71,8 +71,8 @@ if (isset($_POST['add-bid'])) {
             // Send the email
             $mail->send();
 
-            // Redirect to the same page after successful insertion
-            header("Location: " . $_SERVER['HTTP_REFERER']);
+            // Redirect using JavaScript
+            echo '<script>window.location.replace("' . $_SERVER['HTTP_REFERER'] . '");</script>';
             exit(); // Stop further execution
         } catch (Exception $e) {
             // Handle email sending failure
