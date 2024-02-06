@@ -49,7 +49,7 @@ if (isset($_POST['add-bid'])) {
 
         try {
             // Server settings
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+            $mail->SMTPDebug = SMTP::DEBUG_OFF;
             $mail->isSMTP();
             $mail->Host       = 'smtp.gmail.com'; // Set your SMTP server
             $mail->SMTPAuth   = true;

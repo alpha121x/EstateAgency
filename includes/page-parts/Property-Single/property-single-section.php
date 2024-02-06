@@ -17,7 +17,7 @@
 
   // Assuming $propertyDetails['added_on'] contains the added_on date from your database
   $addedOnDate = strtotime($propertyDetails['added_on']);
-  $biddingEndDate = strtotime('+15 days', $addedOnDate);
+  $biddingEndDate = strtotime('15 days', $addedOnDate);
 
   // Get the current date
   $currentDate = time();
@@ -26,25 +26,26 @@
   if ($currentDate >= $biddingEndDate) {
     // Fetch the top bidder for the specific property
     $topBidder = DB::queryFirstRow("
-        SELECT pb.user_name, pb.user_email, pb.bid
-        FROM plot_bidding pb
-        WHERE pb.plot_id = %i
-        ORDER BY CAST(pb.bid AS DECIMAL) DESC
-        LIMIT 1", $propertyId);
+    SELECT pb.bid_id, pb.user_email, pb.user_name, pb.bid, pl.plot_num
+    FROM plot_bidding pb
+    JOIN plot_listing pl ON pb.plot_id = pl.plot_id
+    WHERE pb.plot_id = %i
+    GROUP BY pb.user_name
+    ORDER BY pb.bid DESC
+    LIMIT 3", $propertyId);
 
     if ($topBidder) {
       // Send congratulatory email to the top bidder
       $topBidderName = $topBidder['user_name'];
       $topBidAmount = $topBidder['bid'];
       $topBidderEmail = $topBidder['user_email'];
-
-
+      
 
       try {
         $mail = new PHPMailer(true);
 
         // Server settings
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        $mail->SMTPDebug = SMTP::DEBUG_OFF;
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com'; // Set your SMTP server
         $mail->SMTPAuth   = true;
@@ -60,8 +61,8 @@
         // Content
         $mail->isHTML(true);
         $mail->Subject = 'Congratulations! You Won the Bidding';
-        $mail->Body    = 'Congratulations, ' . $topBidderName . '! Your bid of Rs. ' . number_format($topBidAmount) . ' ranked #1. Visit our office or official website for further instructions on completing the purchase process.';
-        $mail->AltBody = 'Congratulations, ' . $topBidderName . '! Your bid of Rs. ' . number_format($topBidAmount) . ' ranked #1. Visit our office or official website for further instructions on completing the purchase process.';
+        $mail->Body    = 'Congratulations, ' . $topBidderName . '! Your bid of Rs. ' . $topBidAmount . ' ranked #1. Visit our office or official website for further instructions on completing the purchase process.';
+        $mail->AltBody = 'Congratulations, ' . $topBidderName . '! Your bid of Rs. ' . $topBidAmount . ' ranked #1. Visit our office or official website for further instructions on completing the purchase process.';
         $mail->send();
         echo 'Email has been sent successfully.';
       } catch (Exception $e) {
