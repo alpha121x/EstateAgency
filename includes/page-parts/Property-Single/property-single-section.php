@@ -33,24 +33,25 @@
               <?php
               // Fetch top 3 highest bids from plot_bidding table for a specific plot_id
               $topBids = DB::query("
-                SELECT pb.bid_id, pb.plot_id, pb.user_name, MAX(CAST(pb.bid AS SIGNED)) as max_bid, pl.plot_num
-                FROM plot_bidding pb
-                JOIN plot_listing pl ON pb.plot_id = pl.plot_id
-                WHERE pb.plot_id = %i
-                GROUP BY pb.plot_id, pb.user_name
-                ORDER BY max_bid DESC
-                LIMIT 3", $propertyId);
-
+              SELECT pb.bid_id, pb.plot_id, pb.user_name, pb.bid, pl.plot_num
+              FROM plot_bidding pb
+              JOIN plot_listing pl ON pb.plot_id = pl.plot_id
+              WHERE pb.plot_id = %i
+              GROUP BY pb.user_name
+              ORDER BY pb.bid DESC
+              LIMIT 3", $propertyId);
 
               foreach ($topBids as $bid) :
                 $plot_id = $bid['plot_id'];
-                $plot_num = DB::queryFirstField("SELECT plot_num FROM plot_listing WHERE plot_id = %i", $plot_id);
+                $plot_num = $bid['plot_num'];
               ?>
                 <li>
                   <strong><?php echo $bid['user_name']; ?>:</strong>
-                  Bid Amount: Rs. <?php echo number_format($bid['max_bid']); ?>
+                  Bid Amount: Rs. <?php echo $bid['bid']; ?>
                 </li>
               <?php endforeach; ?>
+
+
             </ul>
           </div>
         </div>
