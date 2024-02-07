@@ -40,16 +40,10 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
       <div id="notification-alert" class="alert alert-success alert-dismissible position-absolute top-0 start-50 translate-middle-x mt-1 ms-4" role="alert" style="display: none;">
         <strong>You have unread notifications.</strong>
       </div>
-
       <!-- Notification Nav -->
       <?php
-      // Separate query to fetch the count of new notifications
       $notificationCount = DB::queryFirstField("SELECT COUNT(*) FROM notifications WHERE is_read = 0");
-
-      // Assume you have a MeekroDB query to fetch notifications
       $notifications = DB::query("SELECT * FROM notifications WHERE is_read = 0 ORDER BY id DESC");
-
-      // Counter to limit the loop iterations
       $counter = 0;
       ?>
 
@@ -57,14 +51,16 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
           <i class="bi bi-bell"></i>
           <?php if ($notificationCount > 0) : ?>
-            <span class="badge bg-primary badge-number"><?php echo $notificationCount; ?></span>
+            <span class="badge bg-primary badge-number">
+              <?php echo ($notificationCount > 9) ? '9+' : $notificationCount; ?>
+            </span>
           <?php endif; ?>
         </a>
 
         <!-- Notification Dropdown -->
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
           <li class="dropdown-header">
-            You have <?php echo $notificationCount; ?> new notifications
+            You have <?php echo ($notificationCount > 9) ? '9+' : $notificationCount; ?> new notifications
           </li>
           <li>
             <hr class="dropdown-divider">
@@ -73,7 +69,6 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
           <?php
           foreach ($notifications as $notification) :
             if ($counter >= 3) {
-              // Limit to 3 to 4 notifications
               break;
             }
           ?>
@@ -92,31 +87,27 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
           ?>
 
           <?php
-          // Check if the sound notification has been played in the current session
           if (!isset($_SESSION['notification_sound_played']) && $notificationCount > 0) {
           ?>
             <script>
-              // Function to show the hidden div
               function showNotificationAlert() {
                 var notificationAlert = document.getElementById('notification-alert');
                 notificationAlert.style.display = 'block';
 
                 setTimeout(function() {
                   notificationAlert.style.display = 'none';
-                }, 3000); // 5000 milliseconds (5 seconds) for the alert to fade away
+                }, 3000);
               }
 
               var audio = new Audio('assets/sounds/notifications.mp3');
               audio.play();
-              showNotificationAlert(); // Call the function to show the hidden div
+              showNotificationAlert();
 
-              // Set the session variable to indicate that the sound has been played
               <?php $_SESSION['notification_sound_played'] = true; ?>
             </script>
           <?php
           }
           ?>
-
 
           <li class="dropdown-footer">
             <a href="notifications.php">Show all notifications</a>
@@ -124,6 +115,7 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
         </ul><!-- End Notification Dropdown Items -->
       </li>
       <!-- End Notification Nav -->
+
 
       <?php
       // Fetch messages from the contact_messages table
