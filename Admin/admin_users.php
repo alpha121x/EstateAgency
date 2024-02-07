@@ -22,12 +22,12 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Data Tables</h1>
+      <h1>Users</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active">Data</li>
+          <li class="breadcrumb-item">Users</li>
+          <li class="breadcrumb-item active">Users Details</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -38,18 +38,19 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Datatables</h5>
+              <h5 class="card-title">Users</h5>
               <p>Users record.</p>
 
               <!-- Table with stripped rows -->
-              <table class="table datatable">
+              <div class="table-responsive">
+              <table class="table table-bordered" style="background-color: white;">
                 <thead>
                   <tr>
                     <th scope="col">id.</th>
                     <th scope="col">Username</th>
                     <th scope="col">Email</th>
                     <th scope="col">User Type</th>
-                    <th scope="col">Changes</th>
+                    <th scope="col" class="text-center">Changes</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -75,10 +76,10 @@
                         <td><?php echo $user['username']; ?></td>
                         <td><?php echo $user['email']; ?></td>
                         <td><?php echo $user['user_type']; ?></td>
-                        <td>
-                          <a href='edit-user.php?id=<?php echo $id; ?>'><i class='fa fa-edit'></i>Edit</a>
-                          |
-                          <a href='delete.php?deleteid=<?php echo $id; ?>'><i class='fa fa-trash-o'></i>Delete</a>
+                        <td class="text-center">
+                          <a href='edit-user.php?id=<?php echo $id; ?>' class="btn btn-success btn-sm"><i class='fa fa-edit'></i>Edit</a>
+                          
+                          <a href='delete.php?deleteid=<?php echo $id; ?>' class="btn btn-danger btn-sm"><i class='fa fa-trash-o'></i>Delete</a>
 
 
                         </td>
@@ -93,6 +94,7 @@
 
                 </tbody>
               </table>
+              </div>
               <!-- End Table with stripped rows -->
 
             </div>
