@@ -62,7 +62,7 @@
                       ?>
                     </span>
                     &nbsp;
-                    <span type="button" class="price-a" data-bs-toggle="modal" data-bs-target="#exampleModal">Bid</span>
+                    <span type="button" class="price-a" data-bs-toggle="modal" data-bs-target="#exampleModal" data-property-id="<?php echo $property['plot_id']; ?>">Bid</span>
                   </div>
                   <a href="property-single.php?id=<?php echo $property['plot_id'];  ?>" class="link-a">Click here to view
                     <span class="bi bi-chevron-right"></span>
@@ -95,6 +95,8 @@
 
                   </ul>
                 </div>
+
+
               </div>
             </div>
           </div>
@@ -102,52 +104,25 @@
       <?php
       }
       ?>
-    </div>
-
-
-
-    <div class="row">
-      <div class="col-sm-12">
-        <nav class="pagination-a">
-          <ul class="pagination justify-content-end">
-            <!-- Previous Page Link -->
-            <li class="page-item <?php echo ($page <= 1) ? 'disabled' : ''; ?>">
-              <a class="page-link" href="?page=<?php echo ($page > 1) ? $page - 1 : 1; ?>" tabindex="-1">
-                <span class="bi bi-chevron-left"></span>
-              </a>
-            </li>
-
-            <!-- Page Numbers -->
-            <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
-              <li class="page-item <?php echo ($page == $i) ? 'active' : ''; ?>">
-                <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-              </li>
-            <?php endfor; ?>
-
-            <!-- Next Page Link -->
-            <li class="page-item <?php echo ($page >= $totalPages) ? 'disabled' : ''; ?>">
-              <a class="page-link" href="?page=<?php echo ($page < $totalPages) ? $page + 1 : $totalPages; ?>">
-                <span class="bi bi-chevron-right"></span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Modal -->
+     <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Enter Your Details.</h1>
+        <?php
+        // Assuming $propertyDetails['added_on'] contains the added_on date from your database
+        $addedOnDate = strtotime($property['added_on']);
+        $currentDate = time();
+        $daysLeft = 15 - floor(($currentDate - $addedOnDate) / (60 * 60 * 24));
+
+        // Display the time left
+        echo '<h1 class="modal-title fs-5" id="exampleModalLabel">&nbsp;Bidding Time Left: ' . $daysLeft . ' days</h1>';
+        ?>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form action="bid" method="post">
-          <label for="name" class="form-control fw-bold">Username<input type="hidden" name="plot_id" value="<?php echo $property['plot_id'];  ?>"></label>
+          <label for="name" class="form-control fw-bold">Username<input type="hidden" name="plot_id" value="" id="propertyIdInput"></label>
           <input type="text" class="form-control" placeholder="Enter your username" name="username" id="username">
           <br>
           <label for="email" class="form-control fw-bold">Email</label>
@@ -164,3 +139,46 @@
     </div>
   </div>
 </div>
+
+      <script>
+        // JavaScript to update the hidden input value when Bid button is clicked
+        document.querySelectorAll('.price-a').forEach(function(bidButton) {
+          bidButton.addEventListener('click', function() {
+            var propertyId = this.getAttribute('data-property-id');
+            document.getElementById('propertyIdInput').value = propertyId;
+          });
+        });
+      </script>
+
+
+
+      <div class="row">
+        <div class="col-sm-12">
+          <nav class="pagination-a">
+            <ul class="pagination justify-content-end">
+              <!-- Previous Page Link -->
+              <li class="page-item <?php echo ($page <= 1) ? 'disabled' : ''; ?>">
+                <a class="page-link" href="?page=<?php echo ($page > 1) ? $page - 1 : 1; ?>" tabindex="-1">
+                  <span class="bi bi-chevron-left"></span>
+                </a>
+              </li>
+
+              <!-- Page Numbers -->
+              <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
+                <li class="page-item <?php echo ($page == $i) ? 'active' : ''; ?>">
+                  <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+                </li>
+              <?php endfor; ?>
+
+              <!-- Next Page Link -->
+              <li class="page-item <?php echo ($page >= $totalPages) ? 'disabled' : ''; ?>">
+                <a class="page-link" href="?page=<?php echo ($page < $totalPages) ? $page + 1 : $totalPages; ?>">
+                  <span class="bi bi-chevron-right"></span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+</section>

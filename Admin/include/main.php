@@ -96,7 +96,7 @@ $currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counte
               include('db_config.php');
 
               // Query to get the total amount of bids for this day
-              $totalAmount = DB::queryFirstField("SELECT CONCAT('Rs.', FORMAT(SUM(bid), 2), ' Cr.') as bid_sum FROM plot_bidding WHERE DATE(bid_date) = CURDATE()");
+              $totalAmount = DB::queryFirstField("SELECT CONCAT( FORMAT(SUM(bid), 2), ' Cr.') as bid_sum FROM plot_bidding WHERE DATE(bid_date) = CURDATE()");
 
               // Display the total bids amount
               ?>

@@ -61,7 +61,7 @@ if ($properties) {
                           ?>
                         </span>
                         &nbsp;
-                        <span type="button" class="price-a" data-bs-toggle="modal" data-bs-target="#exampleModal">Bid</span>
+                        <span type="button" class="price-a" data-bs-toggle="modal" data-bs-target="#exampleModal" data-property-id="<?php echo $property['plot_id']; ?>">Bid</span>
                       </div>
                       <a href="property-single.php?id=<?php echo $property['plot_id'];  ?>" class="link-a">Click here to view
                         <span class="bi bi-chevron-right"></span>
@@ -128,7 +128,7 @@ if ($properties) {
       </div>
       <div class="modal-body">
         <form action="bid" method="post">
-          <label for="name" class="form-control fw-bold">Username<input type="hidden" name="plot_id" value="<?php echo $property['plot_id'];  ?>"></label>
+          <label for="name" class="form-control fw-bold">Username<input type="hidden" name="plot_id" value="" id="propertyIdInput"></label>
           <input type="text" class="form-control" placeholder="Enter your username" name="username" id="username">
           <br>
           <label for="email" class="form-control fw-bold">Email</label>
@@ -145,3 +145,13 @@ if ($properties) {
     </div>
   </div>
 </div>
+
+<script>
+        // JavaScript to update the hidden input value when Bid button is clicked
+        document.querySelectorAll('.price-a').forEach(function(bidButton) {
+          bidButton.addEventListener('click', function() {
+            var propertyId = this.getAttribute('data-property-id');
+            document.getElementById('propertyIdInput').value = propertyId;
+          });
+        });
+      </script>
