@@ -90,33 +90,46 @@ $currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counte
 
           <div class="col-xxl-4 col-xl-12">
             <div class="card info-card amounts-card">
-
-
               <?php
               include('db_config.php');
 
               // Query to get the total amount of bids for this day
-              $totalAmount = DB::queryFirstField("SELECT CONCAT( FORMAT(SUM(bid), 2), ' Cr.') as bid_sum FROM plot_bidding WHERE DATE(bid_date) = CURDATE()");
+              $totalAmountLakh = DB::queryFirstField("SELECT FORMAT(SUM(bid), 2) as bid_sum FROM plot_bidding WHERE DATE(bid_date) = CURDATE()");
+              $totalAmountCrore = convertToCrore($totalAmountLakh, 'Lakh');
 
               // Display the total bids amount
               ?>
               <div class="card-body">
                 <h5 class="card-title">Total Bids Amounts <span>| Today</span></h5>
-
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-cash"></i>
                   </div>
                   <div class="ps-3">
-                    <h6>Rs.<?php echo $totalAmount; ?></h6>
-                    <!-- You can calculate percentage decrease if needed -->
-                    <!-- <span class="text-danger small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">decrease</span> -->
+                    <h6>Rs. <?php echo $totalAmountCrore; ?> Lakh.</h6>
+                    <span class="text-muted small pt-1 ps-1">(Converted to Cr.: <?php echo $totalAmountLakh; ?> Cr.)</span>
                   </div>
                 </div>
               </div>
-
             </div>
           </div><!-- End Total Bids Amounts Card -->
+
+          <?php
+          function convertToCrore($amount, $unit)
+          {
+            // Conversion logic based on the unit
+            switch ($unit) {
+              case 'Lakh':
+                return $amount * 100;
+              case 'Crore':
+                return $amount;
+                // Add more cases for other units if needed
+              default:
+                return $amount;
+            }
+          }
+          ?>
+
 
 
         </div>
