@@ -15,61 +15,61 @@
   // Fetch property details from the plot_listing table
   $propertyDetails = DB::queryFirstRow("SELECT * FROM plot_listing WHERE plot_id = %i", $propertyId);
 
-  // Assuming $propertyDetails['added_on'] contains the added_on date from your database
-  $addedOnDate = strtotime($propertyDetails['added_on']);
-  $biddingEndDate = strtotime('15 days', $addedOnDate);
+  // // Assuming $propertyDetails['added_on'] contains the added_on date from your database
+  // $addedOnDate = strtotime($propertyDetails['added_on']);
+  // $biddingEndDate = strtotime('15 days', $addedOnDate);
 
-  // Get the current date
-  $currentDate = time();
+  // // Get the current date
+  // $currentDate = time();
 
   // Check if bidding has ended
-  if ($currentDate >= $biddingEndDate) {
-    // Fetch the top bidder for the specific property
-    $topBidder = DB::queryFirstRow("
-    SELECT pb.bid_id, pb.user_email, pb.user_name, pb.bid, pl.plot_num
-    FROM plot_bidding pb
-    JOIN plot_listing pl ON pb.plot_id = pl.plot_id
-    WHERE pb.plot_id = %i
-    GROUP BY pb.user_name
-    ORDER BY pb.bid DESC
-    LIMIT 3", $propertyId);
+  // if ($currentDate >= $biddingEndDate) {
+  //   // Fetch the top bidder for the specific property
+  //   $topBidder = DB::queryFirstRow("
+  //   SELECT pb.bid_id, pb.user_email, pb.user_name, pb.bid, pl.plot_num
+  //   FROM plot_bidding pb
+  //   JOIN plot_listing pl ON pb.plot_id = pl.plot_id
+  //   WHERE pb.plot_id = %i
+  //   GROUP BY pb.user_name
+  //   ORDER BY pb.bid DESC
+  //   LIMIT 3", $propertyId);
 
-    if ($topBidder) {
-      // Send congratulatory email to the top bidder
-      $topBidderName = $topBidder['user_name'];
-      $topBidAmount = $topBidder['bid'];
-      $topBidderEmail = $topBidder['user_email'];
+  //   if ($topBidder) {
+  //     // Send congratulatory email to the top bidder
+  //     $topBidderName = $topBidder['user_name'];
+  //     $topBidAmount = $topBidder['bid'];
+  //     $topBidderEmail = $topBidder['user_email'];
 
 
-      try {
-        $mail = new PHPMailer(true);
+  //     try {
+  //       $mail = new PHPMailer(true);
 
-        // Server settings
-        $mail->SMTPDebug = SMTP::DEBUG_OFF;
-        $mail->isSMTP();
-        $mail->Host       = 'smtp.gmail.com'; // Set your SMTP server
-        $mail->SMTPAuth   = true;
-        $mail->Username   = 'abbasshakor0123@gmail.com'; // Your SMTP username
-        $mail->Password   = 'lwwlyrzqyawighog'; // Your SMTP password
-        $mail->SMTPSecure = 'tls';
-        $mail->Port       = 587;
+  //       // Server settings
+  //       $mail->SMTPDebug = SMTP::DEBUG_OFF;
+  //       $mail->isSMTP();
+  //       $mail->Host       = 'smtp.gmail.com'; // Set your SMTP server
+  //       $mail->SMTPAuth   = true;
+  //       $mail->Username   = 'abbasshakor0123@gmail.com'; // Your SMTP username
+  //       $mail->Password   = 'lwwlyrzqyawighog'; // Your SMTP password
+  //       $mail->SMTPSecure = 'tls';
+  //       $mail->Port       = 587;
 
-        // Recipients
-        $mail->setFrom('abbashakor0123@gmail.com', 'EstateAgency');
-        $mail->addAddress($topBidderEmail, $topBidderName); // Add the recipient
+  //       // Recipients
+  //       $mail->setFrom('abbashakor0123@gmail.com', 'EstateAgency');
+  //       $mail->addAddress($topBidderEmail, $topBidderName); // Add the recipient
 
-        // Content
-        $mail->isHTML(true);
-        $mail->Subject = 'Congratulations! You Won the Bidding';
-        $mail->Body    = 'Congratulations, ' . $topBidderName . '! Your bid of Rs. ' . $topBidAmount . ' ranked #1. Visit our office or official website for further instructions on completing the purchase process.';
-        $mail->AltBody = 'Congratulations, ' . $topBidderName . '! Your bid of Rs. ' . $topBidAmount . ' ranked #1. Visit our office or official website for further instructions on completing the purchase process.';
-        $mail->send();
-        // echo 'Email has been sent successfully.';
-      } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-      }
-    }
-  }
+  //       // Content
+  //       $mail->isHTML(true);
+  //       $mail->Subject = 'Congratulations! You Won the Bidding';
+  //       $mail->Body    = 'Congratulations, ' . $topBidderName . '! Your bid of Rs. ' . $topBidAmount . ' ranked #1. Visit our office or official website for further instructions on completing the purchase process.';
+  //       $mail->AltBody = 'Congratulations, ' . $topBidderName . '! Your bid of Rs. ' . $topBidAmount . ' ranked #1. Visit our office or official website for further instructions on completing the purchase process.';
+  //       $mail->send();
+  //       // echo 'Email has been sent successfully.';
+  //     } catch (Exception $e) {
+  //       echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+  //     }
+  //   }
+  // }
 
 
 
