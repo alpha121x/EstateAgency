@@ -96,7 +96,7 @@ $currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counte
               include('db_config.php');
 
               // Query to get the total amount of bids for this day
-              $totalAmount = DB::queryFirstField("SELECT SUM(bid) FROM plot_bidding WHERE DATE(bid_date) = %s", date('Y-m-d'));
+              $totalAmount = DB::queryFirstField("SELECT CONCAT('Rs.', FORMAT(SUM(bid), 2), ' Cr.') as bid_sum FROM plot_bidding WHERE DATE(bid_date) = CURDATE()");
 
               // Display the total bids amount
               ?>
@@ -108,7 +108,7 @@ $currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counte
                     <i class="bi bi-cash"></i>
                   </div>
                   <div class="ps-3">
-                    <h6>Rs.<?php echo number_format($totalAmount, 2); ?></h6>
+                    <h6>Rs.<?php echo $totalAmount; ?></h6>
                     <!-- You can calculate percentage decrease if needed -->
                     <!-- <span class="text-danger small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">decrease</span> -->
                   </div>
