@@ -9,16 +9,16 @@ if (isset($_POST['add-user'])) {
     $email = $_POST['email'];
     $user_type = $_POST['user_type'];
 
-   $photo = $_FILES['user_image'];
+    $photo = $_FILES['user_image'];
 
     $photo_name = $_FILES['user_image']['name'];
     $photo_tmp_name = $_FILES['user_image']['tmp_name'];
     $photo_size = $_FILES['user_image']['size'];
     $photo_type = $_FILES['user_image']['type'];
-    
-    $photo_dir = "uploads/$u_name" .$photo_name;
-    
-    move_uploaded_file($photo_tmp_name , $photo_dir);
+
+    $photo_dir = "uploads/$u_name" . $photo_name;
+
+    move_uploaded_file($photo_tmp_name, $photo_dir);
 
     // Insert query using MeekroDB
     $inserted = DB::insert('admin_users', [
@@ -92,7 +92,7 @@ if (isset($_POST['add-plot'])) {
 
 
 
-<?php 
+<?php
 require('db_config.php');
 if (isset($_POST['add-post'])) {
     $post_category = $_POST['post_category'];
@@ -127,49 +127,38 @@ if (isset($_POST['add-post'])) {
 }
 ?>
 
-<?php 
+<?php
 require('db_config.php');
-if(isset($_POST['add-agent'])) {
-$agent_name = $_POST['agent_name'];
-$agent_about = $_POST['agent_about'];
-$agent_phone = $_POST['agent_phone'];
-$agent_email = $_POST['agent_email'];
+if (isset($_POST['add-agent'])) {
+    $agent_name = $_POST['agent_name'];
+    $agent_about = $_POST['agent_about'];
+    $agent_phone = $_POST['agent_phone'];
+    $agent_email = $_POST['agent_email'];
 
-// File Upload
-$uploadsFolder = 'uploads/';
-$agent_image = $uploadsFolder . basename($_FILES['agent_image']['name']);
-$uploadSuccess = move_uploaded_file($_FILES['agent_image']['tmp_name'], $agent_image);
+    // File Upload
+    $uploadsFolder = 'uploads/';
+    $agent_image = $uploadsFolder . basename($_FILES['agent_image']['name']);
+    $uploadSuccess = move_uploaded_file($_FILES['agent_image']['tmp_name'], $agent_image);
 
-if (!$uploadSuccess) {
-    echo "Error uploading file.";
-    exit;
-}
+    if (!$uploadSuccess) {
+        echo "Error uploading file.";
+        exit;
+    }
 
-// Insert query using MeekroDB
-$inserted = DB::insert('agents', [
-    'agent_name' => $agent_name,
-    'agent_about' => $agent_about,
-    'agent_phone' => $agent_phone,
-    'agent_email' => $agent_email,
-    'agent_image' => $agent_image // Save the file path in the database
-]);
+    // Insert query using MeekroDB
+    $inserted = DB::insert('agents', [
+        'agent_name' => $agent_name,
+        'agent_about' => $agent_about,
+        'agent_phone' => $agent_phone,
+        'agent_email' => $agent_email,
+        'agent_image' => $agent_image // Save the file path in the database
+    ]);
 
-if ($inserted) {
-    header("Location: add-agents");
-} else {
-    echo "Error inserting data into the database.";
-}
-
-
-
-
-
-
-
-
-
-
-
+    if ($inserted) {
+        header("Location: add-agents");
+    } else {
+        echo "Error inserting data into the database.";
+    }
 }
 
 

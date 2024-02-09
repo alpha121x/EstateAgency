@@ -98,8 +98,8 @@
                     <i class="bi bi-cash"></i>
                   </div>
                   <div class="ps-3">
-                    <h6>Rs. <?php echo $totalAmountCrore; ?> Lakh.</h6>
-                    <!-- <span class="text-muted small pt-1 ps-1">(Converted to Cr. : <?php echo $totalAmountLakh; ?> Cr.)</span> -->
+                    <h6>Rs. <?php echo $totalAmountLakh; ?> Lakh.</h6>
+                    <span class="text-muted small pt-1 ps-1">(Converted to Cr. : <?php echo $totalAmountCrore; ?> Cr.)</span>
                   </div>
                 </div>
               </div>
@@ -112,7 +112,7 @@
             // Conversion logic based on the unit
             switch ($unit) {
               case 'Lakh':
-                return $amount * 100;
+                return $amount / 100;
               case 'Crore':
                 return $amount;
                 // Add more cases for other units if needed
