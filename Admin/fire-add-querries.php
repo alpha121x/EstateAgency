@@ -94,6 +94,7 @@ if (isset($_POST['add-plot'])) {
 
 <?php
 require('db_config.php');
+
 if (isset($_POST['add-post'])) {
     $post_category = $_POST['post_category'];
     $post_title = $_POST['post_title'];
@@ -103,6 +104,22 @@ if (isset($_POST['add-post'])) {
     // File Upload
     $uploadsFolder = 'uploads/';
     $post_image = $uploadsFolder . basename($_FILES['post_image']['name']);
+
+    // Check if the uploaded file is an image
+    $imageInfo = getimagesize($_FILES['post_image']['tmp_name']);
+    if ($imageInfo === false) {
+        echo "Error: Invalid file format. Please upload a valid image.";
+        exit;
+    }
+
+    // Check if the image size is 500x500 pixels
+    $maxWidth = 500;
+    $maxHeight = 500;
+    if ($imageInfo[0] != $maxWidth || $imageInfo[1] != $maxHeight) {
+        echo "<script>alert('Error: Image dimensions should be 500x500 pixels.')</script>";
+        exit;
+    }
+
     $uploadSuccess = move_uploaded_file($_FILES['post_image']['tmp_name'], $post_image);
 
     if (!$uploadSuccess) {
@@ -126,6 +143,7 @@ if (isset($_POST['add-post'])) {
     }
 }
 ?>
+
 
 <?php
 require('db_config.php');
