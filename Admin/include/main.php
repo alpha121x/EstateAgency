@@ -107,7 +107,7 @@ $currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counte
                   </div>
                   <div class="ps-3">
                     <h6>Rs. <?php echo $totalAmountCrore; ?> Lakh.</h6>
-                    <span class="text-muted small pt-1 ps-1">(Converted to Cr.: <?php echo $totalAmountLakh; ?> Cr.)</span>
+                    <!-- <span class="text-muted small pt-1 ps-1">(Converted to Cr. : <?php echo $totalAmountLakh; ?> Cr.)</span> -->
                   </div>
                 </div>
               </div>
