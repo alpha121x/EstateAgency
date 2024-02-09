@@ -1,11 +1,3 @@
-<?php
-// File path for the viewer counter in the root directory
-$counterFilePath = '../counter.txt';
-
-// Read the current count from the file
-$currentCount = file_exists($counterFilePath) ? intval(file_get_contents($counterFilePath)) : 0;
-?>
-
 <main id="main" class="main">
 
   <div class="pagetitle">
