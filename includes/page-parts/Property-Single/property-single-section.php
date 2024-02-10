@@ -17,7 +17,7 @@
 
   // Assuming $propertyDetails['added_on'] contains the added_on date from your database
   $addedOnDate = strtotime($propertyDetails['added_on']);
-  $biddingEndDate = strtotime('15', $addedOnDate);
+  $biddingEndDate = strtotime('15 days', $addedOnDate);
 
   // Get the current date
   $currentDate = time();
@@ -90,7 +90,7 @@
             // Assuming $propertyDetails['added_on'] contains the added_on date from your database
             $addedOnDate = strtotime($propertyDetails['added_on']);
             $currentDate = time();
-            $daysLeft =15 - floor(($currentDate - $addedOnDate) / (60 * 60 * 24));
+            $daysLeft = 15 - floor(($currentDate - $addedOnDate) / (60 * 60 * 24));
 
             // Check if the plot_status is "Sale"
             if ($propertyDetails['plot_status'] == '1') {
@@ -189,19 +189,10 @@
                       $statusValue = $property['plot_status'];
                       $statusLabel = isset($statusLabels[$statusValue]) ? $statusLabels[$statusValue] : 'Unknown Status';
 
-                      // Check if the current date is equal to the bidding end date
-                      $currentDate = time();
-                    
-
-                      if ($currentDate == $biddingEndDate) {
-                        $statusLabel = 'Sold';
-                      }
-
                       echo $statusLabel;
                       ?>
                     </span>
                   </li>
-
 
                   <?php if ($propertyDetails['property_type'] === 'House') : ?>
                     <li class="d-flex justify-content-between">
