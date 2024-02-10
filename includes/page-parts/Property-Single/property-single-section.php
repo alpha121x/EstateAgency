@@ -15,12 +15,12 @@
   // Fetch property details from the plot_listing table
   $propertyDetails = DB::queryFirstRow("SELECT * FROM plot_listing WHERE plot_id = %i", $propertyId);
 
-  // Assuming $propertyDetails['added_on'] contains the added_on date from your database
-  $addedOnDate = strtotime($propertyDetails['added_on']);
-  $biddingEndDate = strtotime('15 days', $addedOnDate);
+  // // Assuming $propertyDetails['added_on'] contains the added_on date from your database
+  // $addedOnDate = strtotime($propertyDetails['added_on']);
+  // $biddingEndDate = strtotime('15 days', $addedOnDate);
 
-  // Get the current date
-  $currentDate = time();
+  // // Get the current date
+  // $currentDate = time();
 
   // Check if bidding has ended
   // if ($currentDate >= $biddingEndDate) {
