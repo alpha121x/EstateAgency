@@ -162,7 +162,7 @@
                 <ul class="list">
                   <li class="d-flex justify-content-between">
                     <strong>Property ID:</strong>
-                    <span><?php echo $propertyDetails['plot_id']; ?></span>
+                    <span><?php echo $propertyDetails['plot_num']; ?></span>
                   </li>
                   <li class="d-flex justify-content-between">
                     <strong>Location:</strong>
