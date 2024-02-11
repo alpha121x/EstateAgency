@@ -10,27 +10,37 @@
        </a>
      </li><!-- End Dashboard Nav --> 
      <li class="nav-item">
+    <?php
+    // Assuming $isAdmin is a variable or condition indicating if the user is an admin
+    $isAdmin = true; // Replace this with your actual check for admin status
+
+    if ($_SESSION['user_type'] == 'admin') {
+    ?>
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-        <i class="bi bi-people-fill"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
+            <i class="bi bi-people-fill"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="add-user-profile">
-            <i class="bi bi-circle-fill text-primary"></i></i><span>Add Users</span>
-            </a>
-          </li>
-          <li>
-            <a href="users_profile">
-              <i class="bi bi-circle-fill text-primary"></i><span>User Profile</span>
-            </a>
-          </li>
-          <li>
-            <a href="admin_users">
-              <i class="bi bi-circle-fill text-primary"></i><span>Users</span>
-            </a>
-          </li>
+            <li>
+                <a href="add-user-profile">
+                    <i class="bi bi-circle-fill text-primary"></i><span>Add Users</span>
+                </a>
+            </li>
+            <li>
+                <a href="users_profile">
+                    <i class="bi bi-circle-fill text-primary"></i><span>User Profile</span>
+                </a>
+            </li>
+            <li>
+                <a href="admin_users">
+                    <i class="bi bi-circle-fill text-primary"></i><span>Users</span>
+                </a>
+            </li>
         </ul>
-      </li>
+    <?php
+    }
+    ?>
+</li>
+
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#posts-nav" data-bs-toggle="collapse" href="#">

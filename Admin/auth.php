@@ -2,6 +2,6 @@
 session_start();
 if (! $_SESSION['user']) {
     // echo "session is started";
-    header('Location:login.php');
+    header('Location:login');
 }
 ?>

@@ -22,10 +22,10 @@ if (isset($_POST['login'])) {
         $_SESSION['user_image'] = $row['user_image'];
         $_SESSION['user_type'] = $row['user_type']; // Assuming 'user_type' is the column name
 
-        header("Location: index.php");
+        header("Location: index");
         exit(); // Stop further execution
     } else {
-        header("Location: login.php");
+        header("Location: login");
         exit(); // Stop further execution
     }
 } else {
