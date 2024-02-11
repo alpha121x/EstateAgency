@@ -40,14 +40,14 @@
               <p>View All</p>
 
               <!-- Table with stripped rows -->
-              <table class="table datatable">
+              <table  class="table table-bordered" style="background-color: white;">
                 <thead>
                   <tr>
                     <th scope="col">id.</th>
                     <th scope="col">Plot number</th>
                     <th scope="col">Plot Title</th>
                     <th scope="col">Plot Location</th>
-                    <th scope="col">Changes</th>
+                    <th scope="col" class="text-center">Changes</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -74,10 +74,10 @@
                         <td><?php echo $plot['plot_num']; ?></td>
                         <td><?php echo $plot['plot_title']; ?></td>
                         <td><?php echo $plot['plot_location']; ?></td>
-                        <td>
-                          <a href='edit_plot_listing.php?id=<?php echo $id; ?>'><i class="bi bi-pencil-square"></i></a>
+                        <td class="text-center">
+                          <a href='edit_plot_listing.php?id=<?php echo $id; ?>' class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></a>
                           |
-                          <a href='delete-plot_lisitng?deleteid=<?php echo $id; ?>'><i class="bi bi-trash"></i></a>
+                          <a href='delete-plot_lisitng?deleteid=<?php echo $id; ?>'class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
                         </td>
 
                       </tr>

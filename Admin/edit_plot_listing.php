@@ -80,7 +80,7 @@ if (isset($_GET['id'])) {
                   <label for="plotStatus" class="col-sm-2 col-form-label">Plot Status</label>
                   <div class="col-sm-6">
                     <select class="form-select" required name="plot_status" id="plotStatus">
-                      <option value="1" <?php echo ($property_type == 'For Sale') ? 'selected' : ''; ?>>For Sale</option>
+                      <option value="1" <?php echo ($property_type == 'For Sale') ?  'selected' : ''; ?>>For Sale</option>
                       <option value="2" <?php echo ($property_type == 'For Rent') ? 'selected' : ''; ?>>For Rent</option>
                       <option value="3" <?php echo ($property_type == 'Sold') ? 'selected' : ''; ?>>Sold</option>
                       <option value="4" <?php echo ($property_type == 'Under Contract') ? 'selected' : ''; ?>>Under Contract</option>
@@ -88,6 +88,7 @@ if (isset($_GET['id'])) {
                       <option value="6" <?php echo ($property_type == 'Development in Progress') ? 'selected' : ''; ?>>Development in Progress</option>
                       <option value="7" <?php echo ($property_type == 'Not Available') ? 'selected' : ''; ?>>Not Available</option>
                     </select>
+
 
                   </div>
                 </div>
