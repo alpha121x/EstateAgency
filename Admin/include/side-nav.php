@@ -11,9 +11,6 @@
      </li><!-- End Dashboard Nav --> 
      <li class="nav-item">
     <?php
-    // Assuming $isAdmin is a variable or condition indicating if the user is an admin
-    $isAdmin = true; // Replace this with your actual check for admin status
-
     if ($_SESSION['user_type'] == 'admin') {
     ?>
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
@@ -76,8 +73,10 @@
           </li>
         </ul>
       </li>
-
       <li class="nav-item">
+    <?php
+    if ($_SESSION['user_type'] == 'admin') {
+    ?>
         <a class="nav-link collapsed" data-bs-target="#agents-nav" data-bs-toggle="collapse" href="#">
         <i class="bi bi-person-vcard-fill"></i><span>Agents</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
@@ -93,5 +92,8 @@
             </a>
           </li>
         </ul>
-      </li>
+    <?php
+    }
+    ?>
+</li>
    </aside><!-- End Sidebar-->
