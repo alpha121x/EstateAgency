@@ -26,7 +26,7 @@
   // if ($currentDate >= $biddingEndDate) {
   //   // Fetch the top bidder for the specific property
   //   $topBidder = DB::queryFirstRow("
-  //   SELECT pb.bid_id, pb.user_email, pb.user_name, pb.bid, pl.plot_num
+  //   SELECT pb.bid_id, pb.user_email, pb.user_name, pb.bid, pl.plot_num ...
   //   FROM plot_bidding pb
   //   JOIN plot_listing pl ON pb.plot_id = pl.plot_id
   //   WHERE pb.plot_id = %i
