@@ -43,57 +43,63 @@
 
               <!-- Table with stripped rows -->
               <div class="table-responsive">
-              <table class="table table-bordered" style="background-color: white;">
-                <thead>
-                  <tr>
-                    <th scope="col">id.</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">User Type</th>
-                    <th scope="col" class="text-center">Changes</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  include("db_config.php");
-                  require_once("include/classes/meekrodb.2.3.class.php");
+                <table class="table table-bordered" style="background-color: white;">
+                  <thead>
+                    <tr>
+                      <th scope="col">id.</th>
+                      <th scope="col">Username</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">User Type</th>
+                      <th scope="col" class="text-center">Changes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    include("db_config.php");
+                    require_once("include/classes/meekrodb.2.3.class.php");
 
-                  // Select all users from the admin_users table
-                  $users = DB::query("SELECT * FROM admin_users");
+                    // Select all users from the admin_users table
+                    $users = DB::query("SELECT * FROM admin_users");
 
-                  if ($users) {
-                    foreach ($users as $user) {
-                      // Assign variables from the fetched row
-                      $id = $user['id'];
-                      $username = $user['username'];
-                      $email = $user['email'];
-                      $user_type = $user['user_type'];
-                      $user_image = $user['user_image'];
-                  ?>
-                      <!-- Display data in the rows -->
-                      <tr>
-                        <td><?php echo $user['id']; ?></td>
-                        <td><?php echo $user['username']; ?></td>
-                        <td><?php echo $user['email']; ?></td>
-                        <td><?php echo $user['user_type']; ?></td>
-                        <td class="text-center">
-                          <a href='edit-user.php?id=<?php echo $id; ?>' class="btn btn-success btn-sm"><i class='fa fa-edit'></i>Edit</a>
-                          
-                          <a href='delete.php?deleteid=<?php echo $id; ?>' class="btn btn-danger btn-sm"><i class='fa fa-trash-o'></i>Delete</a>
+                    if ($users) {
+                      foreach ($users as $user) {
+                        // Assign variables from the fetched row
+                        $id = $user['id'];
+                        $username = $user['username'];
+                        $email = $user['email'];
+                        $user_type = $user['user_type'];
+                        $user_image = $user['user_image'];
+                    ?>
+                        <!-- Display data in the rows -->
+                        <tr>
+                          <td><?php echo $user['id']; ?></td>
+                          <td><?php echo $user['username']; ?></td>
+                          <td><?php echo $user['email']; ?></td>
+                          <td><?php echo $user['user_type']; ?></td>
+                          <td class="text-center">
+                            <a href='edit-user.php?id=<?php echo $id; ?>' class="btn btn-success btn-sm"><i class='fa fa-edit'></i>Edit</a>
+
+                            <?php
+                            if ($_SESSION['user_type'] == 'admin') {
+                            ?>
+                              <a href='delete.php?deleteid=<?php echo $id; ?>' class="btn btn-danger btn-sm"><i class='fa fa-trash-o'></i>Delete</a>
+                            <?php
+                            }
+                            ?>
 
 
-                        </td>
-                      </tr>
-                  <?php
+                          </td>
+                        </tr>
+                    <?php
+                      }
+                    } else {
+                      echo "No admin users found in the database.";
                     }
-                  } else {
-                    echo "No admin users found in the database.";
-                  }
-                  ?>
+                    ?>
 
 
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
               </div>
               <!-- End Table with stripped rows -->
 
