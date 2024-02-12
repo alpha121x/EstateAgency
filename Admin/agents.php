@@ -64,9 +64,16 @@
                                                     <td><?php echo $agent['agent_name']; ?></td>
                                                     <td><?php echo $agent['agent_email']; ?></td>
                                                     <td><?php echo $agent['agent_phone']; ?></td>
-                                                    <td  class="text-center">
+                                                    <td class="text-center">
                                                         <a href="edit-agents?agent_id=<?php echo $agent['agent_id'] ?>" class="btn btn-success btn-sm">Edit</a>
-                                                        <a href="#" class="btn btn-danger btn-sm">Delete</a>
+
+                                                        <?php
+                                                        if ($_SESSION['user_type'] == 'admin') {
+                                                        ?>
+                                                            <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                                                        <?php
+                                                        }
+                                                        ?>
                                                     </td>
                                                 </tr>
                                         <?php
