@@ -58,7 +58,10 @@ if (isset($_POST['add-plot'])) {
     // File Upload
     $uploadsFolder = 'uploads/';
     $plot_image = $uploadsFolder . basename($_FILES['plot_image']['name']);
+    $plot_video = $uploadsFolder . basename($_FILES['plot_video']['name']);
     $uploadSuccess = move_uploaded_file($_FILES['plot_image']['tmp_name'], $plot_image);
+    $uploadSuccess = move_uploaded_file($_FILES['plot_video']['tmp_name'], $plot_video);
+
 
     if (!$uploadSuccess) {
         echo "Error uploading file.";
@@ -78,7 +81,8 @@ if (isset($_POST['add-plot'])) {
         'plot_status' => $plot_status,
         'beds' => $beds,
         'baths' => $baths,
-        'plot_image' => $plot_image // Save the file path in the database
+        'plot_image' => $plot_image, // Save the file path in the database
+        'plot_video' => $plot_video
     ]);
 
     if ($inserted) {
