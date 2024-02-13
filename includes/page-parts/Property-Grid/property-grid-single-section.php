@@ -128,7 +128,7 @@
           <label for="email" class="form-control fw-bold">Email</label>
           <input type="email" class="form-control" placeholder="Enter your email" name="email" id="email">
           <br>
-          <label for="bid" class="form-control fw-bold">Bid Amount</label>
+          <label for="bid" class="form-control fw-bold"><i class="bi bi-cash"></i> Bid Amount</label>
           <input type="text" class="form-control" placeholder="Rs." name="bid" id="bid">
       </div>
       <div class="modal-footer">
