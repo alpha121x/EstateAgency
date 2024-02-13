@@ -113,7 +113,7 @@
         // Assuming $propertyDetails['added_on'] contains the added_on date from your database
         $addedOnDate = strtotime($property['added_on']);
         $currentDate = time();
-        $daysLeft = 15 - floor(($currentDate - $addedOnDate) / (60 * 60 * 24));
+        $daysLeft = $property['bidding_days'] - floor(($currentDate - $addedOnDate) / (60 * 60 * 24));
 
         // Display the time left
         echo '<h1 class="modal-title fs-5" id="exampleModalLabel">&nbsp;Bidding Time Left: ' . $daysLeft . ' days</h1>';
