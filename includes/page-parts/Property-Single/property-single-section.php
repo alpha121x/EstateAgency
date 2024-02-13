@@ -17,7 +17,7 @@
 
   // Assuming $propertyDetails['added_on'] contains the added_on date from your database
   $addedOnDate = strtotime($propertyDetails['added_on']);
-  $biddingEndDate = strtotime('15', $addedOnDate);
+  $biddingEndDate = strtotime($propertyDetails['bidding_days'], $addedOnDate);
 
   // Get the current date
   $currentDate = time();
