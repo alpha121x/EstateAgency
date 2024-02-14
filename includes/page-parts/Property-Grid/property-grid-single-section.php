@@ -104,41 +104,53 @@
       <?php
       }
       ?>
-     <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <?php
-        // Assuming $propertyDetails['added_on'] contains the added_on date from your database
-        $addedOnDate = strtotime($property['added_on']);
-        $currentDate = time();
-        $daysLeft = $property['bidding_days'] - floor(($currentDate - $addedOnDate) / (60 * 60 * 24));
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <?php
+              // Assuming $propertyDetails['added_on'] contains the added_on date from your database
+              $addedOnDate = strtotime($property['added_on']);
+              $currentDate = time();
 
-        // Display the time left
-        echo '<h1 class="modal-title fs-5" id="exampleModalLabel">&nbsp;Bidding Time Left: ' . $daysLeft . ' days</h1>';
-        ?>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              // Calculate the remaining bidding days
+              $daysLeft = $property['bidding_days'] - floor(($currentDate - $addedOnDate) / (60 * 60 * 24));
+
+              // If there are still bidding days left, update the database
+              if ($daysLeft > 0) {
+                $updateQuery = "UPDATE plot_listing SET bidding_days = $daysLeft WHERE plot_id = " . $property['plot_id'];
+                // Execute the update query using your database connection
+
+                // Display the time left
+                echo '<h1 class="modal-title fs-5" id="exampleModalLabel">&nbsp;Bidding Time Left: ' . $daysLeft . ' days</h1>';
+              } else {
+                // If no bidding days left, display a message or take appropriate action
+                echo '<h1 class="modal-title fs-5" id="exampleModalLabel">&nbsp;Bidding has ended</h1>';
+              }
+              ?>
+
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="bid" method="post">
+                <label for="name" class="form-control fw-bold">Username<input type="hidden" name="plot_id" value="" id="propertyIdInput"></label>
+                <input type="text" class="form-control" placeholder="Enter your username" name="username" id="username">
+                <br>
+                <label for="email" class="form-control fw-bold">Email</label>
+                <input type="email" class="form-control" placeholder="Enter your email" name="email" id="email">
+                <br>
+                <label for="bid" class="form-control fw-bold"><i class="bi bi-cash"></i> Bid Amount</label>
+                <input type="text" class="form-control" placeholder="Rs." name="bid" id="bid">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+              <button type="submit" name="add-bid" class="btn btn-success">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="modal-body">
-        <form action="bid" method="post">
-          <label for="name" class="form-control fw-bold">Username<input type="hidden" name="plot_id" value="" id="propertyIdInput"></label>
-          <input type="text" class="form-control" placeholder="Enter your username" name="username" id="username">
-          <br>
-          <label for="email" class="form-control fw-bold">Email</label>
-          <input type="email" class="form-control" placeholder="Enter your email" name="email" id="email">
-          <br>
-          <label for="bid" class="form-control fw-bold"><i class="bi bi-cash"></i> Bid Amount</label>
-          <input type="text" class="form-control" placeholder="Rs." name="bid" id="bid">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-        <button type="submit" name="add-bid" class="btn btn-success">Submit</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 
       <script>
         // JavaScript to update the hidden input value when Bid button is clicked
