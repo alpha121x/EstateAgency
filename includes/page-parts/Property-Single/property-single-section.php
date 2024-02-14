@@ -105,7 +105,7 @@
 
             // If there are still bidding days left, display the time left
             if ($daysLeft > 0) {
-              echo '<h4>Top 3 Bids (Bidding Time Left: ' . $daysLeft . ' days)</h4>';
+              echo '<h4>Bidding Time Left: ' . $daysLeft . ' days <br> Top 3 Bids</h4>';
               ?>
               <ul>
               <?php
