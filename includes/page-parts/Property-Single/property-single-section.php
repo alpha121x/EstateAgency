@@ -94,38 +94,52 @@
         <div class="row">
           <div class="col-md-12">
             <?php
+            require('Admin/db_config.php');
+
             // Assuming $propertyDetails['added_on'] contains the added_on date from your database
             $addedOnDate = strtotime($propertyDetails['added_on']);
             $currentDate = time();
-            $daysLeft = 15 - floor(($currentDate - $addedOnDate) / (60 * 60 * 24));
 
-            // Check if the plot_status is "Sale"
-            if ($propertyDetails['plot_status'] == '1') {
-              echo '<h4>Top 3 Bids (Bidding Time Left: ' . $daysLeft . ' days)</h4>';
+            // Calculate the remaining bidding days
+            $daysLeft = $property['bidding_days'] - floor(($currentDate - $addedOnDate) / (60 * 60 * 24));
+
+            // If there are still bidding days left, update the database
+            if ($daysLeft > 0) {
+              // Update the database with the new remaining days
+              $propertyId = $propertyDetails['plot_id'];
+              $updateQuery = "UPDATE plot_listing SET bidding_days = $daysLeft WHERE plot_id = $propertyId";
+              // Execute the update query using your database connection
+              if ($updateQuery) {
+                // Display the time left
+                echo '<h1 class="modal-title fs-5" id="exampleModalLabel">&nbsp;Bidding Time Left: ' . $daysLeft . ' days</h1>';
             ?>
-              <ul>
-                <?php
-                // Fetch top 3 highest bids from plot_bidding table for a specific plot_id
-                $topBids = DB::query("
-            SELECT pb.bid_id, pb.plot_id, pb.user_name, pb.bid, pl.plot_num
-            FROM plot_bidding pb
-            JOIN plot_listing pl ON pb.plot_id = pl.plot_id
-            WHERE pb.plot_id = %i
-            GROUP BY pb.user_name
-            ORDER BY pb.bid DESC
-            LIMIT 3", $propertyId);
+                <ul>
+                  <?php
+                  // Fetch top 3 highest bids from plot_bidding table for a specific plot_id
+                  $topBids = DB::query("
+                SELECT pb.bid_id, pb.plot_id, pb.user_name, pb.bid, pl.plot_num
+                FROM plot_bidding pb
+                JOIN plot_listing pl ON pb.plot_id = pl.plot_id
+                WHERE pb.plot_id = %i
+                GROUP BY pb.user_name
+                ORDER BY pb.bid DESC
+                LIMIT 3", $propertyId);
 
-                foreach ($topBids as $bid) :
-                  $plot_id = $bid['plot_id'];
-                  $plot_num = $bid['plot_num'];
-                ?>
-                  <li>
-                    <strong><?php echo $bid['user_name']; ?>:</strong>
-                    Bid Amount: Rs. <?php echo $bid['bid']; ?>
-                  </li>
-                <?php endforeach; ?>
-              </ul>
+                  foreach ($topBids as $bid) :
+                    $plot_id = $bid['plot_id'];
+                    $plot_num = $bid['plot_num'];
+                  ?>
+                    <li>
+                      <strong><?php echo $bid['user_name']; ?>:</strong>
+                      Bid Amount: Rs. <?php echo $bid['bid']; ?>
+                    </li>
+                  <?php endforeach; ?>
+                </ul>
             <?php
+              }
+            } else {
+              // If no bidding days left, display a message or take appropriate action
+              echo '<h1 class="modal-title fs-5" id="exampleModalLabel">&nbsp;Bidding has ended</h1>';
             }
             ?>
 

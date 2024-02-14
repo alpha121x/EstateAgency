@@ -113,6 +113,7 @@ if (isset($_POST['update-plot'])) {
     // Sanitize and validate input data
     $plot_edit_page_id = $_POST['plot_listing_edit_page_id'];
     $plot_num = $_POST['plot_num'];
+    $biddng_days = $_POST['bidding_days'];
     $plot_title = $_POST['plot_title'];
     $plot_location = $_POST['plot_location'];
     $plot_description = $_POST['plot_description'];
@@ -159,6 +160,7 @@ if (isset($_POST['update-plot'])) {
         'plot_listing',
         [
             'plot_num' => $plot_num,
+            'bidding_days' => $biddng_days,
             'plot_title' => $plot_title,
             'plot_location' => $plot_location,
             'plot_description' => $plot_description,

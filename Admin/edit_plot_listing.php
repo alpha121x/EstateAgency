@@ -12,6 +12,7 @@ if (isset($_GET['id'])) {
     // Access user data using the fetched associative array
     $id = $plots['plot_id'];
     $plot_num = $plots['plot_num'];
+    $bidding_days = $plots['bidding_days'];
     $plot_price = $plots['plot_price'];
     $plot_title = $plots['plot_title'];
     $plot_location = $plots['plot_location'];
@@ -72,8 +73,14 @@ if (isset($_GET['id'])) {
                 <div class="row mb-3">
                   <label for="plot_listing_edit_page_id" class="col-sm-2 col-form-label">Plot No</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" value='<?php echo $plot_num; ?>' name="plot_num" required>
+                    <input type="number" class="form-control" value='<?php echo $plot_num; ?>' name="plot_num" required>
                     <input type="hidden" name="plot_listing_edit_page_id" value='<?php echo $id; ?>'>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="plot_listing_edit_page_id" class="col-sm-2 col-form-label">Bidding Days</label>
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control" value='<?php echo $bidding_days; ?>' name="bidding_days">
                   </div>
                 </div>
                 <div class="row mb-3">
