@@ -2,7 +2,6 @@
   <div class="container">
     <div class="row">
       <?php
-      require_once "Admin/include/classes/meekrodb.2.3.class.php";
       require('Admin/db_config.php'); // Make sure you include your database configuration file
 
       $propertiesPerPage = 6;
@@ -110,6 +109,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <?php
+              require('Admin/db_config.php');
               // Assuming $propertyDetails['added_on'] contains the added_on date from your database
               $addedOnDate = strtotime($property['added_on']);
               $currentDate = time();
@@ -119,7 +119,9 @@
 
               // If there are still bidding days left, update the database
               if ($daysLeft > 0) {
-                $updateQuery = "UPDATE plot_listing SET bidding_days = $daysLeft WHERE plot_id = " . $property['plot_id'];
+                // Update the database with the new remaining days
+                $propertyId = $property['plot_id'];
+                $updateQuery = "UPDATE plot_listing SET bidding_days = $daysLeft WHERE plot_id = $propertyId";
                 // Execute the update query using your database connection
 
                 // Display the time left
@@ -129,6 +131,7 @@
                 echo '<h1 class="modal-title fs-5" id="exampleModalLabel">&nbsp;Bidding has ended</h1>';
               }
               ?>
+
 
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
