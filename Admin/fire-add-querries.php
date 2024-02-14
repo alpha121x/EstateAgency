@@ -44,6 +44,7 @@ require("auth.php");
 
 if (isset($_POST['add-plot'])) {
     $plot_num = $_POST['plot_num'];
+    $bidding_days = $_POST['bidding_days'];
     $plot_title = $_POST['plot_title'];
     $plot_location = $_POST['plot_location'];
     $plot_description = $_POST['plot_description'];
@@ -71,6 +72,7 @@ if (isset($_POST['add-plot'])) {
     // Insert query using MeekroDB
     $inserted = DB::insert('plot_listing', [
         'plot_num' => $plot_num,
+        'bidding_days' => $bidding_days,
         'plot_title' => $plot_title,
         'username' => $username,
         'plot_location' => $plot_location,

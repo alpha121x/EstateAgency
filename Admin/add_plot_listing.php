@@ -42,6 +42,12 @@
                   </div>
                 </div>
                 <div class="row mb-3">
+                  <label for="plot_listing_edit_page_id" class="col-sm-2 col-form-label">Bidding Days</label>
+                  <div class="col-sm-6">
+                    <input type="number" class="form-control" name="bidding_days">
+                  </div>
+                </div>
+                <div class="row mb-3">
                   <label for="plotStatus" class="col-sm-2 col-form-label">Plot Status</label>
                   <div class="col-sm-6">
                     <select class="form-select" required name="plot_status" id="plotStatus">
