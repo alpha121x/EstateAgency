@@ -105,33 +105,36 @@
 
             // If there are still bidding days left, display the time left
             if ($daysLeft > 0) {
-              echo '<h1 class="modal-title fs-5" id="exampleModalLabel">&nbsp;Bidding Time Left: ' . $daysLeft . ' days';
-
+              echo '<h4>Top 3 Bids (Bidding Time Left: ' . $daysLeft . ' days)</h4>';
+              ?>
+              <ul>
+              <?php
               // Fetch top 3 highest bids from plot_bidding table for a specific plot_id
               $topBids = DB::query("
-        SELECT pb.bid_id, pb.plot_id, pb.user_name, pb.bid, pl.plot_num
-        FROM plot_bidding pb
-        JOIN plot_listing pl ON pb.plot_id = pl.plot_id
-        WHERE pb.plot_id = %i
-        GROUP BY pb.user_name
-        ORDER BY pb.bid DESC
-        LIMIT 3", $propertyDetails['plot_id']);
+            SELECT pb.bid_id, pb.plot_id, pb.user_name, pb.bid, pl.plot_num
+            FROM plot_bidding pb
+            JOIN plot_listing pl ON pb.plot_id = pl.plot_id
+            WHERE pb.plot_id = %i
+            GROUP BY pb.user_name
+            ORDER BY pb.bid DESC
+            LIMIT 3", $propertyId);
 
-              // Display top 3 bids
-              echo '<ul>';
-              foreach ($topBids as $bid) {
-                echo '<li>';
-                echo '<strong>' . $bid['user_name'] . ':</strong>';
-                echo 'Bid Amount: Rs. ' . $bid['bid'];
-                echo '</li>';
-              }
-              echo '</ul>';
-              echo '</h1>';
-            } else {
-              // If no bidding days left, display a message or take appropriate action
-              echo '<h1 class="modal-title fs-5" id="exampleModalLabel">&nbsp;Bidding has ended</h1>';
-            }
-            ?>
+              foreach ($topBids as $bid) :
+                $plot_id = $bid['plot_id'];
+                $plot_num = $bid['plot_num'];
+              ?>
+                <li>
+                  <strong><?php echo $bid['user_name']; ?>:</strong>
+                  Bid Amount: Rs. <?php echo $bid['bid']; ?>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+        <?php
+          } else {
+          // If no bidding days left, display a message or take appropriate action
+          echo '<h4 class="modal-title fs-5" id="exampleModalLabel">&nbsp;Bidding has ended</h4>';
+        }
+        ?>
 
 
 
