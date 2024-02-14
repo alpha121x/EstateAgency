@@ -110,6 +110,7 @@
             <div class="modal-header">
               <?php
               require('Admin/db_config.php');
+
               // Assuming $propertyDetails['added_on'] contains the added_on date from your database
               $addedOnDate = strtotime($property['added_on']);
               $currentDate = time();
@@ -117,21 +118,16 @@
               // Calculate the remaining bidding days
               $daysLeft = $property['bidding_days'] - floor(($currentDate - $addedOnDate) / (60 * 60 * 24));
 
-              // If there are still bidding days left, update the database
+              // If there are still bidding days left, display the time left
               if ($daysLeft > 0) {
-                // Update the database with the new remaining days
-                $propertyId = $property['plot_id'];
-                $updateQuery = "UPDATE plot_listing SET bidding_days = $daysLeft WHERE plot_id = $propertyId";
-                // Execute the update query using your database connection
-                if($updateQuery) {
-                // Display the time left
                 echo '<h1 class="modal-title fs-5" id="exampleModalLabel">&nbsp;Bidding Time Left: ' . $daysLeft . ' days</h1>';
               } else {
                 // If no bidding days left, display a message or take appropriate action
                 echo '<h1 class="modal-title fs-5" id="exampleModalLabel">&nbsp;Bidding has ended</h1>';
               }
-            }
               ?>
+
+
 
 
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
