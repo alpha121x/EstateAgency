@@ -123,13 +123,14 @@
                 $propertyId = $property['plot_id'];
                 $updateQuery = "UPDATE plot_listing SET bidding_days = $daysLeft WHERE plot_id = $propertyId";
                 // Execute the update query using your database connection
-
+                if($updateQuery) {
                 // Display the time left
                 echo '<h1 class="modal-title fs-5" id="exampleModalLabel">&nbsp;Bidding Time Left: ' . $daysLeft . ' days</h1>';
               } else {
                 // If no bidding days left, display a message or take appropriate action
                 echo '<h1 class="modal-title fs-5" id="exampleModalLabel">&nbsp;Bidding has ended</h1>';
               }
+            }
               ?>
 
 
