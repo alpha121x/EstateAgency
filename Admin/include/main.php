@@ -154,15 +154,15 @@
         // Get bid data for the last month
         $bidsData = getBidsDataForLastMonth();
 
+        // Convert PHP array to JSON
+        $jsBidsData = json_encode($bidsData);
+
         // Output the result for testing
         echo "<pre>";
         print_r($bidsData);
         echo "</pre>";
 
         ?>
-
-
-
 
         <script>
           // Parse the PHP array in JavaScript
@@ -175,10 +175,10 @@
           var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-              labels: bidsData.map(item => item[0]),
+              labels: bidsData.map(item => item.day),
               datasets: [{
                 label: 'Bids Last Month',
-                data: bidsData.map(item => item[1]),
+                data: bidsData.map(item => item.total_bid),
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1,
                 fill: false
@@ -197,6 +197,7 @@
             }
           });
         </script>
+
 
 
         <!-- News & Updates Traffic -->
