@@ -116,13 +116,25 @@ if ($properties) {
     <div class="modal-content">
       <div class="modal-header">
         <?php
-        // Assuming $propertyDetails['added_on'] contains the added_on date from your database
-        $addedOnDate = strtotime($property['added_on']);
-        $currentDate = time();
-        $daysLeft = $property['bidding_days'] - floor(($currentDate - $addedOnDate) / (60 * 60 * 24));
+        require('Admin/db_config.php');
+        // echo $property['plot_id'];
+        // Assuming $property['added_on'] contains the added-on date from your database
+        $addedOnDate = date('Y-m-d', strtotime($property['added_on']));
+        date_default_timezone_set('Asia/Karachi');
+        $currentDate = date("Y-m-d");
 
-        // Display the time left
-        echo '<h1 class="modal-title fs-5" id="exampleModalLabel">&nbsp;Bidding Time Left: ' . $daysLeft . ' days</h1>';
+        // Calculate the difference in days
+        $daysDifference = floor(strtotime($currentDate) - strtotime($addedOnDate)) / (60 * 60 * 24);
+
+        // Calculate the remaining bidding days
+        $daysLeft = max(0, $property['bidding_days'] - $daysDifference);
+
+        // If there are still bidding days left, display the time left
+        if ($daysLeft > 0) {
+          echo '<h1 class="modal-title fs-5" id="exampleModalLabel' . $property['plot_id'] . '">&nbsp;Bidding Time Left: ' . $daysLeft . ' days</h1>';
+        } else {
+          echo '<h1 class="modal-title fs-5" id="exampleModalLabel' . $property['plot_id'] . '">&nbsp;Bidding has ended</h1>';
+        }
         ?>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -147,11 +159,11 @@ if ($properties) {
 </div>
 
 <script>
-        // JavaScript to update the hidden input value when Bid button is clicked
-        document.querySelectorAll('.price-a').forEach(function(bidButton) {
-          bidButton.addEventListener('click', function() {
-            var propertyId = this.getAttribute('data-property-id');
-            document.getElementById('propertyIdInput').value = propertyId;
-          });
-        });
-      </script>
+  // JavaScript to update the hidden input value when Bid button is clicked
+  document.querySelectorAll('.price-a').forEach(function(bidButton) {
+    bidButton.addEventListener('click', function() {
+      var propertyId = this.getAttribute('data-property-id');
+      document.getElementById('propertyIdInput').value = propertyId;
+    });
+  });
+</script>
