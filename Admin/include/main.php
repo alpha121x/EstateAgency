@@ -133,17 +133,17 @@
         <?php
         require('db_config.php');
 
-        // Function to get bid data for the last month from the database
-        function getBidsDataForLastMonth()
+        // Function to get bid data for the current month from the database
+        function getBidsDataForCurrentMonth()
         {
           try {
-            // Fetch bid data for the last month
+            // Fetch bid data for the current month
             $query = "SELECT DAY(bid_date) AS day, SUM(bid) AS total_bid
-            FROM plot_bidding
-            WHERE bid_date >= DATE_FORMAT(NOW() - INTERVAL 1 MONTH, '%Y-%m-01')
-            AND bid_date < DATE_FORMAT(NOW(), '%Y-%m-%d')
-            GROUP BY DAY(bid_date)
-            ORDER BY DAY(bid_date);";
+    FROM plot_bidding
+    WHERE bid_date >= DATE_FORMAT(NOW() - INTERVAL DAY(NOW()) + 1 DAY, '%Y-%m-%d')
+    AND bid_date <= DATE(NOW())
+    GROUP BY DAY(bid_date)
+    ORDER BY DAY(bid_date);";
 
             $bidsData = DB::query($query);
 
@@ -153,12 +153,14 @@
           }
         }
 
-        // Get bid data for the last month
-        $bidsData = getBidsDataForLastMonth();
+        // Get bid data for the current month
+        $bidsData = getBidsDataForCurrentMonth();
 
         // Convert PHP array to JSON
         $jsBidsData = json_encode($bidsData);
         ?>
+
+
 
         <script>
           // Parse the PHP array in JavaScript
