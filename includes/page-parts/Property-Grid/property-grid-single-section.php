@@ -108,7 +108,6 @@
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-            <input type="text" name="plot_id" value="" id="propertyIdInput">
               <?php
               require('Admin/db_config.php');
 
