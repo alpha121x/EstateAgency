@@ -129,19 +129,27 @@
         <canvas id="bidsChart" width="400" height="200"></canvas>
         <?php
 
+        require('db_config.php');
+
         // Function to get bid data for the last month from the database
         function getBidsDataForLastMonth()
         {
-          // Fetch bid data for the last month
-          $query = "SELECT DAY(bid_date) AS day, SUM(bid) AS total_bid
-              FROM plot_bidding
-              WHERE MONTH(bid_date) = MONTH(CURDATE()) - 1
-              GROUP BY DAY(bid_date)
-              ORDER BY DAY(bid_date)";
+          try {
+            // Fetch bid data for the last month
+            $query = "SELECT DAY(bid_date) AS day, SUM(bid) AS total_bid
+                  FROM plot_bidding
+                  WHERE MONTH(bid_date) = MONTH(CURDATE()) - 1
+                  GROUP BY DAY(bid_date)
+                  ORDER BY DAY(bid_date)";
 
-          $bidsData = DB::query($query);
-          return $bidsData;
+            $bidsData = DB::query($query);
+
+            return $bidsData;
+          } catch (MeekroDBException $e) {
+            die("Error: " . $e->getMessage());
+          }
         }
+
 
         // Get bid data for the last month
         $bidsData = getBidsDataForLastMonth();
@@ -152,6 +160,7 @@
         echo "</pre>";
 
         ?>
+
 
 
 
