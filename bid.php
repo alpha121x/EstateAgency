@@ -41,6 +41,7 @@ if (isset($_POST['add-bid'])) {
             'plot_id' => $plot_id,
             'created_by' => $username,
             'message' => $message,
+            'bid_date' => $bid_date
             // 'bid_date' => $bid_date, // Include bid_date in the notification
         ));
 
