@@ -155,6 +155,7 @@
         ?>
 
 
+
         <script>
           // Parse the PHP array in JavaScript
           var bidsData = <?php echo $jsBidsData; ?>;
