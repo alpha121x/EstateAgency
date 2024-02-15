@@ -1,4 +1,5 @@
 <?php require('db_config.php'); ?>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <main id="main" class="main">
 
   <div class="pagetitle">
@@ -137,11 +138,12 @@
           try {
             // Fetch bid data for the last month
             $query = "SELECT DAY(bid_date) AS day, SUM(bid) AS total_bid
-                  FROM plot_bidding
-                  WHERE DATE(bid_date) >= DATE_FORMAT(NOW() - INTERVAL 1 MONTH, '%Y-%m-01')
-                    AND DATE(bid_date) < DATE_FORMAT(NOW(), '%Y-%m-01')
-                  GROUP BY DAY(bid_date)
-                  ORDER BY DAY(bid_date)";
+            FROM plot_bidding
+            WHERE bid_date >= DATE_FORMAT(NOW() - INTERVAL 1 MONTH, '%Y-%m-01')
+            AND bid_date < DATE_FORMAT(NOW(), '%Y-%m-%d')
+            GROUP BY DAY(bid_date)
+            ORDER BY DAY(bid_date);
+            ";
 
             $bidsData = DB::query($query);
 
@@ -158,9 +160,9 @@
         $jsBidsData = json_encode($bidsData);
 
         // Output the result for testing
-        echo "<pre>";
-        print_r($bidsData);
-        echo "</pre>";
+        // echo "<pre>";
+        // print_r($bidsData);
+        // echo "</pre>";
 
         ?>
 
