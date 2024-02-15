@@ -226,6 +226,7 @@
             }
           });
         </script>
+        <br>
 
         <!-- Chart for count of bids last month -->
         <canvas id="bidsCountChart" width="400" height="200"></canvas>
