@@ -56,7 +56,7 @@
                                         include("db_config.php");
 
                                         // Select all users from the admin_users table
-                                        $users = DB::query("SELECT * FROM notifications WHERE is_read = 0 ORDER BY id DESC LIMIT 100");
+                                        $users = DB::query("SELECT * FROM notifications WHERE is_read = 0 ORDER BY bid_date DESC LIMIT 100");
 
                                         if ($users) {
                                             $index = 1;
