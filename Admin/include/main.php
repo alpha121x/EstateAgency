@@ -1,3 +1,4 @@
+<?php require('db_config.php'); ?>
 <main id="main" class="main">
 
   <div class="pagetitle">
@@ -127,29 +128,32 @@
         </div>
         <canvas id="bidsChart" width="400" height="200"></canvas>
         <?php
+
         // Function to get bid data for the last month from the database
         function getBidsDataForLastMonth()
         {
-          // Perform your database query to fetch bid data for the last month
-          // Replace this with your actual query and database connection code
-          // Example: $result = mysqli_query($conn, "SELECT bid_date, bid FROM plot_bidding WHERE MONTH(bid_date) = MONTH(CURRENT_DATE) - 1");
+          // Fetch bid data for the last month
+          $query = "SELECT DAY(bid_date) AS day, SUM(bid) AS total_bid
+              FROM plot_bidding
+              WHERE MONTH(bid_date) = MONTH(CURDATE()) - 1
+              GROUP BY DAY(bid_date)
+              ORDER BY DAY(bid_date)";
 
-          // Example data for demonstration (replace this with your actual data fetching logic)
-          $result = [
-            ['Day 1', 10],
-            ['Day 2', 15],
-            // ... Continue for all days of the last month
-          ];
+          $bidsData = DB::query($query);
 
-          return $result;
+          return $bidsData;
         }
 
-        // Assume $bidsData is an array containing bid data for the last month
+        // Get bid data for the last month
         $bidsData = getBidsDataForLastMonth();
 
-        // Convert the PHP array to a JavaScript array
-        $jsBidsData = json_encode($bidsData);
+        // Output the result for testing
+        echo "<pre>";
+        print_r($bidsData);
+        echo "</pre>";
+
         ?>
+
 
         <script>
           // Parse the PHP array in JavaScript
