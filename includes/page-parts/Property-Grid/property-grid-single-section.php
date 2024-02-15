@@ -23,7 +23,7 @@
 
 
       // Fetch data from the database
-      $properties = DB::query("SELECT * FROM plot_listing");
+      // $properties = DB::query("SELECT * FROM plot_listing");
 
       foreach ($properties as $property) {
         // Loop through each row of data and display it
@@ -111,12 +111,16 @@
               <?php
               require('Admin/db_config.php');
 
-              // Assuming $propertyDetails['added_on'] contains the added_on date from your database
-              $addedOnDate = strtotime($property['added_on']);
-              $currentDate = time();
+              // Assuming $property['added_on'] contains the added-on date from your database
+              $addedOnDate = date('Y-m-d', strtotime($property['added_on']));
+              date_default_timezone_set('Asia/Karachi');
+              $currentDate = date("Y-m-d");
+
+              // Calculate the difference in days
+              $daysDifference = floor(strtotime($currentDate) - strtotime($addedOnDate)) / (60 * 60 * 24);
 
               // Calculate the remaining bidding days
-              $daysLeft = $property['bidding_days'] - floor(($currentDate - $addedOnDate) / (60 * 60 * 24));
+              $daysLeft = max(0, $property['bidding_days'] - $daysDifference);
 
               // If there are still bidding days left, display the time left
               if ($daysLeft > 0) {
@@ -126,6 +130,7 @@
                 echo '<h1 class="modal-title fs-5" id="exampleModalLabel">&nbsp;Bidding has ended</h1>';
               }
               ?>
+
 
 
 

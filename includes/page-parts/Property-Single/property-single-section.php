@@ -19,6 +19,7 @@
   $addedOnDate = strtotime($propertyDetails['added_on']);
   $biddingEndDate = strtotime($propertyDetails['bidding_days'], $addedOnDate);
 
+  date_default_timezone_set('Asia/Karachi');
   // Get the current date
   $currentDate = time();
 
