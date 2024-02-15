@@ -125,6 +125,66 @@
 
 
         </div>
+        <canvas id="bidsChart" width="400" height="200"></canvas>
+        <?php
+        // Function to get bid data for the last month from the database
+        function getBidsDataForLastMonth()
+        {
+          // Perform your database query to fetch bid data for the last month
+          // Replace this with your actual query and database connection code
+          // Example: $result = mysqli_query($conn, "SELECT bid_date, bid FROM plot_bidding WHERE MONTH(bid_date) = MONTH(CURRENT_DATE) - 1");
+
+          // Example data for demonstration (replace this with your actual data fetching logic)
+          $result = [
+            ['Day 1', 10],
+            ['Day 2', 15],
+            // ... Continue for all days of the last month
+          ];
+
+          return $result;
+        }
+
+        // Assume $bidsData is an array containing bid data for the last month
+        $bidsData = getBidsDataForLastMonth();
+
+        // Convert the PHP array to a JavaScript array
+        $jsBidsData = json_encode($bidsData);
+        ?>
+
+        <script>
+          // Parse the PHP array in JavaScript
+          var bidsData = <?php echo $jsBidsData; ?>;
+
+          // Get the canvas element
+          var ctx = document.getElementById('bidsChart').getContext('2d');
+
+          // Create the chart
+          var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: bidsData.map(item => item[0]),
+              datasets: [{
+                label: 'Bids Last Month',
+                data: bidsData.map(item => item[1]),
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+                fill: false
+              }]
+            },
+            options: {
+              scales: {
+                x: {
+                  type: 'linear',
+                  position: 'bottom'
+                },
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+        </script>
+
 
         <!-- News & Updates Traffic -->
         <div class="card">
