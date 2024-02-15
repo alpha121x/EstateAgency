@@ -138,7 +138,8 @@
             // Fetch bid data for the last month
             $query = "SELECT DAY(bid_date) AS day, SUM(bid) AS total_bid
                   FROM plot_bidding
-                  WHERE MONTH(bid_date) = MONTH(CURDATE()) - 1
+                  WHERE DATE(bid_date) >= DATE_FORMAT(NOW() - INTERVAL 1 MONTH, '%Y-%m-01')
+                    AND DATE(bid_date) < DATE_FORMAT(NOW(), '%Y-%m-01')
                   GROUP BY DAY(bid_date)
                   ORDER BY DAY(bid_date)";
 
@@ -149,7 +150,6 @@
             die("Error: " . $e->getMessage());
           }
         }
-
 
         // Get bid data for the last month
         $bidsData = getBidsDataForLastMonth();
