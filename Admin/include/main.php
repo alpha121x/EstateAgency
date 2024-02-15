@@ -25,9 +25,11 @@
               <?php
               require('db_config.php');
 
+              date_default_timezone_set('Asia/Karachi');
+
               // Fetch the website viewer count from the visited_count table
               $currentDate = date('Y-m-d');
-              $websiteViewerCount = DB::queryFirstField("SELECT SUM(visit_count) FROM visited_count WHERE visit_datetime >= %s AND visit_datetime < %s", $currentDate . ' 00:00:00', $currentDate . ' 23:59:59');
+              $websiteViewerCount = DB::queryFirstField("SELECT IFNULL(SUM(visit_count), 0) FROM visited_count WHERE visit_datetime >= %s AND visit_datetime < %s", $currentDate . ' 00:00:00', $currentDate . ' 23:59:59');
 
               ?>
 
@@ -45,9 +47,9 @@
                 </div>
               </div>
 
-
             </div>
           </div><!-- End Website Viewers Card -->
+
 
           <div class="col-xxl-4 col-md-6">
             <div class="card info-card bids-card">

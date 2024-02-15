@@ -54,6 +54,9 @@ if (isset($_POST['add-plot'])) {
     $beds = $_POST['beds'];
     $baths = $_POST['baths'];
     $plot_area = $_POST['plot_area'];
+    date_default_timezone_set('Asia/Karachi');
+    // Get the current date and time
+    $plot_date = date("Y-m-d H:i:s");
     $username = $_SESSION['user'];
 
     // File Upload
@@ -84,7 +87,8 @@ if (isset($_POST['add-plot'])) {
         'beds' => $beds,
         'baths' => $baths,
         'plot_image' => $plot_image, // Save the file path in the database
-        'plot_video' => $plot_video
+        'plot_video' => $plot_video,
+        'added_on' => $plot_date
     ]);
 
     if ($inserted) {

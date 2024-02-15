@@ -14,6 +14,7 @@ if (isset($_POST['add-bid'])) {
     $bid = $_POST['bid'];
     $plot_id = $_POST['plot_id'];
 
+    date_default_timezone_set('Asia/Karachi');
     // Get the current date and time
     $bid_date = date("Y-m-d H:i:s");
 
