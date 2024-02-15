@@ -139,11 +139,11 @@
           try {
             // Fetch bid data for the current month
             $query = "SELECT DAY(bid_date) AS day, SUM(bid) AS total_bid
-    FROM plot_bidding
-    WHERE bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
-    AND bid_date <= DATE(NOW())
-    GROUP BY DAY(bid_date)
-    ORDER BY DAY(bid_date);";
+            FROM plot_bidding
+            WHERE bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
+            AND bid_date <= DATE(NOW())
+            GROUP BY DAY(bid_date)
+            ORDER BY DAY(bid_date);";
 
             $bidsData = DB::query($query);
 
