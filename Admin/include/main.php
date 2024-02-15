@@ -140,9 +140,6 @@
               ORDER BY DAY(bid_date)";
 
           $bidsData = DB::query($query);
-          print_r($bidsData);
-          die();
-
           return $bidsData;
         }
 
