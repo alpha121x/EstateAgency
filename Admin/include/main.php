@@ -184,7 +184,11 @@
               scales: {
                 x: {
                   type: 'linear',
-                  position: 'bottom'
+                  position: 'bottom',
+                  title: {
+                    display: true,
+                    text: 'Days'
+                  }
                 },
                 y: {
                   beginAtZero: true,
