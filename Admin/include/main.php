@@ -128,10 +128,9 @@
 
         </div>
 
-        <!-- // Chart for bids last month  -->
+        <!-- Chart for bids last month -->
         <canvas id="bidsChart" width="400" height="200"></canvas>
         <?php
-
         require('db_config.php');
 
         // Function to get bid data for the last month from the database
@@ -144,8 +143,7 @@
             WHERE bid_date >= DATE_FORMAT(NOW() - INTERVAL 1 MONTH, '%Y-%m-01')
             AND bid_date < DATE_FORMAT(NOW(), '%Y-%m-%d')
             GROUP BY DAY(bid_date)
-            ORDER BY DAY(bid_date);
-            ";
+            ORDER BY DAY(bid_date);";
 
             $bidsData = DB::query($query);
 
@@ -160,12 +158,6 @@
 
         // Convert PHP array to JSON
         $jsBidsData = json_encode($bidsData);
-
-        // Output the result for testing
-        // echo "<pre>";
-        // print_r($bidsData);
-        // echo "</pre>";
-
         ?>
 
         <script>
@@ -195,13 +187,16 @@
                   position: 'bottom'
                 },
                 y: {
-                  beginAtZero: true
+                  beginAtZero: true,
+                  title: {
+                    display: true,
+                    text: 'Total Bids'
+                  }
                 }
               }
             }
           });
         </script>
-
 
 
         <!-- News & Updates Traffic -->
