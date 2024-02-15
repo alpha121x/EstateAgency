@@ -34,7 +34,7 @@
               <div class="modal-header">
                 <?php
                 require('Admin/db_config.php');
-                echo $property['plot_id'];
+                // echo $property['plot_id'];
                 // Assuming $property['added_on'] contains the added-on date from your database
                 $addedOnDate = date('Y-m-d', strtotime($property['added_on']));
                 date_default_timezone_set('Asia/Karachi');
