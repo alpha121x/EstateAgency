@@ -64,7 +64,7 @@ if (isset($_POST['add-plot'])) {
     $plot_image = $uploadsFolder . basename($_FILES['plot_image']['name']);
     $plot_video = $uploadsFolder . basename($_FILES['plot_video']['name']);
     $uploadSuccess = move_uploaded_file($_FILES['plot_image']['tmp_name'], $plot_image);
-    $uploadSuccess = move_uploaded_file($_FILES['plot_video']['tmp_name'], $plot_video);
+    // $uploadSuccess = move_uploaded_file($_FILES['plot_video']['tmp_name'], $plot_video);
 
 
     if (!$uploadSuccess) {
