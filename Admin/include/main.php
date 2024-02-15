@@ -141,17 +141,22 @@
             $query = "SELECT DAY(bid_date) AS day, SUM(bid) AS total_bid
             FROM plot_bidding
             WHERE bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
-            AND bid_date <= DATE(NOW())
             GROUP BY DAY(bid_date)
             ORDER BY DAY(bid_date);";
 
             $bidsData = DB::query($query);
+            // Output the result for testing
+            // echo "<pre>";
+            // print_r($bidsData);
+            // echo "</pre>";
+            // die();
 
             return $bidsData;
           } catch (MeekroDBException $e) {
             die("Error: " . $e->getMessage());
           }
         }
+
 
         // Get bid data for the current month
         $bidsData = getBidsDataForCurrentMonth();
