@@ -58,7 +58,6 @@ include('db_config.php'); ?>
      GROUP BY DAY(bid_date)
      ORDER BY DAY(bid_date);";
 
-
                                     $totalBidsData = DB::query($query);
 
                                     return $totalBidsData;
@@ -72,6 +71,7 @@ include('db_config.php'); ?>
 
                             // Convert PHP array to JSON
                             $jsTotalBidsData = json_encode($totalBidsData);
+                            // echo $jsTotalBidsData
                             ?>
 
                             <script>
@@ -101,11 +101,14 @@ include('db_config.php'); ?>
                                 // Get the canvas element
                                 var ctxBids = document.getElementById('bidsChart').getContext('2d');
 
+                                // Filter days with data
+                                var daysWithData = totalBidsData.filter(item => numericalTotalBids.indexOf(parseFloat(item.total_bid.replace(/[^\d.]/g, ''))) !== -1);
+
                                 // Create the chart
                                 var bidsChart = new Chart(ctxBids, {
                                     type: 'line',
                                     data: {
-                                        labels: totalBidsData.map(item => item.day),
+                                        labels: daysWithData.map(item => item.day),
                                         datasets: [{
                                             label: 'Total Bids Last Month',
                                             data: numericalTotalBids,
@@ -121,6 +124,7 @@ include('db_config.php'); ?>
                                             x: {
                                                 type: 'linear',
                                                 position: 'bottom',
+                                                beginAtZero: true,
                                                 title: {
                                                     display: true,
                                                     text: 'Days'
