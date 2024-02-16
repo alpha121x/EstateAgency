@@ -161,6 +161,7 @@
 
         // Convert PHP array to JSON
         $jsDailyBidsData = json_encode($dailyBidsData);
+        echo $jsDailyBidsData;
         ?>
 
         <script>
