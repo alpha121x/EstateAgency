@@ -61,7 +61,7 @@ if ($properties) {
                           ?>
                         </span>
                         &nbsp;
-                        <span type="button" class="price-a" data-bs-toggle="modal" data-bs-target="#exampleModal" data-property-id="<?php echo $property['plot_id']; ?>">Bid</span>
+                        <span type="button" class="price-a" data-bs-toggle="modal" data-bs-target="#Modal<?php echo $property['plot_id']; ?>" data-property-id="<?php echo $property['plot_id']; ?>">Bid</span>
                       </div>
                       <a href="property-single.php?id=<?php echo $property['plot_id'];  ?>" class="link-a">Click here to view
                         <span class="bi bi-chevron-right"></span>
@@ -111,7 +111,7 @@ if ($properties) {
 ?>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="Modal<?php echo $property['plot_id']; ?>" tabindex="-1" aria-labelledby="ModalLabel<?php echo $property['plot_id']; ?>" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -131,9 +131,9 @@ if ($properties) {
 
         // If there are still bidding days left, display the time left
         if ($daysLeft > 0) {
-          echo '<h1 class="modal-title fs-5" id="exampleModalLabel' . $property['plot_id'] . '">&nbsp;Bidding Time Left: ' . $daysLeft . ' days</h1>';
+          echo '<h1 class="modal-title fs-5" id="ModalLabel' . $property['plot_id'] . '">&nbsp;Bidding Time Left: ' . $daysLeft . ' days</h1>';
         } else {
-          echo '<h1 class="modal-title fs-5" id="exampleModalLabel' . $property['plot_id'] . '">&nbsp;Bidding has ended</h1>';
+          echo '<h1 class="modal-title fs-5" id="ModalLabel' . $property['plot_id'] . '">&nbsp;Bidding has ended</h1>';
         }
         ?>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
