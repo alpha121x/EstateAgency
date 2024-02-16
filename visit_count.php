@@ -31,5 +31,5 @@ if ($existingVisit) {
     DB::insert('visited_count', ['visit_count' => $visitCount, 'visit_datetime' => $currentDateTime]);
 }
 
-// Now $visitCount contains the updated count
+// Now $visitCount contains the updated count, and the database is updated accordingly
 ?>
