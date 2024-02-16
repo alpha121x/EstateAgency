@@ -58,7 +58,7 @@
               </div>
               <div class="modal-body">
                 <form action="bid" method="post">
-                  <label for="name" class="form-control fw-bold">Username<input type="text" name="plot_id" value="<?php echo $property['plot_id']; ?>" id="propertyIdInput"></label>
+                  <label for="name" class="form-control fw-bold">Username<input type="hidden" name="plot_id" value="<?php echo $property['plot_id']; ?>" id="propertyIdInput"></label>
                   <input type="text" class="form-control" placeholder="Enter your username" name="username" id="username">
                   <br>
                   <label for="email" class="form-control fw-bold">Email</label>
