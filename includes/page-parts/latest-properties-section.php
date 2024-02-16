@@ -62,7 +62,7 @@ if ($properties) {
                       &nbsp;
                       <span type="button" class="price-a" data-bs-toggle="modal" data-bs-target="#Modal<?php echo $property['plot_id']; ?>" data-property-id="<?php echo $property['plot_id']; ?>">Bid</span>
                     </div>
-                    <a href="property-single.php?id=<?php echo $property['plot_id']; ?>" class="link-a">Click here to view
+                    <a href="property-single?id=<?php echo $property['plot_id']; ?>" class="link-a">Click here to view
                       <span class="bi bi-chevron-right"></span>
                     </a>
                   </div>
