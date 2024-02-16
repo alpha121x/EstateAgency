@@ -48,14 +48,20 @@ include('db_config.php'); ?>
                             function getBidsDataForCurrentMonth()
                             {
                                 try {
-                                    // Fetch bid data for the current month
-                                    $query = "SELECT DAY(bid_date) AS day, bid
-            FROM plot_bidding
-            WHERE bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
-            GROUP BY DAY(bid_date)
-            ORDER BY DAY(bid_date);";
+                                    // Fetch bid data for the current month, including the sum of bids for each day and plot_id
+                                    $query = "SELECT DAY(bid_date) AS day, FORMAT(SUM(bid), 2) AS total_bid
+                  FROM plot_bidding
+                  WHERE bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
+                  GROUP BY DAY(bid_date)
+                  ORDER BY DAY(bid_date);";
 
                                     $bidsData = DB::query($query);
+
+                                    foreach ($bidsData as &$bidEntry) {
+                                        // Format the bid amount as needed
+                                        $formattedBid = number_format($bidEntry['total_bid'], 2);
+                                        $bidEntry['total_bid'] = $formattedBid . ' Cr.';
+                                    }
 
                                     return $bidsData;
                                 } catch (MeekroDBException $e) {
@@ -68,6 +74,8 @@ include('db_config.php'); ?>
 
                             // Convert PHP array to JSON
                             $jsBidsData = json_encode($bidsData);
+
+                            // echo $jsBidsData;
                             ?>
 
                             <script>
@@ -80,10 +88,10 @@ include('db_config.php'); ?>
 
                                 // Convert bid values to lakhs for better readability
                                 bidsData.forEach(item => {
-                                    var numericalBid = parseFloat(item.bid.replace(/[^\d.]/g, ''));
+                                    var numericalBid = parseFloat(item.total_bid.replace(/[^\d.]/g, ''));
 
                                     // Check if the bid is in Cr. and multiply by 100
-                                    if (item.bid.includes('Cr.')) {
+                                    if (item.total_bid.includes('Cr.')) {
                                         numericalBid *= 100;
                                     }
 
@@ -102,10 +110,12 @@ include('db_config.php'); ?>
                                     data: {
                                         labels: bidsData.map(item => item.day),
                                         datasets: [{
-                                            label: 'Bids Last Month',
+                                            label: 'Total Bids Last Month',
                                             data: numericalBids,
                                             borderColor: 'rgba(75, 192, 192, 1)',
-                                            borderWidth: 1,
+                                            borderWidth: 2,
+                                            pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                                            pointRadius: 5,
                                             fill: false
                                         }]
                                     },
@@ -123,7 +133,7 @@ include('db_config.php'); ?>
                                                 beginAtZero: false,
                                                 title: {
                                                     display: true,
-                                                    text: 'Total Bids'
+                                                    text: 'Total Bids (in Cr.)'
                                                 },
                                                 ticks: {
                                                     callback: function(value) {
@@ -132,10 +142,22 @@ include('db_config.php'); ?>
                                                     }
                                                 }
                                             }
+                                        },
+                                        plugins: {
+                                            legend: {
+                                                display: true,
+                                                position: 'top',
+                                                labels: {
+                                                    font: {
+                                                        size: 14
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
                                 });
                             </script>
+
                             <br><br>
 
                             <!-- Chart for count of bids last month -->
