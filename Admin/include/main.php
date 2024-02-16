@@ -131,6 +131,120 @@
 
 
         </div>
+        <!-- Chart for daily bids by plot -->
+        <canvas id="dailyBidsChart" width="400" height="200"></canvas>
+        <?php
+        require('db_config.php');
+
+        // Function to get daily bid data for each plot from the database
+        function getDailyBidsData()
+        {
+          try {
+            // Fetch daily bid data for each plot
+            $query = "SELECT pb.plot_id, pl.plot_num, DAY(pb.bid_date) AS day, FORMAT(SUM(pb.bid), 2) AS total_bid, pb.bid_unit
+                  FROM plot_bidding pb
+                  JOIN plot_listing pl ON pb.plot_id = pl.plot_id
+                  WHERE pb.bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
+                  GROUP BY pb.plot_id, DAY(pb.bid_date), pb.bid_unit
+                  ORDER BY pb.plot_id, DAY(pb.bid_date);";
+
+            $dailyBidsData = DB::query($query);
+
+            return $dailyBidsData;
+          } catch (MeekroDBException $e) {
+            die("Error: " . $e->getMessage());
+          }
+        }
+
+        // Get daily bid data for each plot
+        $dailyBidsData = getDailyBidsData();
+
+        // Convert PHP array to JSON
+        $jsDailyBidsData = json_encode($dailyBidsData);
+        ?>
+
+        <script>
+          // Parse the PHP array in JavaScript
+          var dailyBidsData = <?php echo $jsDailyBidsData; ?>;
+
+          // Create arrays to store numerical bid amounts and formatted bid strings
+          var numericalDailyBids = [];
+          var formattedDailyBids = [];
+
+          // Convert bid values to lakhs for better readability
+          dailyBidsData.forEach(item => {
+            var numericalBid = parseFloat(item.total_bid.replace(/[^\d.]/g, ''));
+
+            // Check if the bid is in Cr. and multiply by 100
+            if (item.bid_unit === 'Cr.') {
+              numericalBid *= 100;
+            }
+
+            var formattedBid = (numericalBid >= 10000000) ? (numericalBid / 10000000).toFixed(2) + ' Cr.' : (numericalBid / 100000).toFixed(2) + ' Lakh';
+
+            numericalDailyBids.push(numericalBid);
+            formattedDailyBids.push(formattedBid);
+          });
+
+          // Get unique plot numbers
+          var uniquePlotNumbers = Array.from(new Set(dailyBidsData.map(item => item.plot_id)));
+
+          // Get the canvas element
+          var ctxDailyBids = document.getElementById('dailyBidsChart').getContext('2d');
+
+          // Create the chart
+          var dailyBidsChart = new Chart(ctxDailyBids, {
+            type: 'bar',
+            data: {
+              labels: uniquePlotNumbers.map(plotId => dailyBidsData.find(item => item.plot_id === plotId).plot_num),
+              datasets: dailyBidsData.map(item => ({
+                label: 'Plot ' + item.plot_num,
+                data: [numericalDailyBids.shift()],
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+              }))
+            },
+            options: {
+              scales: {
+                x: {
+                  type: 'linear',
+                  position: 'bottom',
+                  title: {
+                    display: true,
+                    text: 'Plot Numbers'
+                  }
+                },
+                y: {
+                  beginAtZero: false,
+                  title: {
+                    display: true,
+                    text: 'Total Bids'
+                  },
+                  ticks: {
+                    callback: function(value) {
+                      var index = numericalDailyBids.indexOf(value);
+                      return (index !== -1) ? formattedDailyBids[index] : value.toFixed(2) + ' Lakh';
+                    }
+                  }
+                }
+              },
+              plugins: {
+                legend: {
+                  display: true,
+                  position: 'top',
+                  labels: {
+                    font: {
+                      size: 14
+                    }
+                  }
+                }
+              }
+            }
+          });
+        </script>
+        <br><br>
+
         <!-- Chart for total bids last month -->
         <canvas id="bidsChart" width="400" height="200"></canvas>
         <?php
