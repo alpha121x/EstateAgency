@@ -132,7 +132,6 @@
 
         </div>
         <!-- Chart for daily bids by plot -->
-        <!-- Chart for daily bids by plot -->
         <canvas id="dailyBidsChart" width="400" height="200"></canvas>
         <?php
         require('db_config.php');
@@ -195,25 +194,27 @@
 
           // Create the chart
           var dailyBidsChart = new Chart(ctxDailyBids, {
-            type: 'bar',
+            type: 'line',
             data: {
-              labels: plotNumbersWithData,
+              labels: Array.from({
+                length: 31
+              }, (_, index) => index + 1), // Assuming 31 days in a month
               datasets: plotNumbersWithData.map(plotNum => ({
                 label: 'Plot ' + plotNum,
                 data: numericalBidsByPlot[plotNum],
-                backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
+                borderColor: getRandomColor(),
+                borderWidth: 2,
+                fill: false
               }))
             },
             options: {
               scales: {
                 x: {
-                  type: 'category', // Use category scale for plot numbers
-                  labels: plotNumbersWithData, // Display only plot numbers with data
+                  type: 'linear',
+                  position: 'bottom',
                   title: {
                     display: true,
-                    text: 'Plot Numbers'
+                    text: 'Days'
                   }
                 },
                 y: {
@@ -242,8 +243,19 @@
               }
             }
           });
+
+          // Function to generate random color
+          function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+              color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+          }
         </script>
         <br><br>
+
 
 
         <!-- Chart for total bids last month -->
