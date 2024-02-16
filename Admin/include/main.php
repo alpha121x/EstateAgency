@@ -140,14 +140,20 @@
         function getBidsDataForCurrentMonth()
         {
           try {
-            // Fetch bid data for the current month
-            $query = "SELECT DAY(bid_date) AS day, bid
-            FROM plot_bidding
-            WHERE bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
-            GROUP BY DAY(bid_date)
-            ORDER BY DAY(bid_date);";
+            // Fetch bid data for the current month, including the sum of bids for each day and plot_id
+            $query = "SELECT DAY(bid_date) AS day, FORMAT(SUM(bid), 2) AS total_bid
+                  FROM plot_bidding
+                  WHERE bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
+                  GROUP BY DAY(bid_date)
+                  ORDER BY DAY(bid_date);";
 
             $bidsData = DB::query($query);
+
+            foreach ($bidsData as &$bidEntry) {
+              // Format the bid amount as needed
+              $formattedBid = number_format($bidEntry['total_bid'], 2);
+              $bidEntry['total_bid'] = $formattedBid . ' Cr.';
+            }
 
             return $bidsData;
           } catch (MeekroDBException $e) {
@@ -160,6 +166,8 @@
 
         // Convert PHP array to JSON
         $jsBidsData = json_encode($bidsData);
+
+        // echo $jsBidsData;
         ?>
 
         <script>
@@ -172,10 +180,10 @@
 
           // Convert bid values to lakhs for better readability
           bidsData.forEach(item => {
-            var numericalBid = parseFloat(item.bid.replace(/[^\d.]/g, ''));
+            var numericalBid = parseFloat(item.total_bid.replace(/[^\d.]/g, ''));
 
             // Check if the bid is in Cr. and multiply by 100
-            if (item.bid.includes('Cr.')) {
+            if (item.total_bid.includes('Cr.')) {
               numericalBid *= 100;
             }
 
@@ -194,10 +202,12 @@
             data: {
               labels: bidsData.map(item => item.day),
               datasets: [{
-                label: 'Bids Last Month',
+                label: 'Total Bids Last Month',
                 data: numericalBids,
                 borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1,
+                borderWidth: 2,
+                pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                pointRadius: 5,
                 fill: false
               }]
             },
@@ -224,11 +234,22 @@
                     }
                   }
                 }
+              },
+              plugins: {
+                legend: {
+                  display: true,
+                  position: 'top',
+                  labels: {
+                    font: {
+                      size: 14
+                    }
+                  }
+                }
               }
             }
           });
         </script>
-        <br>
+        <br><br>
 
         <!-- Chart for count of bids last month -->
         <canvas id="bidsCountChart" width="400" height="200"></canvas>
