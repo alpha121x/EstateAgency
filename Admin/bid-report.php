@@ -1,7 +1,7 @@
 <!--  write code for shwoing posts in a data table -->
 <?php
 include('db_config.php'); ?>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -218,7 +218,7 @@ include('db_config.php'); ?>
 
     </main><!-- End #main -->
 
-    
+
     <?php include("include/footer.php") ?>
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
