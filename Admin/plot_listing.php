@@ -43,7 +43,7 @@
               <table  class="table table-bordered" style="background-color: white;">
                 <thead>
                   <tr>
-                    <th scope="col">id.</th>
+                    <th scope="col">#</th>
                     <th scope="col">Plot number</th>
                     <th scope="col">Plot Title</th>
                     <th scope="col">Plot Location</th>
