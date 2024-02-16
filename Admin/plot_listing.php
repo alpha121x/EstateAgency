@@ -47,6 +47,7 @@
                     <th scope="col">Plot number</th>
                     <th scope="col">Plot Title</th>
                     <th scope="col">Plot Location</th>
+                    <th scope="col">Date</th>
                     <th scope="col" class="text-center">Changes</th>
                   </tr>
                 </thead>
@@ -56,7 +57,7 @@
                   require_once("include/classes/meekrodb.2.3.class.php");
 
                   // Select all users from the admin_users table
-                  $plots = DB::query("SELECT * FROM plot_listing ORDER BY plot_id ASC LIMIT 10");
+                  $plots = DB::query("SELECT * FROM plot_listing ORDER BY added_on DESC");
 
                   if ($plots) {
                     foreach ($plots as $plot) {
@@ -66,14 +67,16 @@
                       $plot_title = $plot['plot_title'];
                       $plot_location = $plot['plot_location'];
                       $plot_description = $plot['plot_description'];
+                      $added_on = $plot['added_on'];
                       $plot_image = $plot['plot_image'];
                   ?>
                       <!-- Display data in the rows -->
                       <tr>
                         <td><?php echo $plot['plot_id']; ?></td>
-                        <td><?php echo $plot['plot_num']; ?></td>
-                        <td><?php echo $plot['plot_title']; ?></td>
-                        <td><?php echo $plot['plot_location']; ?></td>
+                        <td><?php echo $plot_num; ?></td>
+                        <td><?php echo $plot_title; ?></td>
+                        <td><?php echo $plot_location ?></td>
+                        <td><?php echo $added_on; ?></td>
                         <td class="text-center">
                           <a href='edit_plot_listing.php?id=<?php echo $id; ?>' class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></a>
                           |
