@@ -140,12 +140,16 @@
         function getTotalBidsDataForCurrentMonth()
         {
           try {
-            // Fetch total bid data for the current month
-            $query = "SELECT DAY(bid_date) AS day, SUM(bid) AS total_bid
-                  FROM plot_bidding
-                  WHERE bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
-                  GROUP BY DAY(bid_date)
-                  ORDER BY DAY(bid_date);";
+            // Fetch total bid data for the current month, including the sum of bids for each day
+            $query = "SELECT DAY(bid_date) AS day, 
+            SUM(CASE WHEN bid_unit = 'Cr.' THEN bid * 100
+                     WHEN bid_unit = 'Lakh' THEN bid
+                     ELSE 0 END) AS total_bid
+     FROM plot_bidding
+     WHERE bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
+     GROUP BY DAY(bid_date)
+     ORDER BY DAY(bid_date);";
+
 
             $totalBidsData = DB::query($query);
 
@@ -218,7 +222,7 @@
                   beginAtZero: false,
                   title: {
                     display: true,
-                    text: 'Total Bids'
+                    text: 'Total Bids (in Lakh)'
                   },
                   ticks: {
                     callback: function(value) {
@@ -242,6 +246,7 @@
             }
           });
         </script>
+
 
         <br><br>
 
