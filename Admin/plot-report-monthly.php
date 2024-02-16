@@ -3,6 +3,7 @@
 include('db_config.php'); ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,6 +71,7 @@ include('db_config.php'); ?>
                             // Convert PHP array to JSON
                             $jsDailyBidsData = json_encode($dailyBidsData);
                             ?>
+
 
                             <script>
                                 // Parse the PHP array in JavaScript
