@@ -81,7 +81,12 @@
         <ul id="reports-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
             <a href="bid-report">
-            <i class="bi bi-circle-fill text-primary"></i></i><span>Bids Report Monthly</span>
+            <i class="bi bi-circle-fill text-primary"></i></i><span>Bids Monthly Report </span>
+            </a>
+          </li>
+          <li>
+            <a href="plot-report-monthly">
+            <i class="bi bi-circle-fill text-primary"></i></i><span>Plots Bid Monthly Report</span>
             </a>
           </li>
         </ul>

@@ -37,7 +37,7 @@ include('db_config.php'); ?>
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Reports</h5>
-                            <p>Bids Report</p><br>
+                            <p>Bids Monthly Report</p><br>
 
                             <!-- Chart for total bids last month -->
                             <canvas id="bidsChart" width="400" height="200"></canvas>
