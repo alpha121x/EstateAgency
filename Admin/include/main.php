@@ -170,12 +170,13 @@
           var numericalTotalBids = [];
           var formattedTotalBids = [];
 
-          // Convert bid values to lakhs for better readability
+          // Convert bid values to a uniform format (either in lakh or crore)
           totalBidsData.forEach(item => {
-            var numericalBid = parseFloat(item.total_bid.replace(/[^\d.]/g, ''));
+            var bidAmount = item.total_bid;
+            var numericalBid = parseFloat(bidAmount.replace(/[^\d.]/g, ''));
 
-            // Check if the bid is in Cr. and multiply by 100
-            if (item.total_bid.includes('Cr.')) {
+            // Check if the bid is in Cr. and convert to lakh
+            if (bidAmount.includes('Cr.')) {
               numericalBid *= 100;
             }
 
@@ -241,6 +242,7 @@
             }
           });
         </script>
+
         <br><br>
 
         <!-- Chart for count of bids last month -->
