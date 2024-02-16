@@ -37,7 +37,7 @@ if ($properties) {
                   <div class="card-overlay-a-content">
                     <div class="card-header-a">
                       <h2 class="card-title-a">
-                        <a href="property-single.php?id=<?php echo $property['plot_id'];  ?>"><?php echo $property['plot_num'] . ' ' . $property['plot_title']; ?></a>
+                        <a href="property-single.php?id=<?php echo $property['plot_id']; ?>"><?php echo $property['plot_num'] . ' ' . $property['plot_title']; ?></a>
                       </h2>
                     </div>
                     <div class="card-body-a">
@@ -63,7 +63,7 @@ if ($properties) {
                         &nbsp;
                         <span type="button" class="price-a" data-bs-toggle="modal" data-bs-target="#Modal<?php echo $property['plot_id']; ?>" data-property-id="<?php echo $property['plot_id']; ?>">Bid</span>
                       </div>
-                      <a href="property-single.php?id=<?php echo $property['plot_id'];  ?>" class="link-a">Click here to view
+                      <a href="property-single.php?id=<?php echo $property['plot_id']; ?>" class="link-a">Click here to view
                         <span class="bi bi-chevron-right"></span>
                       </a>
                     </div>
@@ -91,13 +91,58 @@ if ($properties) {
                         <?php else : ?>
                           <!-- Display only the 'Area' for property types other than 'House' -->
                         <?php endif; ?>
-
                       </ul>
                     </div>
                   </div>
                 </div>
               </div>
             </div><!-- End carousel item -->
+
+            <!-- Modal for each property -->
+            <div class="modal fade" id="Modal<?php echo $property['plot_id']; ?>" tabindex="-1" aria-labelledby="ModalLabel<?php echo $property['plot_id']; ?>" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <?php
+                    // Assuming $property['added_on'] contains the added-on date from your database
+                    $addedOnDate = date('Y-m-d', strtotime($property['added_on']));
+                    date_default_timezone_set('Asia/Karachi');
+                    $currentDate = date("Y-m-d");
+
+                    // Calculate the difference in days
+                    $daysDifference = floor(strtotime($currentDate) - strtotime($addedOnDate)) / (60 * 60 * 24);
+
+                    // Calculate the remaining bidding days
+                    $daysLeft = max(0, $property['bidding_days'] - $daysDifference);
+
+                    // If there are still bidding days left, display the time left
+                    if ($daysLeft > 0) {
+                      echo '<h1 class="modal-title fs-5" id="ModalLabel' . $property['plot_id'] . '">&nbsp;Bidding Time Left: ' . $daysLeft . ' days</h1>';
+                    } else {
+                      echo '<h1 class="modal-title fs-5" id="ModalLabel' . $property['plot_id'] . '">&nbsp;Bidding has ended</h1>';
+                    }
+                    ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form action="bid" method="post">
+                      <label for="name" class="form-control fw-bold">Username<input type="hidden" name="plot_id" value="<?php echo $property['plot_id']; ?>" id="propertyIdInput"></label>
+                      <input type="text" class="form-control" placeholder="Enter your username" name="username" id="username">
+                      <br>
+                      <label for="email" class="form-control fw-bold">Email</label>
+                      <input type="email" class="form-control" placeholder="Enter your email" name="email" id="email">
+                      <br>
+                      <label for="bid" class="form-control fw-bold">Bid Amount</label>
+                      <input type="text" class="form-control" placeholder="Rs." name="bid" id="bid">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" name="add-bid" class="btn btn-success">Submit</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div><!-- End modal -->
           <?php } ?>
         </div>
       </div>
@@ -109,54 +154,6 @@ if ($properties) {
   echo "No properties found in the database.";
 }
 ?>
-
-<!-- Modal -->
-<div class="modal fade" id="Modal<?php echo $property['plot_id']; ?>" tabindex="-1" aria-labelledby="ModalLabel<?php echo $property['plot_id']; ?>" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <?php
-        require('Admin/db_config.php');
-        // echo $property['plot_id'];
-        // Assuming $property['added_on'] contains the added-on date from your database
-        $addedOnDate = date('Y-m-d', strtotime($property['added_on']));
-        date_default_timezone_set('Asia/Karachi');
-        $currentDate = date("Y-m-d");
-
-        // Calculate the difference in days
-        $daysDifference = floor(strtotime($currentDate) - strtotime($addedOnDate)) / (60 * 60 * 24);
-
-        // Calculate the remaining bidding days
-        $daysLeft = max(0, $property['bidding_days'] - $daysDifference);
-
-        // If there are still bidding days left, display the time left
-        if ($daysLeft > 0) {
-          echo '<h1 class="modal-title fs-5" id="ModalLabel' . $property['plot_id'] . '">&nbsp;Bidding Time Left: ' . $daysLeft . ' days</h1>';
-        } else {
-          echo '<h1 class="modal-title fs-5" id="ModalLabel' . $property['plot_id'] . '">&nbsp;Bidding has ended</h1>';
-        }
-        ?>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form action="bid" method="post">
-          <label for="name" class="form-control fw-bold">Username<input type="hidden" name="plot_id" value="" id="propertyIdInput"></label>
-          <input type="text" class="form-control" placeholder="Enter your username" name="username" id="username">
-          <br>
-          <label for="email" class="form-control fw-bold">Email</label>
-          <input type="email" class="form-control" placeholder="Enter your email" name="email" id="email">
-          <br>
-          <label for="bid" class="form-control fw-bold">Bid Amount</label>
-          <input type="text" class="form-control" placeholder="Rs." name="bid" id="bid">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-        <button type="submit" name="add-bid" class="btn btn-success">Submit</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 
 <script>
   // JavaScript to update the hidden input value when Bid button is clicked
