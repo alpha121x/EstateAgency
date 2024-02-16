@@ -36,7 +36,7 @@ if ($properties) {
                 <div class="card-overlay-a-content">
                   <div class="card-header-a">
                     <h2 class="card-title-a">
-                      <a href="property-single.php?id=<?php echo $property['plot_id']; ?>"><?php echo $property['plot_num'] . ' ' . $property['plot_title']; ?></a>
+                      <a href="property-single?id=<?php echo $property['plot_id']; ?>"><?php echo $property['plot_num'] . ' ' . $property['plot_title']; ?></a>
                     </h2>
                   </div>
                   <div class="card-body-a">
