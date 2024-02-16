@@ -39,79 +39,76 @@ include('db_config.php'); ?>
                             <h5 class="card-title">Reports</h5>
                             <p>Bids Report</p><br>
 
-                            <!-- Chart for bids last month -->
+                            <!-- Chart for total bids last month -->
                             <canvas id="bidsChart" width="400" height="200"></canvas>
                             <?php
                             require('db_config.php');
 
-                            // Function to get bid data for the current month from the database
-                            function getBidsDataForCurrentMonth()
+                            // Function to get total bid data for the current month from the database
+                            function getTotalBidsDataForCurrentMonth()
                             {
                                 try {
-                                    // Fetch bid data for the current month, including the sum of bids for each day and plot_id
-                                    $query = "SELECT DAY(bid_date) AS day, FORMAT(SUM(bid), 2) AS total_bid
-                  FROM plot_bidding
-                  WHERE bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
-                  GROUP BY DAY(bid_date)
-                  ORDER BY DAY(bid_date);";
+                                    // Fetch total bid data for the current month, including the sum of bids for each day
+                                    $query = "SELECT DAY(bid_date) AS day, 
+            SUM(CASE WHEN bid_unit = 'Cr.' THEN bid * 100
+                     WHEN bid_unit = 'Lakh' THEN bid
+                     ELSE 0 END) AS total_bid
+     FROM plot_bidding
+     WHERE bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
+     GROUP BY DAY(bid_date)
+     ORDER BY DAY(bid_date);";
 
-                                    $bidsData = DB::query($query);
 
-                                    foreach ($bidsData as &$bidEntry) {
-                                        // Format the bid amount as needed
-                                        $formattedBid = number_format($bidEntry['total_bid'], 2);
-                                        $bidEntry['total_bid'] = $formattedBid . ' Cr.';
-                                    }
+                                    $totalBidsData = DB::query($query);
 
-                                    return $bidsData;
+                                    return $totalBidsData;
                                 } catch (MeekroDBException $e) {
                                     die("Error: " . $e->getMessage());
                                 }
                             }
 
-                            // Get bid data for the current month
-                            $bidsData = getBidsDataForCurrentMonth();
+                            // Get total bid data for the current month
+                            $totalBidsData = getTotalBidsDataForCurrentMonth();
 
                             // Convert PHP array to JSON
-                            $jsBidsData = json_encode($bidsData);
-
-                            // echo $jsBidsData;
+                            $jsTotalBidsData = json_encode($totalBidsData);
                             ?>
 
                             <script>
                                 // Parse the PHP array in JavaScript
-                                var bidsData = <?php echo $jsBidsData; ?>;
+                                var totalBidsData = <?php echo $jsTotalBidsData; ?>;
 
                                 // Create arrays to store numerical bid amounts and formatted bid strings
-                                var numericalBids = [];
-                                var formattedBids = [];
+                                var numericalTotalBids = [];
+                                var formattedTotalBids = [];
 
-                                // Convert bid values to lakhs for better readability
-                                bidsData.forEach(item => {
-                                    var numericalBid = parseFloat(item.total_bid.replace(/[^\d.]/g, ''));
+                                // Convert bid values to a uniform format (either in lakh or crore)
+                                totalBidsData.forEach(item => {
+                                    var bidAmount = item.total_bid;
+                                    var numericalBid = parseFloat(bidAmount.replace(/[^\d.]/g, ''));
 
-                                    // Check if the bid is in Cr. and multiply by 100
-                                    if (item.total_bid.includes('Cr.')) {
-                                        numericalBid *= 100;
+                                    // Check if the bid is in Cr. and convert to lakh
+                                    if (bidAmount.includes('Cr.')) {
+                                        numericalBid *= 100; // Convert Cr. to lakh
                                     }
 
                                     var formattedBid = (numericalBid >= 10000000) ? (numericalBid / 10000000).toFixed(2) + ' Cr.' : (numericalBid / 100000).toFixed(2) + ' Lakh';
 
-                                    numericalBids.push(numericalBid);
-                                    formattedBids.push(formattedBid);
+                                    numericalTotalBids.push(numericalBid);
+                                    formattedTotalBids.push(formattedBid);
                                 });
 
                                 // Get the canvas element
-                                var ctx = document.getElementById('bidsChart').getContext('2d');
+                                var ctxBids = document.getElementById('bidsChart').getContext('2d');
 
                                 // Create the chart
-                                var myChart = new Chart(ctx, {
+                                var bidsChart = new Chart(ctxBids, {
                                     type: 'line',
                                     data: {
-                                        labels: bidsData.map(item => item.day),
+                                        labels: totalBidsData.map(item => item.day),
                                         datasets: [{
                                             label: 'Total Bids Last Month',
-                                            data: numericalBids,
+                                            data: numericalTotalBids,
                                             borderColor: 'rgba(75, 192, 192, 1)',
                                             borderWidth: 2,
                                             pointBackgroundColor: 'rgba(75, 192, 192, 1)',
@@ -133,12 +130,12 @@ include('db_config.php'); ?>
                                                 beginAtZero: false,
                                                 title: {
                                                     display: true,
-                                                    text: 'Total Bids'
+                                                    text: 'Total Bids (in Lakh)'
                                                 },
                                                 ticks: {
                                                     callback: function(value) {
-                                                        var index = numericalBids.indexOf(value);
-                                                        return (index !== -1) ? formattedBids[index] : value.toFixed(2) + ' Lakh';
+                                                        var index = numericalTotalBids.indexOf(value);
+                                                        return (index !== -1) ? formattedTotalBids[index] : value.toFixed(2) + ' Lakh';
                                                     }
                                                 }
                                             }
@@ -157,7 +154,6 @@ include('db_config.php'); ?>
                                     }
                                 });
                             </script>
-
                             <br><br>
 
                             <!-- Chart for count of bids last month -->

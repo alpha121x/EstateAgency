@@ -246,8 +246,6 @@
             }
           });
         </script>
-
-
         <br><br>
 
         <!-- Chart for count of bids last month -->
