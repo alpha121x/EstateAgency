@@ -145,10 +145,10 @@
             SUM(CASE WHEN bid_unit = 'Cr.' THEN bid * 100
                      WHEN bid_unit = 'Lakh' THEN bid
                      ELSE 0 END) AS total_bid
-     FROM plot_bidding
-     WHERE bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
-     GROUP BY DAY(bid_date)
-     ORDER BY DAY(bid_date);";
+         FROM plot_bidding
+         WHERE bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
+         GROUP BY DAY(bid_date)
+         ORDER BY DAY(bid_date);";
 
             $totalBidsData = DB::query($query);
 
@@ -161,9 +161,13 @@
         // Get total bid data for the current month
         $totalBidsData = getTotalBidsDataForCurrentMonth();
 
+        // Filter days with data
+        $daysWithData = array_filter($totalBidsData, function ($item) {
+          return isset($item['total_bid']) && $item['total_bid'] !== null;
+        });
+
         // Convert PHP array to JSON
-        $jsTotalBidsData = json_encode($totalBidsData);
-        // echo $jsTotalBidsData
+        $jsTotalBidsData = json_encode($daysWithData);
         ?>
 
         <script>
@@ -193,17 +197,14 @@
           // Get the canvas element
           var ctxBids = document.getElementById('bidsChart').getContext('2d');
 
-          // Filter days with data
-          var daysWithData = totalBidsData.filter(item => numericalTotalBids.indexOf(parseFloat(item.total_bid.replace(/[^\d.]/g, ''))) !== -1);
-
           // Create the chart
           var bidsChart = new Chart(ctxBids, {
             type: 'line',
             data: {
-              labels: daysWithData.map(item => item.day),
+              labels: ['0', ...totalBidsData.map(item => item.day)],
               datasets: [{
                 label: 'Total Bids Last Month',
-                data: numericalTotalBids,
+                data: [0, ...numericalTotalBids],
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 2,
                 pointBackgroundColor: 'rgba(75, 192, 192, 1)',
