@@ -132,6 +132,7 @@
 
         </div>
         <!-- Chart for daily bids by plot -->
+        <!-- Chart for daily bids by plot -->
         <canvas id="dailyBidsChart" width="400" height="200"></canvas>
         <?php
         require('db_config.php');
@@ -161,16 +162,14 @@
 
         // Convert PHP array to JSON
         $jsDailyBidsData = json_encode($dailyBidsData);
-        echo $jsDailyBidsData;
         ?>
 
         <script>
           // Parse the PHP array in JavaScript
           var dailyBidsData = <?php echo $jsDailyBidsData; ?>;
 
-          // Create arrays to store numerical bid amounts and formatted bid strings
-          var numericalDailyBids = [];
-          var formattedDailyBids = [];
+          // Create arrays to store numerical bid amounts for each plot
+          var numericalBidsByPlot = {};
 
           // Convert bid values to lakhs for better readability
           dailyBidsData.forEach(item => {
@@ -181,11 +180,15 @@
               numericalBid *= 100;
             }
 
-            numericalDailyBids.push(numericalBid);
+            if (!(item.plot_num in numericalBidsByPlot)) {
+              numericalBidsByPlot[item.plot_num] = [];
+            }
+
+            numericalBidsByPlot[item.plot_num].push(numericalBid);
           });
 
           // Get unique plot numbers with data
-          var plotNumbersWithData = Array.from(new Set(dailyBidsData.map(item => item.plot_num)));
+          var plotNumbersWithData = Object.keys(numericalBidsByPlot);
 
           // Get the canvas element
           var ctxDailyBids = document.getElementById('dailyBidsChart').getContext('2d');
@@ -195,9 +198,9 @@
             type: 'bar',
             data: {
               labels: plotNumbersWithData,
-              datasets: dailyBidsData.map(item => ({
-                label: 'Plot ' + item.plot_num,
-                data: [numericalDailyBids.shift()],
+              datasets: plotNumbersWithData.map(plotNum => ({
+                label: 'Plot ' + plotNum,
+                data: numericalBidsByPlot[plotNum],
                 backgroundColor: 'rgba(75, 192, 192, 0.6)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1
@@ -241,6 +244,7 @@
           });
         </script>
         <br><br>
+
 
         <!-- Chart for total bids last month -->
         <canvas id="bidsChart" width="400" height="200"></canvas>
