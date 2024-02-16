@@ -228,7 +228,7 @@ $jsBidsCountData = json_encode($bidsCountData);
             },
             plugins: {
                 legend: {
-                    display: false // Hide legend for better space utilization
+                    display: true // Hide legend for better space utilization
                 }
             },
             layout: {
