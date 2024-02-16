@@ -177,7 +177,7 @@
 
             // Check if the bid is in Cr. and convert to lakh
             if (bidAmount.includes('Cr.')) {
-              numericalBid *= 100;
+              numericalBid *= 100; // Convert Cr. to lakh
             }
 
             var formattedBid = (numericalBid >= 10000000) ? (numericalBid / 10000000).toFixed(2) + ' Cr.' : (numericalBid / 100000).toFixed(2) + ' Lakh';

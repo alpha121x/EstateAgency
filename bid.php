@@ -20,14 +20,26 @@ if (isset($_POST['add-bid'])) {
 
     $plot_num = DB::queryFirstField("SELECT plot_num FROM plot_listing WHERE plot_id = %i", $plot_id);
 
-    // Insert query using MeekroDB
-    $inserted = DB::insert('plot_bidding', [
-        'user_name' => $username,
-        'user_email' => $email,
-        'bid' => $bid,
-        'plot_id' => $plot_id,
-        'bid_date' => $bid_date, // Include bid_date in the insert
-    ]);
+    // Extract numeric value and unit from the bid
+    preg_match('/([\d.]+)\s*(Lakh|Cr\.)/i', $bid, $matches);
+    
+    // Check if the regular expression matched
+    if ($matches) {
+        // Numeric value
+        $numeric_value = $matches[1];
+        
+        // Unit (either "Lakh" or "Cr.")
+        $unit = $matches[2];
+
+        // Insert query using MeekroDB
+        $inserted = DB::insert('plot_bidding', [
+            'user_name' => $username,
+            'user_email' => $email,
+            'bid' => $numeric_value,
+            'bid_unit' => $unit,
+            'plot_id' => $plot_id,
+            'bid_date' => $bid_date,
+        ]);
 
     if ($inserted) {
 
@@ -84,5 +96,6 @@ if (isset($_POST['add-bid'])) {
         // Handle insertion failure
         echo "Error inserting bid. Please try again.";
     }
+}
 }
 ?>
