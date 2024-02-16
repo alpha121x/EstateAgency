@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-  <title>Add Posts</title>
+  <title>Add Plots</title>
   <?php include "include/linked-files.php" ?>
 </head>
 
@@ -21,7 +21,7 @@
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-          <li class="breadcrumb-item">Add Posts Lisinting</li>
+          <li class="breadcrumb-item">Add Plots Lisinting</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
