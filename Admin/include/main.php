@@ -186,8 +186,8 @@
             formattedDailyBids.push(formattedBid);
           });
 
-          // Get unique plot numbers
-          var uniquePlotNumbers = Array.from(new Set(dailyBidsData.map(item => item.plot_id)));
+          // Get unique plot numbers with data
+          var plotNumbersWithData = Array.from(new Set(dailyBidsData.map(item => item.plot_num)));
 
           // Get the canvas element
           var ctxDailyBids = document.getElementById('dailyBidsChart').getContext('2d');
@@ -196,7 +196,7 @@
           var dailyBidsChart = new Chart(ctxDailyBids, {
             type: 'bar',
             data: {
-              labels: uniquePlotNumbers.map(plotId => dailyBidsData.find(item => item.plot_id === plotId).plot_num),
+              labels: plotNumbersWithData,
               datasets: dailyBidsData.map(item => ({
                 label: 'Plot ' + item.plot_num,
                 data: [numericalDailyBids.shift()],
@@ -208,8 +208,8 @@
             options: {
               scales: {
                 x: {
-                  type: 'linear',
-                  position: 'bottom',
+                  type: 'category', // Use category scale for plot numbers
+                  labels: plotNumbersWithData, // Display only plot numbers with data
                   title: {
                     display: true,
                     text: 'Plot Numbers'
