@@ -60,6 +60,7 @@
                   $plots = DB::query("SELECT * FROM plot_listing ORDER BY added_on DESC");
 
                   if ($plots) {
+                    $index = 1;
                     foreach ($plots as $plot) {
                       // Assign variables from the fetched row
                       $id = $plot['plot_id'];
@@ -72,7 +73,7 @@
                   ?>
                       <!-- Display data in the rows -->
                       <tr>
-                        <td><?php echo $plot['plot_id']; ?></td>
+                        <td><?php echo $index; ?></td>
                         <td><?php echo $plot_num; ?></td>
                         <td><?php echo $plot_title; ?></td>
                         <td><?php echo $plot_location ?></td>
@@ -85,6 +86,7 @@
 
                       </tr>
                   <?php
+                        $index++;
                     }
                   }
                   ?>
