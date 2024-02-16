@@ -133,7 +133,7 @@ include('db_config.php'); ?>
                                                 beginAtZero: false,
                                                 title: {
                                                     display: true,
-                                                    text: 'Total Bids (in Lakh)'
+                                                    text: 'Total Bids'
                                                 },
                                                 ticks: {
                                                     callback: function(value) {
