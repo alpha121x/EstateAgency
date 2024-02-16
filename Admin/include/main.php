@@ -180,10 +180,7 @@
               numericalBid *= 100;
             }
 
-            var formattedBid = (numericalBid >= 10000000) ? (numericalBid / 10000000).toFixed(2) + ' Cr.' : (numericalBid / 100000).toFixed(2) + ' Lakh';
-
             numericalDailyBids.push(numericalBid);
-            formattedDailyBids.push(formattedBid);
           });
 
           // Get unique plot numbers with data
@@ -223,8 +220,7 @@
                   },
                   ticks: {
                     callback: function(value) {
-                      var index = numericalDailyBids.indexOf(value);
-                      return (index !== -1) ? formattedDailyBids[index] : value.toFixed(2) + ' Lakh';
+                      return value.toFixed(2) + ' Lakh';
                     }
                   }
                 }
@@ -244,6 +240,7 @@
           });
         </script>
         <br><br>
+
 
         <!-- Chart for total bids last month -->
         <canvas id="bidsChart" width="400" height="200"></canvas>
