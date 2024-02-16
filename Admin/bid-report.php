@@ -7,7 +7,7 @@ include('db_config.php'); ?>
 <html lang="en">
 
 <head>
-    <title>Posts</title>
+    <title>Bid Report</title>
     <?php include("include/linked-files.php") ?>
 </head>
 
@@ -21,7 +21,7 @@ include('db_config.php'); ?>
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Posts</h1>
+            <h1>Reports</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
