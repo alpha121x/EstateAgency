@@ -343,6 +343,7 @@
                 x: {
                   type: 'linear',
                   position: 'bottom',
+                  beginAtZero: true,
                   title: {
                     display: true,
                     text: 'Days'
