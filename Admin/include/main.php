@@ -241,7 +241,6 @@
         </script>
         <br><br>
 
-
         <!-- Chart for total bids last month -->
         <canvas id="bidsChart" width="400" height="200"></canvas>
         <?php
