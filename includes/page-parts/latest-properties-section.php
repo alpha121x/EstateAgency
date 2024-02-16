@@ -3,7 +3,7 @@ require_once "Admin/include/classes/meekrodb.2.3.class.php";
 require('Admin/db_config.php');
 
 // Fetch properties from the database using MeekroDB (replace 'your_table_name' with the actual table name)
-$properties = DB::query("SELECT * FROM plot_listing LIMIT 3");
+$properties = DB::query("SELECT * FROM plot_listing ORDER BY added_on LIMIT 3");
 
 // Check if there are results
 if ($properties) {
