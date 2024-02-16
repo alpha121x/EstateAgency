@@ -143,7 +143,14 @@ if ($properties) {
             <input type="email" class="form-control" placeholder="Enter your email" name="email" id="email">
             <br>
             <label for="bid" class="form-control fw-bold">Bid Amount</label>
-            <input type="text" class="form-control" placeholder="Rs." name="bid" id="bid">
+            <?php
+            // Fetch minimum bid amount and plot price from the database
+            $minBidAmount = $property['plot_price'];
+
+            // Display the minimum bid amount and plot price in the input field
+            echo '<input type="text" class="form-control" placeholder="Minimum Bid: Rs. ' . $minBidAmount . '" name="bid" id="bid">';
+            ?>
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
@@ -157,8 +164,8 @@ if ($properties) {
 
 <script>
   // JavaScript to update the hidden input value when Bid button is clicked
-  document.querySelectorAll('.price-a').forEach(function (bidButton) {
-    bidButton.addEventListener('click', function () {
+  document.querySelectorAll('.price-a').forEach(function(bidButton) {
+    bidButton.addEventListener('click', function() {
       var propertyId = this.getAttribute('data-property-id');
       document.getElementById('propertyIdInput').value = propertyId;
     });
