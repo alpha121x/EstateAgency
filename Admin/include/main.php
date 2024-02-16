@@ -181,11 +181,11 @@
 
             if (!(item.plot_num in numericalBidsByPlot)) {
               numericalBidsByPlot[item.plot_num] = Array.from({
-                length: 31
-              }, () => 0); // Assuming 31 days in a month
+                length: 15
+              }, () => 0); // Assuming 15 days with a gap of 2 days
             }
 
-            numericalBidsByPlot[item.plot_num][parseInt(item.day) - 1] = numericalBid;
+            numericalBidsByPlot[item.plot_num][Math.floor((parseInt(item.day) - 1) / 2)] = numericalBid;
           });
 
           // Get unique plot numbers with data
@@ -199,8 +199,8 @@
             type: 'bar',
             data: {
               labels: Array.from({
-                length: 31
-              }, (_, index) => index + 1), // Assuming 31 days in a month
+                length: 15
+              }, (_, index) => index * 2 + 1), // Assuming 15 days with a gap of 2 days
               datasets: plotNumbersWithData.map((plotNum, index) => ({
                 label: 'Plot ' + plotNum,
                 data: numericalBidsByPlot[plotNum],
