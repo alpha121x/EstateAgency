@@ -37,7 +37,7 @@ include('db_config.php'); ?>
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Reports</h5>
-                            <p>Bids Report</p>
+                            <p>Bids Report</p><br>
 
                             <!-- Chart for bids last month -->
                             <canvas id="bidsChart" width="400" height="200"></canvas>
@@ -136,7 +136,7 @@ include('db_config.php'); ?>
                                     }
                                 });
                             </script>
-                            <br>
+                            <br><br>
 
                             <!-- Chart for count of bids last month -->
                             <canvas id="bidsCountChart" width="400" height="200"></canvas>
