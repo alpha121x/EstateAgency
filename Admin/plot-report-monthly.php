@@ -95,15 +95,17 @@ include('db_config.php'); ?>
                                     </tbody>
                                 </table>
                             </div>
+                            <br><br>
                             <!-- End Table with stripped rows -->
 
                             <div class="table-responsive">
                                 <table class="table table-bordered" style="background-color: white;">
                                     <thead>
                                         <tr>
+                                        <th scope="col">Date</th>
                                             <th scope="col">Plot Number</th>
                                             <th scope="col">Total Bids</th>
-                                            <th scope="col">Date</th>
+                                           
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -114,20 +116,21 @@ include('db_config.php'); ?>
                                             try {
                                                 // Fetch total bid data for each plot
                                                 $query = "SELECT pl.plot_num,
-                        SUM(CASE WHEN pb.bid_unit = 'Cr.' THEN pb.bid * 100
-                                WHEN pb.bid_unit = 'Lakh' THEN pb.bid
-                                ELSE 0 END) AS total_bids,
-                        MAX(DATE_FORMAT(pb.bid_date, '%Y-%m-%d')) AS last_bid_date
-                   FROM plot_bidding pb
-                   JOIN plot_listing pl ON pb.plot_id = pl.plot_id
-                   WHERE pb.bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
-                   GROUP BY pl.plot_num
-                   ORDER BY pl.plot_num;";
+                                                DATE_FORMAT(pb.bid_date, '%Y-%m-%d') AS bid_date,
+                                                SUM(CASE WHEN pb.bid_unit = 'Cr.' THEN pb.bid * 100
+                                                         WHEN pb.bid_unit = 'Lakh' THEN pb.bid
+                                                         ELSE 0 END) AS total_bids
+                                         FROM plot_bidding pb
+                                         JOIN plot_listing pl ON pb.plot_id = pl.plot_id
+                                         WHERE pb.bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
+                                         GROUP BY pl.plot_num, DATE_FORMAT(pb.bid_date, '%Y-%m-%d')
+                                         ORDER BY pl.plot_num, DATE_FORMAT(pb.bid_date, '%Y-%m-%d');
+                                         ";
                   
 
                                                 $plotBidsData = DB::query($query);
-                                                print_r( $plotBidsData);
-                                                die();
+                                                // print_r( $plotBidsData);
+                                                // die();
 
                                                 return $plotBidsData;
                                             } catch (MeekroDBException $e) {
@@ -142,7 +145,7 @@ include('db_config.php'); ?>
                                         foreach ($plotBidsData as $item) {
                                             $plotNumber = $item['plot_num'];
                                             $totalBids = $item['total_bids'];
-                                            $lastBidDate = $item['last_bid_date'];
+                                            $lastBidDate = $item['bid_date'];
 
                                             // Output table row
                                             echo "<tr>";
