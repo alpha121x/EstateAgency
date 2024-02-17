@@ -43,68 +43,73 @@ include('db_config.php'); ?>
                                 <table class="table table-bordered" style="background-color: white;">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Days</th>
+                                            <th scope="col">Date</th>
                                             <th scope="col">Total Bids</th>
                                             <th scope="col">Bids Count</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <?php
-// Function to get total bid data for the current month from the database
-function getTotalBidsDataForCurrentMonth()
-{
-    try {
-        // Fetch total bid data for the current month, including the sum of bids for each day
-        $query = "SELECT DAY(bid_date) AS day, 
+                                        <?php
+                                        // Function to get total bid data for the current month from the database
+                                        function getTotalBidsDataForCurrentMonth()
+                                        {
+                                            try {
+                                                // Fetch total bid data for the current month, including the sum of bids for each day
+                                                $query = "SELECT DATE_FORMAT(bid_date, '%Y-%m-%d') AS date,
                         SUM(CASE WHEN bid_unit = 'Cr.' THEN bid * 100
                                 WHEN bid_unit = 'Lakh' THEN bid
                                 ELSE 0 END) AS total_bid,
                         COUNT(*) AS bid_count
                    FROM plot_bidding
                    WHERE bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
-                   GROUP BY DAY(bid_date)
-                   ORDER BY DAY(bid_date);";
+                   GROUP BY DATE_FORMAT(bid_date, '%Y-%m-%d')
+                   ORDER BY DATE_FORMAT(bid_date, '%Y-%m-%d');";
 
-        $totalBidsData = DB::query($query);
+                                                $totalBidsData = DB::query($query);
 
-        return $totalBidsData;
-    } catch (MeekroDBException $e) {
-        die("Error: " . $e->getMessage());
-    }
-}
+                                                return $totalBidsData;
+                                            } catch (MeekroDBException $e) {
+                                                die("Error: " . $e->getMessage());
+                                            }
+                                        }
 
-// Get total bid data for the current month
-$totalBidsData = getTotalBidsDataForCurrentMonth();
+                                        // Get total bid data for the current month
+                                        $totalBidsData = getTotalBidsDataForCurrentMonth();
 
-// Loop through the data and display in rows
-foreach ($totalBidsData as $item) {
-    $day = $item['day'];
-    $totalBid = $item['total_bid'];
-    $bidCount = $item['bid_count'];
+                                        // Loop through the data and display in rows
+                                        foreach ($totalBidsData as $item) {
+                                            $date = $item['date'];
+                                            $totalBid = $item['total_bid'];
+                                            $bidCount = $item['bid_count'];
 
-    // Output table row
-    echo "<tr>";
-    echo "<td>$day</td>";
-    echo "<td>$totalBid Lakh</td>"; // Displaying the unit as Lakh
-    echo "<td>$bidCount</td>";
-    echo "</tr>";
-}
-?>
-
+                                            // Output table row
+                                            echo "<tr>";
+                                            echo "<td>$date</td>";
+                                            echo "<td>$totalBid Lakh</td>"; // Displaying the unit as Lakh
+                                            echo "<td>$bidCount</td>";
+                                            echo "</tr>";
+                                        }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
                             <!-- End Table with stripped rows -->
 
 
-
-
-
-
+                            </tbody>
+                            </table>
                         </div>
-                    </div>
+                        <!-- End Table with stripped rows -->
 
+
+
+
+
+
+                    </div>
                 </div>
+
+            </div>
             </div>
         </section>
 
