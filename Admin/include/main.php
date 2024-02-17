@@ -393,7 +393,7 @@ $jsDailyBidsData = json_encode($dailyBidsData);
       if (!(item.plot_num in numericalBidsByPlot)) {
         numericalBidsByPlot[item.plot_num] = Array.from({
           length: 31
-        }, () => 0); // Assuming 31 days in a month
+        }, () => null); // Assuming 31 days in a month
       }
 
       numericalBidsByPlot[item.plot_num][parseInt(item.day) - 1] = numericalBid;
@@ -414,7 +414,7 @@ $jsDailyBidsData = json_encode($dailyBidsData);
         }, (_, index) => index + 1), // Assuming 31 days in a month
         datasets: plotNumbersWithData.map((plotNum, index) => ({
           label: 'Plot ' + plotNum,
-          data: numericalBidsByPlot[plotNum],
+          data: numericalBidsByPlot[plotNum].filter(value => value !== null),
           borderColor: getRandomColor(index),
           borderWidth: 1,
           fill: false,  // Set fill to false to show the line without filling
@@ -469,6 +469,7 @@ $jsDailyBidsData = json_encode($dailyBidsData);
     }
   });
 </script>
+
 
       </div><!-- End Left columns -->
 
