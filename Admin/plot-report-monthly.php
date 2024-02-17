@@ -163,7 +163,7 @@ foreach ($plotBidsData as $item) {
 
     // Output table row
     echo "<tr>";
-    echo "<td style='color: $textColor;'>$lastBidDate</td>";
+    echo "<td style='color: $textColor; font-weight: bold;'>$lastBidDate</td>";
     echo "<td>$plotNumber</td>";
     echo "<td>$totalBids Lakh</td>"; // Displaying the unit as Lakh
     echo "</tr>";
