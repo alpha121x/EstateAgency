@@ -22,11 +22,11 @@
                     <i class="bi bi-circle-fill text-primary"></i><span>Add Users</span>
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="users_profile">
                     <i class="bi bi-circle-fill text-primary"></i><span>User Profile</span>
                 </a>
-            </li>
+            </li> -->
             <li>
                 <a href="admin_users">
                     <i class="bi bi-circle-fill text-primary"></i><span>Users</span>

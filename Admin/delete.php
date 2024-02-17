@@ -5,12 +5,22 @@ include("db_config.php");
 if (isset($_GET['deleteid'])) {
     $user_id = $_GET['deleteid'];
 
-    // Delete query using MeekroDB
-    $deleted = DB::delete('admin_users', 'user_id=%i', $user_id);
+    // Get the total number of records
+    $totalRecords = DB::queryFirstField("SELECT COUNT(*) FROM admin_users");
 
-    if ($deleted) {
-        header("Location: admin_users.php");
+    // Check if there is only one record left
+    if ($totalRecords > 1) {
+        // Delete query using MeekroDB
+        $deleted = DB::delete('admin_users', 'user_id=%i', $user_id);
+
+        if ($deleted) {
+            header("Location: admin_users.php");
+        } else {
+            header("Location: admin_users.php");
+        }
     } else {
+        // If there's only one record left, show an alert and don't allow deletion
+        echo "<script>alert('Cannot delete the last user.');</script>";
         header("Location: admin_users.php");
     }
 } else {
@@ -18,5 +28,3 @@ if (isset($_GET['deleteid'])) {
     header("Location: admin_users.php");
 }
 ?>
-
-
