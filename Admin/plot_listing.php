@@ -40,7 +40,7 @@
               <p>View All</p>
 
               <!-- Table with stripped rows -->
-              <table  class="table table-bordered" style="background-color: white;">
+              <table class="table table-bordered" style="background-color: white;">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
@@ -80,13 +80,20 @@
                         <td><?php echo $added_on; ?></td>
                         <td class="text-center">
                           <a href='edit_plot_listing.php?id=<?php echo $id; ?>' class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></a>
-                          |
-                          <a href='delete-plot_lisitng?deleteid=<?php echo $id; ?>'class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
+                          <?php
+                          if ($_SESSION['user_type'] == 'admin') {
+                          ?>
+                            |
+                            <a href='delete-plot_lisitng?deleteid=<?php echo $id; ?>' class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
+                          <?php
+                          }
+                          ?>
+
                         </td>
 
                       </tr>
                   <?php
-                        $index++;
+                      $index++;
                     }
                   }
                   ?>
