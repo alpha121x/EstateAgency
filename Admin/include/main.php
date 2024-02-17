@@ -371,104 +371,104 @@
         $jsDailyBidsData = json_encode($dailyBidsData);
         ?>
 
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script>
-        document.addEventListener("DOMContentLoaded", function() {
-  // Parse the PHP array in JavaScript
-  var dailyBidsData = <?php echo $jsDailyBidsData; ?>;
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Wrap the chart initialization inside a document-ready event handler
+  document.addEventListener("DOMContentLoaded", function () {
+    // Parse the PHP array in JavaScript
+    var dailyBidsData = <?php echo $jsDailyBidsData; ?>;
 
-  // Create arrays to store numerical bid amounts for each plot
-  var numericalBidsByPlot = {};
+    // Create arrays to store numerical bid amounts for each plot
+    var numericalBidsByPlot = {};
 
-  // Convert bid values to lakhs for better readability and remove null values
-  dailyBidsData.forEach(item => {
-    var numericalBid = parseFloat(item.total_bid.replace(/[^\d.]/g, ''));
+    // Convert bid values to lakhs for better readability
+    dailyBidsData.forEach(item => {
+      var numericalBid = parseFloat(item.total_bid.replace(/[^\d.]/g, ''));
 
-    // Check if the bid is in Cr. and multiply by 100
-    if (item.bid_unit === 'Cr.') {
-      numericalBid *= 100;
-    }
+      // Check if the bid is in Cr. and multiply by 100
+      if (item.bid_unit === 'Cr.') {
+        numericalBid *= 100;
+      }
 
-    if (!(item.plot_num in numericalBidsByPlot)) {
-      numericalBidsByPlot[item.plot_num] = Array.from({ length: 31 }, (_, index) => 0); // Assuming 31 days in a month
-    }
+      if (!(item.plot_num in numericalBidsByPlot)) {
+        numericalBidsByPlot[item.plot_num] = Array.from({
+          length: 31
+        }, () => null); // Assuming 31 days in a month
+      }
 
-    numericalBidsByPlot[item.plot_num][parseInt(item.day) - 1] = numericalBid;
-  });
+      numericalBidsByPlot[item.plot_num][parseInt(item.day) - 1] = numericalBid;
+    });
 
-  // Remove null values from datasets
-  Object.keys(numericalBidsByPlot).forEach(plotNum => {
-    numericalBidsByPlot[plotNum] = numericalBidsByPlot[plotNum].filter(value => value !== null);
-  });
+    // Get unique plot numbers with data
+    var plotNumbersWithData = Object.keys(numericalBidsByPlot);
 
-  // Get unique plot numbers with data
-  var plotNumbersWithData = Object.keys(numericalBidsByPlot);
+    // Get the canvas element
+    var ctxDailyBids = document.getElementById('dailyBidsChart').getContext('2d');
 
-  // Get the canvas element
-  var ctxDailyBids = document.getElementById('dailyBidsChart').getContext('2d');
-
-  // Create the chart
-  var dailyBidsChart = new Chart(ctxDailyBids, {
-    type: 'line',  // Change 'bar' to 'line'
-    data: {
-      labels: Array.from({ length: 31 }, (_, index) => index + 1), // Assuming 31 days in a month
-      datasets: plotNumbersWithData.map((plotNum, index) => ({
-        label: 'Plot ' + plotNum,
-        data: numericalBidsByPlot[plotNum],
-        borderColor: getRandomColor(index),
-        borderWidth: 1,
-        fill: false
-      }))
-    },
-    options: {
-      scales: {
-        x: {
-          type: 'category',
-          position: 'bottom',
-          title: {
-            display: true,
-            text: 'Days'
-          }
-        },
-        y: {
-          beginAtZero: false,
-          title: {
-            display: true,
-            text: 'Total Bids'
+    // Create the chart
+    var dailyBidsChart = new Chart(ctxDailyBids, {
+      type: 'line',  // Change type to 'line' for a horizontal curved line chart
+      data: {
+        labels: Array.from({
+          length: 31,
+        }, (_, index) => index + 1), // Assuming 31 days in a month
+        datasets: plotNumbersWithData.map((plotNum, index) => ({
+          label: 'Plot ' + plotNum,
+          data: numericalBidsByPlot[plotNum].filter(value => value !== null),
+          borderColor: getRandomColor(index),
+          borderWidth: 1,
+          fill: false,  // Set fill to false to show the line without filling
+          lineTension: 0.4  // Adjust line tension for curved lines
+        }))
+      },
+      options: {
+        scales: {
+          x: {
+            type: 'category',
+            position: 'bottom',
+            title: {
+              display: true,
+              text: 'Days'
+            }
           },
-          ticks: {
-            callback: function(value) {
-              return value.toFixed(2) + ' Lakh';
+          y: {
+            beginAtZero: false,
+            title: {
+              display: true,
+              text: 'Total Bids'
+            },
+            ticks: {
+              callback: function (value) {
+                return value.toFixed(2) + ' Lakh';
+              }
             }
           }
-        }
-      },
-      plugins: {
-        legend: {
-          display: true,
-          position: 'top',
-          labels: {
-            font: {
-              size: 14
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            labels: {
+              font: {
+                size: 14
+              }
             }
           }
         }
       }
+    });
+
+    // Function to generate random color
+    function getRandomColor() {
+      var letters = '0123456789ABCDEF';
+      var color = '#';
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
     }
   });
-
-  // Function to generate random color
-  function getRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-    for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  }
-});
-
-        </script>
+</script>
 
 
       </div><!-- End Left columns -->
