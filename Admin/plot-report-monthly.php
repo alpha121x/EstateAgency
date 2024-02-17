@@ -111,53 +111,71 @@ include('db_config.php'); ?>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php
-                                        // Function to get total bid data for each plot from the database
-                                        function getIndividualPlotBids()
-                                        {
-                                            try {
-                                                // Fetch total bid data for each plot
-                                                $query = "SELECT pl.plot_num,
-                                                DATE_FORMAT(pb.bid_date, '%Y-%m-%d') AS bid_date,
-                                                SUM(CASE WHEN pb.bid_unit = 'Cr.' THEN pb.bid * 100
-                                                         WHEN pb.bid_unit = 'Lakh' THEN pb.bid
-                                                         ELSE 0 END) AS total_bids
-                                         FROM plot_bidding pb
-                                         JOIN plot_listing pl ON pb.plot_id = pl.plot_id
-                                         WHERE pb.bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
-                                         GROUP BY pl.plot_num, DATE_FORMAT(pb.bid_date, '%Y-%m-%d')
-                                         ORDER BY pb.bid_date, DATE_FORMAT(pb.bid_date, '%Y-%m-%d');
-                                         ";
-                  
+                                    <?php
+// Function to get total bid data for each plot from the database
+function getIndividualPlotBids()
+{
+    try {
+        // Fetch total bid data for each plot
+        $query = "SELECT pl.plot_num,
+                DATE_FORMAT(pb.bid_date, '%Y-%m-%d') AS bid_date,
+                SUM(CASE WHEN pb.bid_unit = 'Cr.' THEN pb.bid * 100
+                         WHEN pb.bid_unit = 'Lakh' THEN pb.bid
+                         ELSE 0 END) AS total_bids
+         FROM plot_bidding pb
+         JOIN plot_listing pl ON pb.plot_id = pl.plot_id
+         WHERE pb.bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
+         GROUP BY pl.plot_num, DATE_FORMAT(pb.bid_date, '%Y-%m-%d')
+         ORDER BY pb.bid_date, DATE_FORMAT(pb.bid_date, '%Y-%m-%d');
+         ";
 
-                                                $plotBidsData = DB::query($query);
-                                                // print_r( $plotBidsData);
-                                                // die();
+        $plotBidsData = DB::query($query);
 
-                                                return $plotBidsData;
-                                            } catch (MeekroDBException $e) {
-                                                die("Error: " . $e->getMessage());
-                                            }
-                                        }
+        return $plotBidsData;
+    } catch (MeekroDBException $e) {
+        die("Error: " . $e->getMessage());
+    }
+}
 
-                                        // Get total bid data for each plot
-                                        $plotBidsData = getIndividualPlotBids();
+// Get total bid data for each plot
+$plotBidsData = getIndividualPlotBids();
 
-                                        // Loop through the data and display in rows
-                                        foreach ($plotBidsData as $item) {
-                                            $plotNumber = $item['plot_num'];
-                                            $totalBids = $item['total_bids'];
-                                            $lastBidDate = $item['bid_date'];
+// Variable to keep track of the previous date
+$previousDate = null;
 
-                                            // Output table row
-                                            echo "<tr>";
-                                            echo "<td>$lastBidDate</td>";
-                                            echo "<td>$plotNumber</td>";
-                                            echo "<td>$totalBids Lakh</td>"; // Displaying the unit as Lakh
-                                         
-                                            echo "</tr>";
-                                        }
-                                        ?>
+// Array to store colors for each unique date
+$dateColors = [];
+
+// Loop through the data and display in rows
+foreach ($plotBidsData as $item) {
+    $plotNumber = $item['plot_num'];
+    $totalBids = $item['total_bids'];
+    $lastBidDate = $item['bid_date'];
+
+    // Check if the date has already been assigned a color
+    if (!isset($dateColors[$lastBidDate])) {
+        // Assign a new color for the unique date
+        $dateColors[$lastBidDate] = getRandomColor();
+    }
+
+    // Get the color for the date
+    $textColor = $dateColors[$lastBidDate];
+
+    // Output table row
+    echo "<tr>";
+    echo "<td style='color: $textColor;'>$lastBidDate</td>";
+    echo "<td>$plotNumber</td>";
+    echo "<td>$totalBids Lakh</td>"; // Displaying the unit as Lakh
+    echo "</tr>";
+}
+
+// Function to generate random color
+function getRandomColor() {
+    return '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
+}
+?>
+
+
                                     </tbody>
                                 </table>
                             </div>
