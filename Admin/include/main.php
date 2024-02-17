@@ -583,7 +583,7 @@
           ?>
 
           <div class="card-body pb-0">
-            <h5 class="card-title">News & Updates| Today <span></span></h5>
+            <h5 class="card-title">News & Updates<span></span></h5>
 
             <div class="news">
               <?php foreach ($posts as $post) : ?>
