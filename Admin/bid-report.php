@@ -49,49 +49,48 @@ include('db_config.php'); ?>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php
-                                        // Function to get total bid data for the current month from the database
-                                        function getTotalBidsDataForCurrentMonth()
-                                        {
-                                            try {
-                                                // Fetch total bid data for the current month, including the sum of bids for each day
-                                                $query = "SELECT DAY(bid_date) AS day, 
+                                    <?php
+// Function to get total bid data for the current month from the database
+function getTotalBidsDataForCurrentMonth()
+{
+    try {
+        // Fetch total bid data for the current month, including the sum of bids for each day
+        $query = "SELECT DAY(bid_date) AS day, 
                         SUM(CASE WHEN bid_unit = 'Cr.' THEN bid * 100
-                                 WHEN bid_unit = 'Lakh' THEN bid
-                                 ELSE 0 END) AS total_bid,
-                        COUNT(*) AS bid_count,
-                        MAX(bid_unit) AS unit
-                     FROM plot_bidding
-                     WHERE bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
-                     GROUP BY DAY(bid_date)
-                     ORDER BY DAY(bid_date);";
+                                WHEN bid_unit = 'Lakh' THEN bid
+                                ELSE 0 END) AS total_bid,
+                        COUNT(*) AS bid_count
+                   FROM plot_bidding
+                   WHERE bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
+                   GROUP BY DAY(bid_date)
+                   ORDER BY DAY(bid_date);";
 
-                                                $totalBidsData = DB::query($query);
+        $totalBidsData = DB::query($query);
 
-                                                return $totalBidsData;
-                                            } catch (MeekroDBException $e) {
-                                                die("Error: " . $e->getMessage());
-                                            }
-                                        }
+        return $totalBidsData;
+    } catch (MeekroDBException $e) {
+        die("Error: " . $e->getMessage());
+    }
+}
 
-                                        // Get total bid data for the current month
-                                        $totalBidsData = getTotalBidsDataForCurrentMonth();
+// Get total bid data for the current month
+$totalBidsData = getTotalBidsDataForCurrentMonth();
 
-                                        // Loop through the data and display in rows
-                                        foreach ($totalBidsData as $item) {
-                                            $day = $item['day'];
-                                            $totalBid = $item['total_bid'];
-                                            $bidCount = $item['bid_count'];
-                                            $unit = $item['unit'];
+// Loop through the data and display in rows
+foreach ($totalBidsData as $item) {
+    $day = $item['day'];
+    $totalBid = $item['total_bid'];
+    $bidCount = $item['bid_count'];
 
-                                            // Output table row
-                                            echo "<tr>";
-                                            echo "<td>$day</td>";
-                                            echo "<td>$totalBid $unit</td>";
-                                            echo "<td>$bidCount</td>";
-                                            echo "</tr>";
-                                        }
-                                        ?>
+    // Output table row
+    echo "<tr>";
+    echo "<td>$day</td>";
+    echo "<td>$totalBid Lakh</td>"; // Displaying the unit as Lakh
+    echo "<td>$bidCount</td>";
+    echo "</tr>";
+}
+?>
+
                                     </tbody>
                                 </table>
                             </div>
