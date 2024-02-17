@@ -338,38 +338,38 @@
           });
         </script>
         <br><br>
-        <!-- Chart for daily bids by plot -->
-        <canvas id="dailyBidsChart" width="400" height="200"></canvas>
+       <!-- Chart for daily bids by plot -->
+<canvas id="dailyBidsChart" width="400" height="200"></canvas>
 
-        <?php
-        require('db_config.php');
+<?php
+require('db_config.php');
 
-        // Function to get daily bid data for each plot from the database
-        function getDailyBidsData()
-        {
-          try {
-            // Fetch daily bid data for each plot
-            $query = "SELECT pb.plot_id, pl.plot_num, DAY(pb.bid_date) AS day, FORMAT(SUM(pb.bid), 2) AS total_bid, pb.bid_unit
+// Function to get daily bid data for each plot from the database
+function getDailyBidsData()
+{
+  try {
+    // Fetch daily bid data for each plot
+    $query = "SELECT pb.plot_id, pl.plot_num, DAY(pb.bid_date) AS day, FORMAT(SUM(pb.bid), 2) AS total_bid, pb.bid_unit
     FROM plot_bidding pb
     JOIN plot_listing pl ON pb.plot_id = pl.plot_id
     WHERE pb.bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
     GROUP BY pb.plot_id, DAY(pb.bid_date), pb.bid_unit
     ORDER BY pb.plot_id, DAY(pb.bid_date);";
 
-            $dailyBidsData = DB::query($query);
+    $dailyBidsData = DB::query($query);
 
-            return $dailyBidsData;
-          } catch (MeekroDBException $e) {
-            die("Error: " . $e->getMessage());
-          }
-        }
+    return $dailyBidsData;
+  } catch (MeekroDBException $e) {
+    die("Error: " . $e->getMessage());
+  }
+}
 
-        // Get daily bid data for each plot
-        $dailyBidsData = getDailyBidsData();
+// Get daily bid data for each plot
+$dailyBidsData = getDailyBidsData();
 
-        // Convert PHP array to JSON
-        $jsDailyBidsData = json_encode($dailyBidsData);
-        ?>
+// Convert PHP array to JSON
+$jsDailyBidsData = json_encode($dailyBidsData);
+?>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -424,18 +424,18 @@
       options: {
         scales: {
           x: {
-            type: 'category',
+            type: 'linear',
             position: 'bottom',
             title: {
               display: true,
-              text: 'Days'
+              text: 'Total Bids'
             }
           },
           y: {
             beginAtZero: false,
             title: {
               display: true,
-              text: 'Total Bids'
+              text: 'Days'
             },
             ticks: {
               callback: function (value) {
