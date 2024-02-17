@@ -40,7 +40,7 @@ include('db_config.php'); ?>
                             <p>Bids Monthly Report</p><br><br>
                             <!-- Table with stripped rows -->
                             <div class="table-responsive">
-                                <table class="table table-bordered" style="background-color: white;">
+                                <table class="table table-bordered datatable" style="background-color: white;">
                                     <thead>
                                         <tr>
                                             <th scope="col">Date</th>
