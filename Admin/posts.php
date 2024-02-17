@@ -1,12 +1,12 @@
 <!--  write code for shwoing posts in a data table -->
- <?php
+<?php
 include('db_config.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <title>Posts</title>
-  <?php include("include/linked-files.php") ?>
+    <title>Posts</title>
+    <?php include("include/linked-files.php") ?>
 </head>
 
 <body>
@@ -38,43 +38,51 @@ include('db_config.php'); ?>
                             <p>View All</p>
 
                             <!-- Table with stripped rows -->
-                                <table class="table table-bordered" style="background-color: white;">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Title</th>
-                                            <th>Category</th>
-                                            <th>Date</th>
-                                            <th class="text-center">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        include("db_config.php");
+                            <table class="table table-bordered" style="background-color: white;">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Title</th>
+                                        <th>Category</th>
+                                        <th>Date</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    include("db_config.php");
 
-                                        $posts = DB::query("SELECT * FROM posts ORDER BY date_posted DESC");
+                                    $posts = DB::query("SELECT * FROM posts ORDER BY date_posted DESC");
 
-                                        if ($posts) {
-                                            $index = 1;
-                                            foreach ($posts as $post) {
-                                        ?>
-                                                <tr>
-                                                    <td><?php echo $index; ?></td>
-                                                    <td><?php echo $post['post_title']; ?></td>
-                                                    <td><?php echo $post['post_category']; ?></td>
-                                                    <td><?php echo $post['date_posted']; ?></td>
-                                                    <td  class="text-center">
-                                                        <a href="edit-posts?post_id=<?php echo $post['id']; ?>" class="btn btn-success btn-sm">Edit</a>
+                                    if ($posts) {
+                                        $index = 1;
+                                        foreach ($posts as $post) {
+                                    ?>
+                                            <tr>
+                                                <td><?php echo $index; ?></td>
+                                                <td><?php echo $post['post_title']; ?></td>
+                                                <td><?php echo $post['post_category']; ?></td>
+                                                <td><?php echo $post['date_posted']; ?></td>
+                                                <td class="text-center">
+                                                    <a href="edit-posts?post_id=<?php echo $post['id']; ?>" class="btn btn-success btn-sm">Edit</a>
+
+                                                    <?php
+                                                    if ($_SESSION['user_type'] == 'admin') {
+                                                    ?>
+                                                        |
                                                         <a href="delete-post?post_id=<?php echo $post['id']; ?>" class="btn btn-danger btn-sm">Delete</a>
-                                                    </td>
-                                                </tr>
-                                        <?php
-                                                $index++;
-                                            }
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </td>
+                                            </tr>
+                                    <?php
+                                            $index++;
                                         }
-                                        ?>
-                                    </tbody>
-                                </table>
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
 
                             <!-- End Table with stripped rows -->
 
