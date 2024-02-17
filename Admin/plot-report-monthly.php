@@ -43,6 +43,7 @@ include('db_config.php'); ?>
                             <div class="table-responsive">
                                 <table class="table table-bordered" style="background-color: white;">
                                     <thead>
+                                    <h5 class="card-title">Plots Bid Monthly Report</h5>
                                         <tr>
                                             <th scope="col">Date</th>
                                             <th scope="col">Plot Numbers</th>
@@ -101,6 +102,7 @@ include('db_config.php'); ?>
                             <div class="table-responsive">
                                 <table class="table table-bordered" style="background-color: white;">
                                     <thead>
+                                    <h5 class="card-title">Individual Plots Monthly Report</h5>
                                         <tr>
                                         <th scope="col">Date</th>
                                             <th scope="col">Plot Number</th>
