@@ -11,7 +11,7 @@ if (isset($_GET['deleteid'])) {
     // Check if there is only one record left
     if ($totalRecords > 1) {
         // Delete query using MeekroDB
-        $deleted = DB::delete('admin_users', 'user_id=%i', $user_id);
+        $deleted = DB::delete('admin_users', 'id=%i', $user_id);
 
         if ($deleted) {
             header("Location: admin_users.php");
@@ -20,8 +20,8 @@ if (isset($_GET['deleteid'])) {
         }
     } else {
         // If there's only one record left, show an alert and don't allow deletion
-        echo "<script>alert('Cannot delete the last user.');</script>";
-        header("Location: admin_users.php");
+        echo "<script>alert('Cannot delete the Admin user.');</script>";
+        echo "<script>window.location.href='admin_users.php';</script>";
     }
 } else {
     // Handle the case where no user ID is provided in the URL
