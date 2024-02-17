@@ -43,7 +43,7 @@ include('db_config.php'); ?>
                             <div class="table-responsive">
                                 <table class="table table-bordered" style="background-color: white;">
                                     <thead>
-                                    <h5 class="card-title">Plots Bid Monthly Report</h5>
+                                        <h5 class="card-title">Plots Bid Monthly Report</h5>
                                         <tr>
                                             <th scope="col">Date</th>
                                             <th scope="col">Plot Numbers</th>
@@ -102,22 +102,22 @@ include('db_config.php'); ?>
                             <div class="table-responsive">
                                 <table class="table table-bordered" style="background-color: white;">
                                     <thead>
-                                    <h5 class="card-title">Individual Plots Monthly Report</h5>
+                                        <h5 class="card-title">Individual Plots Monthly Report</h5>
                                         <tr>
-                                        <th scope="col">Date</th>
+                                            <th scope="col">Date</th>
                                             <th scope="col">Plot Number</th>
                                             <th scope="col">Total Bids</th>
-                                           
+
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <?php
-// Function to get total bid data for each plot from the database
-function getIndividualPlotBids()
-{
-    try {
-        // Fetch total bid data for each plot
-        $query = "SELECT pl.plot_num,
+                                        <?php
+                                        // Function to get total bid data for each plot from the database
+                                        function getIndividualPlotBids()
+                                        {
+                                            try {
+                                                // Fetch total bid data for each plot
+                                                $query = "SELECT pl.plot_num,
                 DATE_FORMAT(pb.bid_date, '%Y-%m-%d') AS bid_date,
                 SUM(CASE WHEN pb.bid_unit = 'Cr.' THEN pb.bid * 100
                          WHEN pb.bid_unit = 'Lakh' THEN pb.bid
@@ -129,51 +129,52 @@ function getIndividualPlotBids()
          ORDER BY pb.bid_date, DATE_FORMAT(pb.bid_date, '%Y-%m-%d');
          ";
 
-        $plotBidsData = DB::query($query);
+                                                $plotBidsData = DB::query($query);
 
-        return $plotBidsData;
-    } catch (MeekroDBException $e) {
-        die("Error: " . $e->getMessage());
-    }
-}
+                                                return $plotBidsData;
+                                            } catch (MeekroDBException $e) {
+                                                die("Error: " . $e->getMessage());
+                                            }
+                                        }
 
-// Get total bid data for each plot
-$plotBidsData = getIndividualPlotBids();
+                                        // Get total bid data for each plot
+                                        $plotBidsData = getIndividualPlotBids();
 
-// Variable to keep track of the previous date
-$previousDate = null;
+                                        // Variable to keep track of the previous date
+                                        $previousDate = null;
 
-// Array to store colors for each unique date
-$dateColors = [];
+                                        // Array to store colors for each unique date
+                                        $dateColors = [];
 
-// Loop through the data and display in rows
-foreach ($plotBidsData as $item) {
-    $plotNumber = $item['plot_num'];
-    $totalBids = $item['total_bids'];
-    $lastBidDate = $item['bid_date'];
+                                        // Loop through the data and display in rows
+                                        foreach ($plotBidsData as $item) {
+                                            $plotNumber = $item['plot_num'];
+                                            $totalBids = $item['total_bids'];
+                                            $lastBidDate = $item['bid_date'];
 
-    // Check if the date has already been assigned a color
-    if (!isset($dateColors[$lastBidDate])) {
-        // Assign a new color for the unique date
-        $dateColors[$lastBidDate] = getRandomColor();
-    }
+                                            // Check if the date has already been assigned a color
+                                            if (!isset($dateColors[$lastBidDate])) {
+                                                // Assign a new color for the unique date
+                                                $dateColors[$lastBidDate] = getRandomColor();
+                                            }
 
-    // Get the color for the date
-    $textColor = $dateColors[$lastBidDate];
+                                            // Get the color for the date
+                                            $textColor = $dateColors[$lastBidDate];
 
-    // Output table row
-    echo "<tr>";
-    echo "<td style='color: $textColor; font-weight: bold;'>$lastBidDate</td>";
-    echo "<td>$plotNumber</td>";
-    echo "<td>$totalBids Lakh</td>"; // Displaying the unit as Lakh
-    echo "</tr>";
-}
+                                            // Output table row
+                                            echo "<tr>";
+                                            echo "<td style='color: $textColor; font-weight: bold;'>$lastBidDate</td>";
+                                            echo "<td>$plotNumber</td>";
+                                            echo "<td>$totalBids Lakh</td>"; // Displaying the unit as Lakh
+                                            echo "</tr>";
+                                        }
 
-// Function to generate random color
-function getRandomColor() {
-    return '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
-}
-?>
+                                        // Function to generate random color
+                                        function getRandomColor()
+                                        {
+                                            return '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
+                                        }
+                                        ?>
 
 
                                     </tbody>
