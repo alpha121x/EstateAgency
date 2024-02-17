@@ -39,24 +39,24 @@ include('db_config.php'); ?>
                         <div class="card-body">
                             <h5 class="card-title">Reports</h5>
                             <p>Plots Bids Monthly Report</p> <br><br>
-<!-- Table with stripped rows -->
-<div class="table-responsive">
-    <table class="table table-bordered" style="background-color: white;">
-        <thead>
-            <tr>
-                <th scope="col">Date</th>
-                <th scope="col">Plot Numbers</th>
-                <th scope="col">Total Bids</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            // Function to get total bid data for the current month from the database
-            function getTotalBidsDataForCurrentMonth()
-            {
-                try {
-                    // Fetch total bid data for the current month, including the sum of bids for each day
-                    $query = "SELECT DATE_FORMAT(pb.bid_date, '%Y-%m-%d') AS date,
+                            <!-- Table with stripped rows -->
+                            <div class="table-responsive">
+                                <table class="table table-bordered" style="background-color: white;">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Plot Numbers</th>
+                                            <th scope="col">Total Bids</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        // Function to get total bid data for the current month from the database
+                                        function getTotalBidsDataForCurrentMonth()
+                                        {
+                                            try {
+                                                // Fetch total bid data for the current month, including the sum of bids for each day
+                                                $query = "SELECT DATE_FORMAT(pb.bid_date, '%Y-%m-%d') AS date,
                         GROUP_CONCAT(DISTINCT pl.plot_num ORDER BY pl.plot_num) AS plot_numbers,
                         SUM(CASE WHEN pb.bid_unit = 'Cr.' THEN pb.bid * 100
                                 WHEN pb.bid_unit = 'Lakh' THEN pb.bid
@@ -67,35 +67,35 @@ include('db_config.php'); ?>
                    GROUP BY DATE_FORMAT(pb.bid_date, '%Y-%m-%d')
                    ORDER BY DATE_FORMAT(pb.bid_date, '%Y-%m-%d');";
 
-                    $totalBidsData = DB::query($query);
+                                                $totalBidsData = DB::query($query);
 
-                    return $totalBidsData;
-                } catch (MeekroDBException $e) {
-                    die("Error: " . $e->getMessage());
-                }
-            }
+                                                return $totalBidsData;
+                                            } catch (MeekroDBException $e) {
+                                                die("Error: " . $e->getMessage());
+                                            }
+                                        }
 
-            // Get total bid data for the current month
-            $totalBidsData = getTotalBidsDataForCurrentMonth();
+                                        // Get total bid data for the current month
+                                        $totalBidsData = getTotalBidsDataForCurrentMonth();
 
-            // Loop through the data and display in rows
-            foreach ($totalBidsData as $item) {
-                $date = $item['date'];
-                $plotNumbers = $item['plot_numbers'];
-                $totalBids = $item['total_bids'];
+                                        // Loop through the data and display in rows
+                                        foreach ($totalBidsData as $item) {
+                                            $date = $item['date'];
+                                            $plotNumbers = $item['plot_numbers'];
+                                            $totalBids = $item['total_bids'];
 
-                // Output table row
-                echo "<tr>";
-                echo "<td>$date</td>";
-                echo "<td>$plotNumbers</td>";
-                echo "<td>$totalBids Lakh</td>"; // Displaying the unit as Lakh
-                echo "</tr>";
-            }
-            ?>
-        </tbody>
-    </table>
-</div>
-<!-- End Table with stripped rows -->
+                                            // Output table row
+                                            echo "<tr>";
+                                            echo "<td>$date</td>";
+                                            echo "<td>$plotNumbers</td>";
+                                            echo "<td>$totalBids Lakh</td>"; // Displaying the unit as Lakh
+                                            echo "</tr>";
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- End Table with stripped rows -->
 
 
 
