@@ -123,8 +123,11 @@ include('db_config.php'); ?>
                    WHERE pb.bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
                    GROUP BY pl.plot_num
                    ORDER BY pl.plot_num;";
+                  
 
                                                 $plotBidsData = DB::query($query);
+                                                print_r( $plotBidsData);
+                                                die();
 
                                                 return $plotBidsData;
                                             } catch (MeekroDBException $e) {
