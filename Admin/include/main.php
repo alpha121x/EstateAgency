@@ -373,7 +373,7 @@
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script>
-          document.addEventListener("DOMContentLoaded", function() {
+      document.addEventListener("DOMContentLoaded", function() {
   // Parse the PHP array in JavaScript
   var dailyBidsData = <?php echo $jsDailyBidsData; ?>;
 
@@ -404,15 +404,15 @@
 
   // Create the chart
   var dailyBidsChart = new Chart(ctxDailyBids, {
-    type: 'bar',
+    type: 'line',  // Change 'bar' to 'line'
     data: {
       labels: Array.from({ length: 31 }, (_, index) => index + 1), // Assuming 31 days in a month
       datasets: plotNumbersWithData.map((plotNum, index) => ({
         label: 'Plot ' + plotNum,
         data: numericalBidsByPlot[plotNum],
-        backgroundColor: getRandomColor(index),
         borderColor: getRandomColor(index),
-        borderWidth: 1
+        borderWidth: 1,
+        fill: false
       }))
     },
     options: {
@@ -462,6 +462,7 @@
     return color;
   }
 });
+
 
         </script>
 
