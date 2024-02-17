@@ -38,7 +38,6 @@ include('db_config.php'); ?>
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Reports</h5>
-                            <p>Plots Bids Monthly Report</p> <br><br>
                             <!-- Table with stripped rows -->
                             <div class="table-responsive">
                                 <table class="table table-bordered datatable" style="background-color: white;">
