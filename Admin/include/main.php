@@ -428,14 +428,14 @@
                     position: 'bottom',
                     title: {
                       display: true,
-                      text: 'Total Bids'
+                      text: 'Count Bids'
                     }
                   },
                   y: {
                     beginAtZero: false,
                     title: {
                       display: true,
-                      text: 'Days'
+                      text: 'Total Bids'
                     },
                     ticks: {
                       callback: function(value) {
