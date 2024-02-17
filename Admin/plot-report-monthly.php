@@ -149,9 +149,10 @@ include('db_config.php'); ?>
 
                                             // Output table row
                                             echo "<tr>";
+                                            echo "<td>$lastBidDate</td>";
                                             echo "<td>$plotNumber</td>";
                                             echo "<td>$totalBids Lakh</td>"; // Displaying the unit as Lakh
-                                            echo "<td>$lastBidDate</td>";
+                                         
                                             echo "</tr>";
                                         }
                                         ?>
