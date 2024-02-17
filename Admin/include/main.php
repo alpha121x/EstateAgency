@@ -350,7 +350,6 @@
   </div>
 </div><!-- Bids Monthly Report end-->
 
-        <br><br>
         <!-- Chart for daily bids by plot -->
         <canvas id="dailyBidsChart" width="400" height="200"></canvas>
 
