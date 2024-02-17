@@ -97,6 +97,60 @@ include('db_config.php'); ?>
                             </div>
                             <!-- End Table with stripped rows -->
 
+                            <div class="table-responsive">
+    <table class="table table-bordered" style="background-color: white;">
+        <thead>
+            <tr>
+                <th scope="col">Plot Number</th>
+                <th scope="col">Total Bids</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            // Function to get total bid data for each plot from the database
+            function getIndividualPlotBids()
+            {
+                try {
+                    // Fetch total bid data for each plot
+                    $query = "SELECT pl.plot_num,
+                        SUM(CASE WHEN pb.bid_unit = 'Cr.' THEN pb.bid * 100
+                                WHEN pb.bid_unit = 'Lakh' THEN pb.bid
+                                ELSE 0 END) AS total_bids
+                   FROM plot_bidding pb
+                   JOIN plot_listing pl ON pb.plot_id = pl.plot_id
+                   WHERE pb.bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
+                   GROUP BY pl.plot_num
+                   ORDER BY pl.plot_num;";
+
+                    $plotBidsData = DB::query($query);
+
+                    return $plotBidsData;
+                } catch (MeekroDBException $e) {
+                    die("Error: " . $e->getMessage());
+                }
+            }
+
+            // Get total bid data for each plot
+            $plotBidsData = getIndividualPlotBids();
+
+            // Loop through the data and display in rows
+            foreach ($plotBidsData as $item) {
+                $plotNumber = $item['plot_num'];
+                $totalBids = $item['total_bids'];
+
+                // Output table row
+                echo "<tr>";
+                echo "<td>$plotNumber</td>";
+                echo "<td>$totalBids Lakh</td>"; // Displaying the unit as Lakh
+                echo "</tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
+<!-- End Table with individual plots and their biddings -->
+
+
 
 
 
