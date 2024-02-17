@@ -46,7 +46,7 @@
                 <table class="table table-bordered" style="background-color: white;">
                   <thead>
                     <tr>
-                      <th scope="col">id.</th>
+                      <th scope="col">#</th>
                       <th scope="col">Username</th>
                       <th scope="col">Email</th>
                       <th scope="col">User Type</th>
@@ -62,6 +62,7 @@
                     $users = DB::query("SELECT * FROM admin_users");
 
                     if ($users) {
+                      $index = 1; // Initialize the index
                       foreach ($users as $user) {
                         // Assign variables from the fetched row
                         $id = $user['id'];
@@ -72,7 +73,7 @@
                     ?>
                         <!-- Display data in the rows -->
                         <tr>
-                          <td><?php echo $user['id']; ?></td>
+                        <td><?php echo $index; ?></td>
                           <td><?php echo $user['username']; ?></td>
                           <td><?php echo $user['email']; ?></td>
                           <td><?php echo $user['user_type']; ?></td>
@@ -91,6 +92,7 @@
                           </td>
                         </tr>
                     <?php
+                     $index++; // Increment the index
                       }
                     } else {
                       echo "No admin users found in the database.";
