@@ -124,7 +124,7 @@ include('db_config.php'); ?>
                                          JOIN plot_listing pl ON pb.plot_id = pl.plot_id
                                          WHERE pb.bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
                                          GROUP BY pl.plot_num, DATE_FORMAT(pb.bid_date, '%Y-%m-%d')
-                                         ORDER BY pl.plot_num, DATE_FORMAT(pb.bid_date, '%Y-%m-%d');
+                                         ORDER BY pb.bid_date, DATE_FORMAT(pb.bid_date, '%Y-%m-%d');
                                          ";
                   
 
