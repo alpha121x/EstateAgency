@@ -466,10 +466,85 @@
             }
           });
         </script>
-        <br><br>
+      </div><!-- End Left columns -->
 
+      <!-- Right side columns -->
+      <div class="col-lg-4">
+        <!-- Recent activity start-->
+          <div class="card-body">
+            <h5 class="card-title">Recent Activity <span>| Today</span></h5>
 
+            <div class="activity">
+              <?php
+              // Assuming you have a function to fetch notifications data from the database
+              function getRecentActivityData()
+              {
+                try {
+                  // Adjust the query based on your database schema
+                  $query = "SELECT * FROM notifications WHERE DATE(bid_date) = CURDATE() ORDER BY bid_date DESC LIMIT 5";
+                  $notificationsData = DB::query($query);
+                  return $notificationsData;
+                } catch (MeekroDBException $e) {
+                  die("Error: " . $e->getMessage());
+                }
+              }
 
+              // Get recent activity data
+              $recentActivityData = getRecentActivityData();
+
+              // Array of different text colors for circles
+              $textColors = ['text-success', 'text-warning', 'text-danger', 'text-primary', 'text-info'];
+
+              // Loop through the data and display the title and time ago
+              foreach ($recentActivityData as $index => $item) {
+                $title = $item['title'];
+                $timestamp = strtotime($item['bid_date']);
+                $timeAgo = time_ago_notificationss($timestamp);
+
+                // Get the current text color from the array
+                $currentColor = $textColors[$index % count($textColors)];
+
+                // Output activity item with title and time ago
+                echo "<div class='activity-item d-flex'>";
+                echo "<div class='activite-label' style='width: 120px;'>$timeAgo</div>";
+                echo "<i class='bi bi-circle-fill activity-badge $currentColor align-self-start'></i>";
+                echo "<div class='activity-content'>$title</div>";
+                echo "</div><!-- End activity item--><br>";
+              }
+
+              // Function to calculate time difference
+              function time_ago_notificationss($timestamp)
+              {
+                $current_time = time();
+                $time_difference = $current_time - $timestamp;
+                $seconds = $time_difference;
+                $minutes      = round($seconds / 60);           // value 60 is seconds
+                $hours           = round($seconds / 3600);         // value 3600 is 60 minutes * 60 sec
+                $days          = round($seconds / 86400);        // value 86400 is 24 hours * 60 minutes * 60 sec
+                $weeks        = round($seconds / 604800);       // value 604800 is 7 days * 24 hours * 60 minutes * 60 sec
+                $months     = round($seconds / 2629440);     // value 2629440 is ((365+365+365+365+366)/5/12) days * 24 hours * 60 minutes * 60 sec
+                $years          = round($seconds / 31553280); // value 31553280 is ((365+365+365+365+366)/5) days * 24 hours * 60 minutes * 60 sec
+                if ($seconds <= 60) {
+                  return "Just Now";
+              } else if ($minutes <= 60) {
+                  return "$minutes minutes ago";
+              } else if ($hours <= 24) {
+                  return "$hours hours ago";
+              } else if ($days <= 7) {
+                  return "$days days ago";
+              } else if ($weeks <= 4.3) {  // 4.3 == 30/7
+                  return "$weeks weeks ago";
+              } else if ($months <= 12) {
+                  return "$months months ago";
+              } else {
+                  return "$years years ago";
+              }
+              }
+              ?>
+
+            </div>
+          </div><!-- End activity activity-->
+        
         <!-- News & Updates Traffic -->
         <div class="card">
 
@@ -499,6 +574,11 @@
 
         </div><!-- End News & Updates -->
 
+      </div><!-- End Right side columns -->
+
+
+
   </section>
+
 
 </main><!-- End #main -->
