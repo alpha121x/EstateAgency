@@ -261,7 +261,7 @@
 
         <div class="card"><!-- Bids Monthly Report start-->
           <div class="card-body">
-            <h5 class="card-title">Bids Monthly Report</h5>
+            <h5 class="card-title">Bids Count Monthly Report</h5>
 
             <!-- Chart for count of bids last month -->
             <canvas id="bidsCountChart" width="400" height="200"></canvas>
@@ -352,7 +352,7 @@
 
         <div class="card"><!-- Bids Monthly Report start-->
           <div class="card-body">
-            <h5 class="card-title">Bids Monthly Report</h5>
+            <h5 class="card-title">Plots Bidding Monthly Report</h5>
 
 
             <!-- Chart for daily bids by plot -->
