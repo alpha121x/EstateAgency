@@ -41,7 +41,7 @@ include('db_config.php'); ?>
                             <p>Plots Bids Monthly Report</p> <br><br>
                             <!-- Table with stripped rows -->
                             <div class="table-responsive">
-                                <table class="table table-bordered" style="background-color: white;">
+                                <table class="table table-bordered datatable" style="background-color: white;">
                                     <thead>
                                         <h5 class="card-title">Plots Bid Monthly Report</h5>
                                         <tr>
@@ -100,7 +100,7 @@ include('db_config.php'); ?>
                             <!-- End Table with stripped rows -->
 
                             <div class="table-responsive">
-                                <table id="individualPlotsTable" class="table table-bordered" style="background-color: white;">
+                                <table id="individualPlotsTable" class="table table-bordered datatable" style="background-color: white;">
                                     <thead>
                                         <h5 class="card-title">Individual Plots Monthly Report</h5>
                                         <tr>
@@ -184,12 +184,7 @@ include('db_config.php'); ?>
 
 
 
-                            <script>
-                                $(document).ready(function() {
-                                    // Initialize DataTable
-                                    $('#individualPlotsTable').DataTable();
-                                });
-                            </script>
+                            
 
 
 
