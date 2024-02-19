@@ -79,12 +79,12 @@
                         <td><?php echo $plot_location ?></td>
                         <td><?php echo $added_on; ?></td>
                         <td class="text-center">
-                          <a href='edit_plot_listing.php?id=<?php echo $id; ?>' class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></a>
+                          <a href='edit-content-slider?id=<?php echo $id; ?>' class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i></a>
                           <?php
                           if ($_SESSION['user_type'] == 'admin') {
                           ?>
                             |
-                            <a href='delete-plot_lisitng?deleteid=<?php echo $id; ?>' class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
+                            <a href='#' class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
                           <?php
                           }
                           ?>
