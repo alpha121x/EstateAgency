@@ -132,7 +132,7 @@
             </div>
 
             <div class="text-center">
-              <button type="submit" class="btn btn-primary" name="add-plot"><i class='bx bx-upload'></i> Add</button>
+              <button type="submit" class="btn btn-primary" name="add-content"><i class='bx bx-upload'></i> Add</button>
               <button type="reset" class="btn btn-secondary" name="reset">Reset</button>
             </div>
             <br>

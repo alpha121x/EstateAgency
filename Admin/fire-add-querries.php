@@ -98,6 +98,66 @@ if (isset($_POST['add-plot'])) {
     }
 }
 ?>
+<?php
+require('db_config.php');
+require("auth.php");
+
+if (isset($_POST['add-content'])) {
+    $plot_num = $_POST['plot_num'];
+    $bidding_days = $_POST['bidding_days'];
+    $plot_title = $_POST['plot_title'];
+    $plot_location = $_POST['plot_location'];
+    $plot_description = $_POST['plot_description'];
+    $plot_price = $_POST['plot_price'];
+    $plot_status = $_POST['plot_status'];
+    $property_type = $_POST['property_type'];
+    $beds = $_POST['beds'];
+    $baths = $_POST['baths'];
+    $plot_area = $_POST['plot_area'];
+    date_default_timezone_set('Asia/Karachi');
+    // Get the current date and time
+    $plot_date = date("Y-m-d H:i:s");
+    $username = $_SESSION['user'];
+
+    // File Upload
+    $uploadsFolder = 'uploads/';
+    $plot_image = $uploadsFolder . basename($_FILES['plot_image']['name']);
+    $plot_video = $uploadsFolder . basename($_FILES['plot_video']['name']);
+    $uploadSuccess = move_uploaded_file($_FILES['plot_image']['tmp_name'], $plot_image);
+    // $uploadSuccess = move_uploaded_file($_FILES['plot_video']['tmp_name'], $plot_video);
+
+
+    if (!$uploadSuccess) {
+        echo "Error uploading file.";
+        exit;
+    }
+
+    // Insert query using MeekroDB
+    $inserted = DB::insert('plot_listing', [
+        'plot_num' => $plot_num,
+        'bidding_days' => $bidding_days,
+        'plot_title' => $plot_title,
+        'username' => $username,
+        'plot_location' => $plot_location,
+        'plot_description' => $plot_description,
+        'plot_price' => $plot_price,
+        'property_type' => $property_type,
+        'plot_area' => $plot_area,
+        'plot_status' => $plot_status,
+        'beds' => $beds,
+        'baths' => $baths,
+        'plot_image' => $plot_image, // Save the file path in the database
+        'plot_video' => $plot_video,
+        'added_on' => $plot_date
+    ]);
+
+    if ($inserted) {
+        header("Location: add_plot_listing");
+    } else {
+        echo "Error inserting data into the database.";
+    }
+}
+?>
 
 
 
