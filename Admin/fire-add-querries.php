@@ -133,7 +133,7 @@ if (isset($_POST['add-content'])) {
     }
 
     // Insert query using MeekroDB
-    $inserted = DB::insert('plot_listing', [
+    $inserted = DB::insert('home_content_slider', [
         'plot_num' => $plot_num,
         'bidding_days' => $bidding_days,
         'plot_title' => $plot_title,
@@ -152,7 +152,7 @@ if (isset($_POST['add-content'])) {
     ]);
 
     if ($inserted) {
-        header("Location: add_plot_listing");
+        header("Location: add-home-content");
     } else {
         echo "Error inserting data into the database.";
     }
