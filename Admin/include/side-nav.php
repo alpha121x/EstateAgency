@@ -73,6 +73,23 @@
         </li>
       </ul>
     </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#home-content-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-houses-fill"></i><span>Home Content Slider</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="home-content-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="add-home-content">
+            <i class="bi bi-circle-fill text-primary"></i></i><span>Add Home Content</span>
+          </a>
+        </li>
+        <li>
+          <a href="home-content-listing">
+            <i class="bi bi-circle-fill text-primary"></i><span>Home Content Listing</span>
+          </a>
+        </li>
+      </ul>
+    </li>
 
     <li class="nav-item">
       <?php
