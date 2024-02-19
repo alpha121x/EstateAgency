@@ -57,7 +57,7 @@
                   require_once("include/classes/meekrodb.2.3.class.php");
 
                   // Select all users from the admin_users table
-                  $plots = DB::query("SELECT * FROM home_content_silder ORDER BY added_on DESC");
+                  $plots = DB::query("SELECT * FROM home_content_slider ORDER BY added_on DESC");
 
                   if ($plots) {
                     $index = 1;
