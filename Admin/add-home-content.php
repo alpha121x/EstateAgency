@@ -90,12 +90,7 @@
                     <input type="file" required class="form-control" name="plot_image">
                   </div>
                 </div>
-                <div class="row mb-3">
-                  <label for="inputemail" class="col-sm-2 col-form-label">Add Video(Optional)</label>
-                  <div class="col-sm-6">
-                    <input type="file"  class="form-control" name="plot_video">
-                  </div>
-                </div>
+              
 
 
 
