@@ -247,57 +247,6 @@ if (isset($_POST['update-post'])) {
 }
 ?>
 <?php
-require('db_config.php');
-require("auth.php");
-
-// Check if the form is submitted for updating property details
-if (isset($_POST['update-content'])) {
-    $property_id = $_POST['property_id'];
-
-    // Extract data from the form
-    $updated_property = [
-        'property_num' => htmlspecialchars($_POST['plot_num']),
-        'bidding_days' => htmlspecialchars($_POST['bidding_days']),
-        'property_title' => htmlspecialchars($_POST['plot_title']),
-        'property_location' => htmlspecialchars($_POST['plot_location']),
-        'property_price' => htmlspecialchars($_POST['plot_price']),
-        'property_status' => htmlspecialchars($_POST['plot_status']),
-        // Add more fields as needed
-    ];
-
-    // Check if a new image file is uploaded
-    if (!empty($_FILES['plot_image']['name'])) {
-        // File Upload
-        $uploadsFolder = 'uploads/';
-        $prop_image = $uploadsFolder . basename($_FILES['plot_image']['name']);
-        $uploadSuccess = move_uploaded_file($_FILES['plot_image']['tmp_name'], $prop_image);
-
-        // Check for errors during file upload
-        if (!$uploadSuccess) {
-            $errorMessage = "Error uploading file: " . $_FILES['plot_image']['error'];
-            echo "<script>alert('$errorMessage');</script>";
-            echo "<script>window.location.href='edit-content-slider.php?id={$property_id}';</script>";
-            exit;
-        }
-
-        // Update the property details including the new image path
-        $updated_property['property_image'] = $prop_image;
-    }
-
-    // Update the property details in the database
-    $result = DB::update('home_content_slider', $updated_property, 'id=%i', $property_id);
-
-    if ($result) {
-        // Redirect to the property listing page after update
-        header("Location: home-content-listing");
-        exit;
-    } else {
-        echo "Error updating property details.";
-    }
-}
-?>
-
-<?php
 include('db_config.php');
 
 if (isset($_POST['update-agent'])) {
