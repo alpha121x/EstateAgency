@@ -2,6 +2,7 @@
 // Include MeekroDB library
 require_once 'include/classes/meekrodb.2.3.class.php';
 include("db_config.php");
+include('auth.php');
 
 if (isset($_POST['login'])) {
     $log_password = $_POST['password'];
@@ -11,7 +12,7 @@ if (isset($_POST['login'])) {
     $row = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s AND password = %s", $username, $log_password);
 
     if ($row) {
-        session_start(); // Start session
+        // session_start(); // Start session
 
         // Store user information in session variables
         $_SESSION['user'] = $username;

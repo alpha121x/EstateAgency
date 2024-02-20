@@ -128,7 +128,7 @@ if (isset($_POST['add-content'])) {
     }
 
     // Check if the image dimensions meet the specified criteria (1920 x 960)
-    list($actualWidth, $actualHeight) = getimagesize($_FILES['plot_image']['tmp_name']);
+    list($actualWidth, $actualHeight, $imageType) = getimagesize($_FILES['plot_image']['tmp_name']);
     $requiredWidth = 1920;
     $requiredHeight = 960;
 
@@ -138,17 +138,15 @@ if (isset($_POST['add-content'])) {
         exit;
     }
 
-
-
-
     // Check if the file extension is allowed (jpeg, jpg, png)
     $allowedExtensions = ['jpeg', 'jpg', 'png'];
-    $fileExtension = pathinfo($_FILES['plot_image']['name'], PATHINFO_EXTENSION);
-    if (!in_array(strtolower($fileExtension), $allowedExtensions)) {
+    $imageExtension = image_type_to_extension($imageType, false);
+    if (!in_array(strtolower($imageExtension), $allowedExtensions)) {
         echo "<script>alert('Only JPEG, JPG, and PNG file formats are allowed.');</script>";
         echo "<script>window.location.href='add-home-content';</script>";
         exit;
     }
+
 
     // Insert query using MeekroDB
     $inserted = DB::insert('home_content_slider', [
