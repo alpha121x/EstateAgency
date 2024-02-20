@@ -64,12 +64,6 @@
 
                
                 <div class="row mb-3">
-                  <label for="beds" class="col-sm-2 col-form-label">Beds</label>
-                  <div class="col-sm-6">
-                    <input type="number" class="form-control" placeholder="Enter Number of Beds" name="beds">
-                  </div>
-                </div>
-                <div class="row mb-3">
                   <label for="baths" class="col-sm-2 col-form-label">Baths</label>
                   <div class="col-sm-6">
                     <input type="number" class="form-control" placeholder="Enter Number of Baths" name="baths">
