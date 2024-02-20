@@ -147,15 +147,15 @@ if (isset($_POST['add-content'])) {
 
     // Insert query using MeekroDB
     $inserted = DB::insert('home_content_slider', [
-        'property_num' => $plot_num,
+        'property_num' => $prop_num,
         'bidding_days' => $bidding_days,
-        'property_title' => $plot_title,
+        'property_title' => $prop_title,
         'username' => $username,
-        'property_location' => $plot_location,
-        'property_price' => $plot_price,
-        'property_status' => $plot_status,
-        'property_image' => $plot_image, // Save the file path in the database
-        'added_on' => $plot_date
+        'property_location' => $prop_location,
+        'property_price' => $prop_price,
+        'property_status' => $prop_status,
+        'property_image' => $prop_image, // Save the file path in the database
+        'added_on' => $prop_date
     ]);
 
     if ($inserted) {
