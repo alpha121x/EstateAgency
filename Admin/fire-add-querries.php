@@ -128,7 +128,7 @@ if (isset($_POST['add-content'])) {
     $imageInfo = getimagesize($_FILES['plot_image']['tmp_name']);
     if ($imageInfo === false) {
         echo "<script>alert('Please upload a valid image file.');</script>";
-        
+        echo "<script>window.location.href='add-home-content';</script>";
         exit;
     }
 
@@ -137,6 +137,7 @@ if (isset($_POST['add-content'])) {
     $requiredHeight = 960;
     if ($imageInfo[0] != $requiredWidth || $imageInfo[1] != $requiredHeight) {
         echo "<script>alert('Please upload an image with dimensions 1920 x 960.');</script>";
+        echo "<script>window.location.href='add-home-content';</script>";
         exit;
     }
 
@@ -145,6 +146,7 @@ if (isset($_POST['add-content'])) {
     $fileExtension = pathinfo($_FILES['plot_image']['name'], PATHINFO_EXTENSION);
     if (!in_array(strtolower($fileExtension), $allowedExtensions)) {
         echo "<script>alert('Only JPEG, JPG, and PNG file formats are allowed.');</script>";
+        echo "<script>window.location.href='add-home-content';</script>";
         exit;
     }
 
