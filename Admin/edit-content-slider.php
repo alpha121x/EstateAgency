@@ -26,6 +26,11 @@ if (isset($_GET['id'])) {
             $uploadsFolder = 'uploads/';
             $property_image = $uploadsFolder . basename($_FILES['plot_image']['name']);
 
+            // Debugging: Display file details
+            echo "File Name: " . $_FILES['plot_image']['name'] . "<br>";
+            echo "File Size: " . $_FILES['plot_image']['size'] . "<br>";
+            echo "Temp File: " . $_FILES['plot_image']['tmp_name'] . "<br>";
+
             // Check if a new image was provided and update the file path accordingly
             if ($_FILES['plot_image']['size'] > 0) {
                 // Remove the existing image file
@@ -50,6 +55,8 @@ if (isset($_GET['id'])) {
             $property_image = DB::queryFirstField("SELECT property_image FROM home_content_slider WHERE id=%i", $property_id);
         }
 
+
+
         // Extract data from the form
         $updated_property = [
             'property_num' => htmlspecialchars($_POST['plot_num']),
@@ -58,6 +65,7 @@ if (isset($_GET['id'])) {
             'property_location' => htmlspecialchars($_POST['plot_location']),
             'property_price' => htmlspecialchars($_POST['plot_price']),
             'property_status' => htmlspecialchars($_POST['plot_status']),
+            'property_image' => $property_image,
             // Add more fields as needed
         ];
 
