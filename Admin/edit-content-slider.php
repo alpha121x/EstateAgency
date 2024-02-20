@@ -19,6 +19,37 @@ if (isset($_GET['id'])) {
 
     // Handle the form submission for updating property details
     if (isset($_POST['update-content'])) {
+
+        // Check if 'plot_image' key exists in the $_FILES array
+if (isset($_FILES['plot_image'])) {
+    // File Upload
+    $uploadsFolder = 'uploads/';
+    $property_image = $uploadsFolder . basename($_FILES['plot_image']['name']);
+
+    // Check if a new image was provided and update the file path accordingly
+    if ($_FILES['plot_image']['size'] > 0) {
+        // Remove the existing image file
+        $existingImage = DB::queryFirstField("SELECT property_image FROM home_content_slider WHERE id=%i", $property_id);
+        if ($existingImage) {
+            unlink($existingImage);
+        }
+
+        // Upload the new image
+        $uploadSuccess = move_uploaded_file($_FILES['plot_image']['tmp_name'], $property_image);
+
+        if (!$uploadSuccess) {
+            echo "Error uploading file.";
+            exit;
+        }
+    } else {
+        // If no new image provided, retain the existing image path
+        $property_image = DB::queryFirstField("SELECT property_image FROM home_content_slider WHERE id=%i", $property_id);
+    }
+} else {
+    // If 'plot_image' key is not set in $_FILES, handle accordingly (e.g., set $property_image to the existing path)
+    $property_image = DB::queryFirstField("SELECT property_image FROM home_content_slider WHERE id=%i", $property_id);
+}
+
         // Extract data from the form
         $updated_property = [
             'property_num' => htmlspecialchars($_POST['plot_num']),
@@ -37,8 +68,6 @@ if (isset($_GET['id'])) {
         header("Location: home-content-listing.php");
         exit;
     }
-
-    // Display the form with pre-filled values for editing
 ?>
     <!DOCTYPE html>
     <html lang="en">
