@@ -130,8 +130,6 @@ if (isset($_POST['add-content'])) {
         exit;
     }
 
-
-
     // Check if the file extension is allowed (jpeg, jpg, png)
     $allowedExtensions = ['jpeg', 'jpg', 'png'];
     $imageExtension = image_type_to_extension($imageType, false);
@@ -141,6 +139,10 @@ if (isset($_POST['add-content'])) {
         exit;
     }
 
+    // Move uploaded file to the uploads folder
+    $uploadsFolder = 'uploads/';
+    $prop_image = $uploadsFolder . basename($_FILES['plot_image']['name']);
+    $uploadSuccess = move_uploaded_file($_FILES['plot_image']['tmp_name'], $prop_image);
 
     // Insert query using MeekroDB
     $inserted = DB::insert('home_content_slider', [
@@ -164,6 +166,7 @@ if (isset($_POST['add-content'])) {
     }
 }
 ?>
+
 
 
 
