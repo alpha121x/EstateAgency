@@ -107,7 +107,6 @@ if (isset($_POST['add-content'])) {
     $bidding_days = $_POST['bidding_days'];
     $plot_title = $_POST['plot_title'];
     $plot_location = $_POST['plot_location'];
-    $plot_description = $_POST['plot_description'];
     $plot_price = $_POST['plot_price'];
     $plot_status = $_POST['plot_status'];
     $property_type = $_POST['property_type'];
