@@ -119,18 +119,25 @@ if (isset($_POST['add-content'])) {
     $plot_date = date("Y-m-d H:i:s");
     $username = $_SESSION['user'];
 
-    // File Upload
-    $uploadsFolder = 'uploads/';
-    $plot_image = $uploadsFolder . basename($_FILES['plot_image']['name']);
-    $plot_video = $uploadsFolder . basename($_FILES['plot_video']['name']);
-    $uploadSuccess = move_uploaded_file($_FILES['plot_image']['tmp_name'], $plot_image);
-    // $uploadSuccess = move_uploaded_file($_FILES['plot_video']['tmp_name'], $plot_video);
+   // File Upload
+   $uploadsFolder = 'uploads/';
+   $plot_image = $uploadsFolder . basename($_FILES['plot_image']['name']);
+   $uploadSuccess = move_uploaded_file($_FILES['plot_image']['tmp_name'], $plot_image);
 
+   // Check if the uploaded file is an image
+   $imageInfo = getimagesize($_FILES['plot_image']['tmp_name']);
+   if ($imageInfo === false) {
+       echo "<script>alert('Please upload a valid image file.');</script>";
+       exit;
+   }
 
-    if (!$uploadSuccess) {
-        echo "Error uploading file.";
-        exit;
-    }
+   // Check if the image dimensions meet the specified criteria (1920 x 960)
+   $requiredWidth = 1920;
+   $requiredHeight = 960;
+   if ($imageInfo[0] != $requiredWidth || $imageInfo[1] != $requiredHeight) {
+       echo "<script>alert('Please upload an image with dimensions 1920 x 960.');</script>";
+       exit;
+   }
 
     // Insert query using MeekroDB
     $inserted = DB::insert('home_content_slider', [
