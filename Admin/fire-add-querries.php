@@ -137,6 +137,7 @@ if (isset($_POST['add-content'])) {
    $requiredHeight = 960;
    if ($imageInfo[0] != $requiredWidth || $imageInfo[1] != $requiredHeight) {
        echo "<script>alert('Please upload an image with dimensions 1920 x 960.');</script>";
+       echo "<script>window.location.href='add-home-content';</script>";
        exit;
    }
 
