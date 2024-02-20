@@ -109,7 +109,6 @@ if (isset($_POST['add-content'])) {
     $plot_location = $_POST['plot_location'];
     $plot_price = $_POST['plot_price'];
     $plot_status = $_POST['plot_status'];
-    $plot_area = $_POST['plot_area'];
     date_default_timezone_set('Asia/Karachi');
     // Get the current date and time
     $plot_date = date("Y-m-d H:i:s");
