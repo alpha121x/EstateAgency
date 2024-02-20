@@ -127,14 +127,6 @@ if (isset($_POST['add-content'])) {
         exit;
     }
 
-    // Check if the uploaded file is an image
-    $imageInfo = getimagesize($_FILES['plot_image']['tmp_name']);
-    if ($imageInfo === false) {
-        echo "<script>alert('Please upload a valid image file.');</script>";
-        echo "<script>window.location.href='add-home-content';</script>";
-        exit;
-    }
-
     // Check if the image dimensions meet the specified criteria (1920 x 960)
     $requiredWidth = 1920;
     $requiredHeight = 960;
