@@ -152,15 +152,9 @@ if (isset($_POST['add-content'])) {
         'plot_title' => $plot_title,
         'username' => $username,
         'plot_location' => $plot_location,
-        'plot_description' => $plot_description,
         'plot_price' => $plot_price,
-        'property_type' => $property_type,
-        'plot_area' => $plot_area,
         'plot_status' => $plot_status,
-        'beds' => $beds,
-        'baths' => $baths,
         'plot_image' => $plot_image, // Save the file path in the database
-        'plot_video' => $plot_video,
         'added_on' => $plot_date
     ]);
 
