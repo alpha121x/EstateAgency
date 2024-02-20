@@ -83,12 +83,7 @@
                     <input type="text" class="form-control" required placeholder="Enter Plot Location.." name="plot_location">
                   </div>
                 </div>
-                <div class="row mb-3">
-                  <label for="inputemail" class="col-sm-2 col-form-label">Plot Description</label>
-                  <div class="col-sm-6">
-                    <textarea class="form-control" required name="plot_description" cols="30" rows="10"></textarea>
-                  </div>
-                </div>
+               
                 <div class="row mb-3">
                   <label for="inputemail" class="col-sm-2 col-form-label">Add Image</label>
                   <div class="col-sm-6">
