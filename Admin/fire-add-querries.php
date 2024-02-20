@@ -128,6 +128,7 @@ if (isset($_POST['add-content'])) {
    $imageInfo = getimagesize($_FILES['plot_image']['tmp_name']);
    if ($imageInfo === false) {
        echo "<script>alert('Please upload a valid image file.');</script>";
+       echo "<script>window.location.href='add-home-content';</script>";
        exit;
    }
 
