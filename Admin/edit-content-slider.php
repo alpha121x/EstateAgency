@@ -34,7 +34,7 @@ if (isset($_GET['id'])) {
         DB::update('home_content_slider', $updated_property, 'id=%i', $property_id);
 
         // Redirect to the property listing page after update
-        header("Location: property-listing.php");
+        header("Location: home-content-listing.php");
         exit;
     }
 
