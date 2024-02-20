@@ -63,12 +63,6 @@
                 </div>
 
                 <div class="row mb-3">
-                  <label for="inputusername" class="col-sm-2 col-form-label">Plot Area</label>
-                  <div class="col-sm-6">
-                    <input type="number" required class="form-control" placeholder="m" required name="plot_area">
-                  </div>
-                </div>
-                <div class="row mb-3">
                   <label for="propertyType" class="col-sm-2 col-form-label">Property Type</label>
                   <div class="col-sm-6">
                     <select class="form-select" required name="property_type" id="propertyType">
