@@ -62,15 +62,7 @@
                   </div>
                 </div>
 
-                <div class="row mb-3">
-                  <label for="propertyType" class="col-sm-2 col-form-label">Property Type</label>
-                  <div class="col-sm-6">
-                    <select class="form-select" required name="property_type" id="propertyType">
-                      <option value="House">House</option>
-                      <option value="Property">Property</option>
-                    </select>
-                  </div>
-                </div>
+               
                 <div class="row mb-3">
                   <label for="beds" class="col-sm-2 col-form-label">Beds</label>
                   <div class="col-sm-6">
