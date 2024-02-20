@@ -128,24 +128,17 @@ if (isset($_POST['add-content'])) {
     }
 
     // Check if the image dimensions meet the specified criteria (1920 x 960)
-    $imageInfo = getimagesize($_FILES['plot_image']['tmp_name']);
-    if ($imageInfo === false) {
-        echo "<script>alert('Please upload a valid image file.');</script>";
-        echo "<script>window.location.href='add-home-content';</script>";
-        exit;
-    }
-
-    $actualWidth = $imageInfo[0];
-    $actualHeight = $imageInfo[1];
-
+    list($actualWidth, $actualHeight) = getimagesize($_FILES['plot_image']['tmp_name']);
     $requiredWidth = 1920;
     $requiredHeight = 960;
 
-    if ($actualWidth != $requiredWidth || $actualHeight != $requiredHeight) {
+    if ($actualWidth !== $requiredWidth || $actualHeight !== $requiredHeight) {
         echo "<script>alert('Please upload an image with dimensions 1920 x 960.');</script>";
         echo "<script>window.location.href='add-home-content';</script>";
         exit;
     }
+
+
 
 
     // Check if the file extension is allowed (jpeg, jpg, png)
