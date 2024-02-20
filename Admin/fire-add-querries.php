@@ -103,21 +103,21 @@ require('db_config.php');
 require("auth.php");
 
 if (isset($_POST['add-content'])) {
-    $plot_num = $_POST['plot_num'];
+    $prop_num = $_POST['plot_num'];
     $bidding_days = $_POST['bidding_days'];
-    $plot_title = $_POST['plot_title'];
-    $plot_location = $_POST['plot_location'];
-    $plot_price = $_POST['plot_price'];
-    $plot_status = $_POST['plot_status'];
+    $prop_title = $_POST['plot_title'];
+    $prop_location = $_POST['plot_location'];
+    $prop_price = $_POST['plot_price'];
+    $prop_status = $_POST['plot_status'];
     date_default_timezone_set('Asia/Karachi');
     // Get the current date and time
-    $plot_date = date("Y-m-d H:i:s");
+    $prop_date = date("Y-m-d H:i:s");
     $username = $_SESSION['user'];
 
     // File Upload
     $uploadsFolder = 'uploads/';
-    $plot_image = $uploadsFolder . basename($_FILES['plot_image']['name']);
-    $uploadSuccess = move_uploaded_file($_FILES['plot_image']['tmp_name'], $plot_image);
+    $prop_image = $uploadsFolder . basename($_FILES['plot_image']['name']);
+    $uploadSuccess = move_uploaded_file($_FILES['plot_image']['tmp_name'], $prop_image);
 
     // Check if the uploaded file is an image
     $imageInfo = getimagesize($_FILES['plot_image']['tmp_name']);
