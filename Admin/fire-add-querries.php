@@ -103,12 +103,12 @@ require('db_config.php');
 require("auth.php");
 
 if (isset($_POST['add-content'])) {
-    $prop_num = $_POST['plot_num'];
-    $bidding_days = $_POST['bidding_days'];
-    $prop_title = $_POST['plot_title'];
-    $prop_location = $_POST['plot_location'];
-    $prop_price = $_POST['plot_price'];
-    $prop_status = $_POST['plot_status'];
+    $prop_num = htmlspecialchars($_POST['plot_num']);
+    $bidding_days = htmlspecialchars($_POST['bidding_days']);
+    $prop_title = htmlspecialchars($_POST['plot_title']);
+    $prop_location = htmlspecialchars($_POST['plot_location']);
+    $prop_price = htmlspecialchars($_POST['plot_price']);
+    $prop_status = htmlspecialchars($_POST['plot_status']);
     date_default_timezone_set('Asia/Karachi');
     // Get the current date and time
     $prop_date = date("Y-m-d H:i:s");
@@ -118,6 +118,14 @@ if (isset($_POST['add-content'])) {
     $uploadsFolder = 'uploads/';
     $prop_image = $uploadsFolder . basename($_FILES['plot_image']['name']);
     $uploadSuccess = move_uploaded_file($_FILES['plot_image']['tmp_name'], $prop_image);
+
+    // Check for errors during file upload
+    if (!$uploadSuccess) {
+        $errorMessage = "Error uploading file: " . $_FILES['plot_image']['error'];
+        echo "<script>alert('$errorMessage');</script>";
+        echo "<script>window.location.href='add-home-content';</script>";
+        exit;
+    }
 
     // Check if the uploaded file is an image
     $imageInfo = getimagesize($_FILES['plot_image']['tmp_name']);
@@ -161,7 +169,9 @@ if (isset($_POST['add-content'])) {
     if ($inserted) {
         header("Location: add-home-content");
     } else {
-        echo "Error inserting data into the database.";
+        // Provide detailed error information during development
+        // $dbError = DB::error();
+        echo "Error inserting data into the database: $dbError";
     }
 }
 ?>
