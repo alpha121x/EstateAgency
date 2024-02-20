@@ -122,6 +122,9 @@ if (isset($_GET['id'])) {
                                         <label for="inputPropertyImage" class="col-sm-2 col-form-label">Add Image</label>
                                         <div class="col-sm-6">
                                             <input type="file" required class="form-control" name="plot_image">
+                                            <?php if ($property['property_image']) : ?>
+                                                <img src="<?php echo $property['property_image']; ?>" alt="Current Image" style="max-width: 200px; margin-top: 10px;">
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                     <div class="text-center">
