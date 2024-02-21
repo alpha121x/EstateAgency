@@ -18,6 +18,7 @@
         $property_title = $slide['property_title'];
         $property_address = $slide['property_num'];
         $property_price = $slide['property_price'];
+        $property_status = $slide['property_status'];
     ?>
 
         <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url(Admin/<?php echo $background_image; ?>)">
@@ -34,7 +35,11 @@
                         <?php echo $property_title; ?>
                       </h1>
                       <p class="intro-subtitle intro-price">
-                        <a href="#"><span class="price-a">Buy | Rs. <?php echo $property_price; ?></span></a>
+                        <?php if ($property_status == 1) : ?>
+                          <a href="#"><span class="price-a">Buy | Rs. <?php echo $property_price; ?></span></a>
+                        <?php elseif ($property_status == 3) : ?>
+                          <span class="status-sold">Sold</span>
+                        <?php endif; ?>
                       </p>
                     </div>
                   </div>
