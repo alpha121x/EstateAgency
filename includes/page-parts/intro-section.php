@@ -33,6 +33,7 @@
                       <h1 class="intro-title mb-4">
                         <span class="color-b"><?php echo $property_address; ?></span><br>
                         <?php echo $property_title; ?>
+                        <span type="button" class="price-a" data-bs-toggle="modal" data-bs-target="#Modal<?php echo $property['plot_id']; ?>" data-property-id="<?php echo $property['plot_id']; ?>">Bid</span>
                       </h1>
                       <p class="intro-subtitle intro-price">
                         <?php if ($property_status == 1) : ?>
