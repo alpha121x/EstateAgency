@@ -27,9 +27,9 @@ if (isset($_GET['id'])) {
             $property_image = $uploadsFolder . basename($_FILES['plot_image']['name']);
 
             // Debugging: Display file details
-            echo "File Name: " . $_FILES['plot_image']['name'] . "<br>";
-            echo "File Size: " . $_FILES['plot_image']['size'] . "<br>";
-            echo "Temp File: " . $_FILES['plot_image']['tmp_name'] . "<br>";
+            // echo "File Name: " . $_FILES['plot_image']['name'] . "<br>";
+            // echo "File Size: " . $_FILES['plot_image']['size'] . "<br>";
+            // echo "Temp File: " . $_FILES['plot_image']['tmp_name'] . "<br>";
 
             // Check if a new image was provided and update the file path accordingly
             if ($_FILES['plot_image']['size'] > 0) {
@@ -158,7 +158,7 @@ if (isset($_GET['id'])) {
                                     <div class="row mb-3">
                                         <label for="inputPropertyImage" class="col-sm-2 col-form-label">Add Image</label>
                                         <div class="col-sm-6">
-                                            <input type="file" required class="form-control" name="plot_image">
+                                            <input type="file" class="form-control" name="plot_image">
                                             <?php if ($property['property_image']) : ?>
                                                 <img src="<?php echo $property['property_image']; ?>" alt="Current Image" style="max-width: 200px; margin-top: 10px;">
                                             <?php endif; ?>
