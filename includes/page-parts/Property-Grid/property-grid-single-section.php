@@ -50,10 +50,10 @@
               <div class="modal-body">
                 <form action="bid" method="post">
                   <label for="name" class="form-control fw-bold">Username<input type="hidden" name="plot_id" value="<?php echo $property['plot_id']; ?>" id="propertyIdInput"></label>
-                  <input type="text" class="form-control" placeholder="Enter your username" name="username" id="username">
+                  <input type="text" required class="form-control" placeholder="Enter your username" name="username" id="username">
                   <br>
                   <label for="email" class="form-control fw-bold">Email</label>
-                  <input type="email" class="form-control" placeholder="Enter your email" name="email" id="email">
+                  <input type="email" required class="form-control" placeholder="Enter your email" name="email" id="email">
                   <br>
                   <label for="bid" class="form-control fw-bold"><i class="bi bi-cash"></i> Bid Amount</label>
                   <?php
@@ -61,7 +61,7 @@
                   $minBidAmount = $property['plot_price'];
 
                   // Display the minimum bid amount and plot price in the input field
-                  echo '<input type="text" class="form-control" placeholder="Minimum Bid: Rs. ' . $minBidAmount . '" name="bid" id="bid">';
+                  echo '<input type="text" required class="form-control" placeholder="Minimum Bid: Rs. ' . $minBidAmount . '" name="bid" id="bid">';
                   ?>
 
               </div>
