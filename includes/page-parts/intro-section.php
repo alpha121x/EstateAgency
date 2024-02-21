@@ -38,7 +38,7 @@
                         <?php if ($property_status == 1) : ?>
                           <a href="#"><span class="price-a">Buy | Rs. <?php echo $property_price; ?></span></a>
                         <?php elseif ($property_status == 3) : ?>
-                          <span class="status-sold">Sold</span>
+                          <span class="price-a">Sold</span>
                         <?php endif; ?>
                       </p>
                     </div>
