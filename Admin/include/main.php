@@ -508,9 +508,8 @@
                 // Adjust the query based on your database schema
                 $query = "SELECT * FROM notifications 
                 WHERE bid_date >= CURDATE() - INTERVAL 6 DAY
-                AND bid_date <= CURDATE()
                 ORDER BY bid_date DESC
-                LIMIT 5";          
+                LIMIT 5";              
                 $notificationsData = DB::query($query);
                 return $notificationsData;
               } catch (MeekroDBException $e) {
