@@ -23,7 +23,7 @@
   <main id="main">
 
     <section style="background-color: #eee;">
-    <br><br><br><br><br><br>
+      <br><br><br><br><br><br>
       <div class="container py-5">
         <div class="row d-flex justify-content-center">
           <div class="col-md-8 col-lg-6 col-xl-4">
@@ -31,7 +31,12 @@
               <div class="card-body mx-1 my-2">
                 <div class="d-flex align-items-center">
                   <div>
-                  <i class="fab fa-cc-visa fa-4x text-black pe-3"></i>
+                   <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="black" class="bi bi-credit-card" viewBox="0 0 16 16">
+  <path d="M15 2H1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zm0 1v2H1V4h14zM0 7h16v2H0V7zm0 4h16v2H0v-2z"/>
+  <text x="50%" y="75%" font-size="3" font-family="Arial" fill="white" text-anchor="middle">Visa</text>
+</svg>
+
+                    &nbsp;
                   </div>
                   <div>
                     <p class="d-flex flex-column mb-0">
