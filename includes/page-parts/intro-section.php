@@ -13,6 +13,7 @@
     if ($slides) {
       foreach ($slides as $slide) {
         // Extract data from the fetched row
+        $property_id = $slide ['id'];
         $background_image = $slide['property_image'];
         $location = $slide['property_location'];
         $property_title = $slide['property_title'];
@@ -36,7 +37,7 @@
                       </h1>
                       <p class="intro-subtitle intro-price">
                         <?php if ($property_status == 1) : ?>
-                          <a href="#"><span class="price-a">Buy | Rs. <?php echo $property_price; ?></span></a>
+                          <a href="includes/payment?id=<?php echo $property_id;  ?>"><span class="price-a">Buy | Rs. <?php echo $property_price; ?></span></a>
                         <?php elseif ($property_status == 3) : ?>
                           <span class="price-a">Sold</span>
                         <?php endif; ?>
