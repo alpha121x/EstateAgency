@@ -66,7 +66,7 @@
           'title' => $messageTitle,
           'is_read' => 0,
           'plot_id' => $property_id,
-          'created_by' => 'admin',
+          'created_by' => $propertyDetails['username'],
           'message' => $message,
           'bid_date' => date('Y-m-d H:i:s') // You can customize the date format as needed
         ));
