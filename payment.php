@@ -35,6 +35,7 @@
 
       // Fetch property details from the home_content_slider table based on the ID
       $propertyDetails = DB::queryFirstRow("SELECT * FROM home_content_slider WHERE id = %i", $property_id);
+      $prop_num = $propertyDetails['property_num'];
     }
 
     // Check if the form is submitted
@@ -44,22 +45,39 @@
       if (isset($_GET['id'])) {
         $property_id = intval($_GET['id']);
 
+        // Fetch property details for notification
+        $propertyDetails = DB::queryFirstRow("SELECT * FROM home_content_slider WHERE id = %i", $property_id);
+
         // Update property_status in home_content_slider table
         $updateQuery = "UPDATE home_content_slider SET property_status = '3' WHERE id = %i";
         DB::query($updateQuery, $property_id);
-      }
 
-      // Display SweetAlert message
-      echo '<script>
-            Swal.fire({
-                title: "Thank You!",
-                text: "Your purchase has been successful.",
-                icon: "success",
-                confirmButtonText: "OK"
-            }).then(() => {
-                window.location.href = "index.php";
-            });
-          </script>';
+        // Customize message for the purchase notification
+        $messageTitle = "Property Sold: Plot NO - " . $propertyDetails['plot_num'];
+        $message = "The property with Plot Num: " . $propertyDetails['plot_num'] . " has been sold to " . $cardholderName . ".";
+
+        // Inserting notification into the database
+        DB::insert("notifications", array(
+          'title' => $messageTitle,
+          'is_read' => 0,
+          'property_id' => $property_id,
+          'created_by' => $cardholderName,
+          'message' => $message,
+          'purchase_date' => date('Y-m-d H:i:s') // You can customize the date format as needed
+        ));
+
+        // Display SweetAlert message
+        echo '<script>
+              Swal.fire({
+                  title: "Thank You!",
+                  text: "Your purchase has been successful.",
+                  icon: "success",
+                  confirmButtonText: "OK"
+              }).then(() => {
+                  window.location.href = "index.php";
+              });
+            </script>';
+      }
       exit();
     }
     ?>
