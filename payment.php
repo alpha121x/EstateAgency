@@ -35,7 +35,7 @@
                 <div class="cardStyle">
                   <div class="text-end"><strong>DB BANK</strong></div>
                   <div class="mt-3 d-flex align-items-center justify-content-between">
-                    <div><img src="/static_files/images/logos/chip.png" alt="Chip" height="32"></div>
+                    <div><img src="/chip.png" alt="Chip" height="32"></div>
                     <div><img style="transform:rotate(90deg)" src="/static_files/svgs/wifi.svg" alt="Chip" height="24"></div>
                   </div>
                   <div class="fs-4 mt-2 cardFont text-shadow-white" id="visualNumber">1234 5678 1234 5678</div>
@@ -97,6 +97,51 @@
       var num = t.value
       t.value = num.substr(num.length-4,num.length)
     }
+
+    function GetCardType(number)
+{
+    // visa
+    var re = new RegExp("^4");
+    if (number.match(re) != null)
+        return "Visa";
+ 
+    // Mastercard
+    // Updated for Mastercard 2017 BINs expansion
+     if (/^(5[1-5][0-9]{14}|2(22[1-9][0-9]{12}|2[3-9][0-9]{13}|[3-6][0-9]{14}|7[0-1][0-9]{13}|720[0-9]{12}))$/.test(number))
+        return "Mastercard";
+ 
+    // AMEX
+    re = new RegExp("^3[47]");
+    if (number.match(re) != null)
+        return "AMEX";
+ 
+    // Discover
+    re = new RegExp("^(6011|622(12[6-9]|1[3-9][0-9]|[2-8][0-9]{2}|9[0-1][0-9]|92[0-5]|64[4-9])|65)");
+    if (number.match(re) != null)
+        return "Discover";
+ 
+    // Diners
+    re = new RegExp("^36");
+    if (number.match(re) != null)
+        return "Diners";
+ 
+    // Diners - Carte Blanche
+    re = new RegExp("^30[0-5]");
+    if (number.match(re) != null)
+        return "Diners - Carte Blanche";
+ 
+    // JCB
+    re = new RegExp("^35(2[89]|[3-8][0-9])");
+    if (number.match(re) != null)
+        return "JCB";
+ 
+    // Visa Electron
+    re = new RegExp("^(4026|417500|4508|4844|491(3|7))");
+    if (number.match(re) != null)
+        return "Visa Electron";
+ 
+    return "";
+}
   </script>
 
   <!-- ======= Footer ======= -->
