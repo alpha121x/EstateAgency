@@ -1,30 +1,39 @@
-<!-- payment.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Payment Page</title>
+
+  <?php include("includes/linked-files.php") ?>
+
+  
 </head>
 
 <body>
-  <h1>Payment Page</h1>
-  <p>Thank you for choosing to buy the property!</p>
 
-  <form action="payment_process.php" method="post">
-    <label for="card_number">Card Number:</label>
-    <input type="text" id="card_number" name="card_number" required><br>
+  <!-- ======= Property Search Section ======= -->
+  <?php include("includes/property-search-section.php") ?>
+  <!-- End Property Search Section -->
 
-    <label for="expiry_date">Expiry Date:</label>
-    <input type="text" id="expiry_date" name="expiry_date" placeholder="MM/YY" required><br>
+  <!-- ======= Header/Navbar ======= -->
+  <?php include("includes/header-nav.php") ?>
+  <!-- End Header/Navbar -->
 
-    <label for="cvv">CVV:</label>
-    <input type="text" id="cvv" name="cvv" required><br>
+  <main id="main">
 
-    <button type="submit">Submit Payment</button>
-  </form>
+    
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <?Php include("includes/footer.php") ?>
+  <!-- End  Footer -->
+
+  <?php include("includes/preloader.php") ?>
+
+  <?php include("includes/script-files.php") ?>
+
 </body>
 
 </html>
