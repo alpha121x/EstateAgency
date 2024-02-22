@@ -21,138 +21,70 @@
   <!-- End Header/Navbar -->
 
   <main id="main">
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
-
-    <!-- This script got from frontendfreecode.com -->
-    <div class="row">
-      <div class="col-lg-6 mx-auto">
-        <div class="card">
-          <div class="card-header">
-            <div class="bg-white shadow-sm pt-4 pl-2 pr-2 pb-2">
-              <!-- Credit card form tabs -->
-              <ul role="tablist" class="nav bg-light nav-pills rounded nav-fill mb-3">
-                <li class="nav-item">
-                  <a data-toggle="pill" href="#credit-card" class="nav-link active"> <i class="fas fa-credit-card mr-2"></i> Credit Card </a>
-                </li>
-                <li class="nav-item">
-                  <a data-toggle="pill" href="#paypal" class="nav-link"> <i class="fab fa-paypal mr-2"></i> Paypal </a>
-                </li>
-                <li class="nav-item">
-                  <a data-toggle="pill" href="#net-banking" class="nav-link"> <i class="fas fa-mobile-alt mr-2"></i> Net Banking </a>
-                </li>
-              </ul>
+    
+  <section style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-8 col-lg-6 col-xl-4">
+        <div class="card rounded-3">
+          <div class="card-body mx-1 my-2">
+            <div class="d-flex align-items-center">
+              <div>
+                <i class="fab fa-cc-visa fa-4x text-black pe-3"></i>
+              </div>
+              <div>
+                <p class="d-flex flex-column mb-0">
+                  <b>Martina Thomas</b><span class="small text-muted">**** 8880</span>
+                </p>
+              </div>
             </div>
-            <!-- End -->
-            <!-- Credit card form content -->
-            <div class="tab-content">
-              <!-- credit card info-->
-              <div id="credit-card" class="tab-pane fade show active pt-3">
-                <form role="form">
-                  <div class="form-group">
-                    <label for="username">
-                      <h6>Card Owner</h6>
-                    </label>
-                    <input type="text" name="username" placeholder="Card Owner Name" required class="form-control" />
+
+            <div class="pt-3">
+              <div class="d-flex flex-row pb-3">
+                <div class="rounded border border-primary border-2 d-flex w-100 p-3 align-items-center"
+                  style="background-color: rgba(18, 101, 241, 0.07);">
+                  <div class="d-flex align-items-center pe-3">
+                    <input class="form-check-input" type="radio" name="radioNoLabelX" id="radioNoLabel11"
+                      value="" aria-label="..." checked />
                   </div>
-                  <div class="form-group">
-                    <label for="cardNumber">
-                      <h6>Card number</h6>
-                    </label>
-                    <div class="input-group">
-                      <input type="text" name="cardNumber" placeholder="Valid card number" class="form-control" required />
-                      <div class="input-group-append">
-                        <span class="input-group-text text-muted"> <i class="fab fa-cc-visa mx-1"></i> <i class="fab fa-cc-mastercard mx-1"></i> <i class="fab fa-cc-amex mx-1"></i> </span>
-                      </div>
+                  <div class="d-flex flex-column">
+                    <p class="mb-1 small text-primary">Total amount due</p>
+                    <h6 class="mb-0 text-primary">$8245</h6>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex flex-row pb-3">
+                <div class="rounded border d-flex w-100 px-3 py-2 align-items-center">
+                  <div class="d-flex align-items-center pe-3">
+                    <input class="form-check-input" type="radio" name="radioNoLabelX" id="radioNoLabel22"
+                      value="" aria-label="..." />
+                  </div>
+                  <div class="d-flex flex-column py-1">
+                    <p class="mb-1 small text-primary">Other amount</p>
+                    <div class="d-flex flex-row align-items-center">
+                      <h6 class="mb-0 text-primary pe-1">$</h6>
+                      <input type="text" class="form-control form-control-sm" id="numberExample"
+                        style="width: 55px;" />
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-sm-8">
-                      <div class="form-group">
-                        <label>
-                          <span class="hidden-xs">
-                            <h6>Expiration Date</h6>
-                          </span>
-                        </label>
-                        <div class="input-group"><input type="number" placeholder="MM" name="" class="form-control" required /> <input type="number" placeholder="YY" name="" class="form-control" required /></div>
-                      </div>
-                    </div>
-                    <div class="col-sm-4">
-                      <div class="form-group mb-4">
-                        <label data-toggle="tooltip" title="Three digit CV code on the back of your card">
-                          <h6>CVV <i class="fa fa-question-circle d-inline"></i></h6>
-                        </label>
-                        <input type="text" required class="form-control" />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-footer"><button type="button" class="subscribe btn btn-primary btn-block shadow-sm">Confirm Payment</button></div>
-                </form>
-              </div>
-              <!-- End -->
-              <!-- Paypal info -->
-              <div id="paypal" class="tab-pane fade pt-3">
-                <h6 class="pb-2">Select your paypal account type</h6>
-                <div class="form-group">
-                  <label class="radio-inline"> <input type="radio" name="optradio" checked /> Domestic </label> <label class="radio-inline"> <input type="radio" name="optradio" class="ml-5" />International </label>
                 </div>
-                <p>
-                  <button type="button" class="btn btn-primary"><i class="fab fa-paypal mr-2"></i> Log into my Paypal</button>
-                </p>
-                <p class="text-muted">
-                  Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order.
-                </p>
               </div>
-              <!-- End -->
-              <!-- bank transfer info -->
-              <div id="net-banking" class="tab-pane fade pt-3">
-                <div class="form-group">
-                  <label for="Select Your Bank">
-                    <h6>Select your Bank</h6>
-                  </label>
-                  <select class="form-control" id="ccmonth">
-                    <option value="" selected disabled>--Please select your Bank--</option>
-                    <option>Bank 1</option>
-                    <option>Bank 2</option>
-                    <option>Bank 3</option>
-                    <option>Bank 4</option>
-                    <option>Bank 5</option>
-                    <option>Bank 6</option>
-                    <option>Bank 7</option>
-                    <option>Bank 8</option>
-                    <option>Bank 9</option>
-                    <option>Bank 10</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <p>
-                    <button type="button" class="btn btn-primary"><i class="fas fa-mobile-alt mr-2"></i> Proceed Payment</button>
-                  </p>
-                </div>
-                <p class="text-muted">
-                  Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order.
-                </p>
-              </div>
-              <!-- End -->
-              <!-- End -->
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center pb-1">
+              <a href="#!" class="text-muted">Go back</a>
+              <button type="button" class="btn btn-primary btn-lg">Pay amount</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-
+  </div>
+</section>
 
   </main><!-- End #main -->
-
-  <script>
-    $(function() {
-      $('[data-toggle="tooltip"]').tooltip();
-    });
-  </script>
-
+    
 
   <!-- ======= Footer ======= -->
   <?Php include("includes/footer.php") ?>
