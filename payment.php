@@ -38,7 +38,6 @@
 
       // Check if the form is submitted
       if (isset($_POST['pay-button'])) {
-
         // Card details
         $cardNumber = $_POST['cardNumber'];
         $cardholderName = $_POST['cardholderName'];
@@ -70,34 +69,40 @@
             'bid_date' => date('Y-m-d H:i:s') // You can customize the date format as needed
           ));
 
+          // Call the sale_property function
+          $agent_name = $propertyDetails['username'];
+          sale_property($property_id, $selectedAmount, $cardholderName, date('Y-m-d H:i:s'), $agent_name);
+
           // Display SweetAlert message
           echo '<script>
-              Swal.fire({
-                  title: "Thank You!",
-                  text: "Your purchase has been successful.",
-                  icon: "success",
-                  confirmButtonText: "OK"
-              }).then(() => {
-                  window.location.href = "index.php";
-              });
-            </script>';
+                Swal.fire({
+                    title: "Thank You!",
+                    text: "Your purchase has been successful.",
+                    icon: "success",
+                    confirmButtonText: "OK"
+                }).then(() => {
+                    window.location.href = "index.php";
+                });
+                </script>';
         }
         exit();
       }
-
-      function sale_property($property_id, $sale_amount, $sold_to, $sold_date, $agent_name)
-      {
-        $insertQuery = "INSERT INTO sales_intake (plot_id, sale_amount, sold_to, sold_date, agent_name) 
-                      VALUES (%i, %s, %s, %s, %s)";
-
-        // Execute the query with the provided values
-        DB::query($insertQuery, $property_id, $sale_amount, $sold_to, $sold_date, $agent_name);
-
-        // Additional logic or return statement can be added here
-      }
     }
+    
+    // Define the sale_property function outside the conditional block
+    function sale_property($property_id, $sale_amount, $sold_to, $sold_date, $agent_name)
+    {
+      // Assuming you have a function or method to execute SQL queries (e.g., DB::query)
+      $insertQuery = "INSERT INTO sales_intake (plot_id, sale_amount, sold_to, sold_date, agent_name) 
+                    VALUES (%i, %s, %s, %s, %s)";
 
+      // Execute the query with the provided values
+      DB::query($insertQuery, $property_id, $sale_amount, $sold_to, $sold_date, $agent_name);
+
+      // Additional logic or return statement can be added here
+    }
     ?>
+
 
 
     <section style="background-color: #eee;">
