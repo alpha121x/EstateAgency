@@ -72,8 +72,15 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
       }
 
       $user = $_SESSION['user'];
-      $notificationCount = DB::queryFirstField("SELECT COUNT(*) FROM notifications WHERE is_read = 0 AND created_by = %s",$user);
-      $notifications = DB::query("SELECT * FROM notifications WHERE is_read = 0 AND created_by = %s ORDER BY bid_date DESC", $user);
+      if ($_SESSION['user_type'] == 'admin') {
+        $notificationCount = DB::queryFirstField("SELECT COUNT(*) FROM notifications WHERE is_read = 0");
+        $notifications = DB::query("SELECT * FROM notifications WHERE is_read = 0 ORDER BY bid_date DESC");
+      }
+      elseif ($_SESSION['user_type'] == 'agent') {
+        $notificationCount = DB::queryFirstField("SELECT COUNT(*) FROM notifications WHERE is_read = 0 AND created_by = %s", $user);
+        $notifications = DB::query("SELECT * FROM notifications WHERE is_read = 0 AND created_by = %s ORDER BY bid_date DESC", $user);
+      }
+
       $counter = 0;
       ?>
 

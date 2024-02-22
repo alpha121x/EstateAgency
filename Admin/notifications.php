@@ -55,10 +55,17 @@
                                         <?php
                                         include("db_config.php");
 
-                                        $user_name = $_SESSION['user'];
+                                        $user = $_SESSION['user'];
+                                        if ($_SESSION['user_type'] == 'admin') {
+                                            $notifications = DB::query("SELECT * FROM notifications WHERE is_read = 0 ORDER BY bid_date DESC");
+                                        } elseif ($_SESSION['user_type'] == 'agent') {
+                                            $notifications = DB::query("SELECT * FROM notifications WHERE is_read = 0 AND created_by = %s ORDER BY bid_date DESC", $user);
+                                        }
 
-                                        // Select notifications for the logged-in user where is_read is 0
-                                        $notifications = DB::query("SELECT * FROM notifications WHERE is_read = 0 AND created_by = %s ORDER BY bid_date DESC LIMIT 100", $user_name);
+                                        // $user_name = $_SESSION['user'];
+
+                                        // // Select notifications for the logged-in user where is_read is 0
+                                        // $notifications = DB::query("SELECT * FROM notifications WHERE is_read = 0 AND created_by = %s ORDER BY bid_date DESC LIMIT 100", $user_name);
 
 
                                         if ($notifications) {
