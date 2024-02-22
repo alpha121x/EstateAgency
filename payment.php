@@ -42,7 +42,7 @@
         <div class="row d-flex justify-content-center">
           <div class="col-md-8 col-lg-6 col-xl-4">
             <div class="card rounded-3">
-              <form action="#">
+              <form action="payment_process.php" method="post">
                 <div class="card-body mx-1 my-2">
                   <div class="d-flex align-items-center">
                     <div>
@@ -63,44 +63,21 @@
                   <div class="pt-3">
                     <div class="mb-3">
                       <label for="cardNumber" class="form-label">Card Number</label>
-                      <input type="text" class="form-control" id="cardNumber" placeholder="**** **** **** 8880">
+                      <input type="text" name="cardNumber" class="form-control" id="cardNumber" placeholder="**** **** **** 8880">
                     </div>
                     <div class="mb-3">
                       <label for="cardholderName" class="form-label">Cardholder Name</label>
-                      <input type="text" class="form-control" id="cardholderName" placeholder="Martina Thomas">
+                      <input type="text" name="cardholderName" class="form-control" id="cardholderName" placeholder="Martina Thomas">
                     </div>
-
-                    <div class="d-flex flex-row pb-3">
-                      <div class="rounded border border-primary border-2 d-flex w-100 p-3 align-items-center" style="background-color: rgba(18, 101, 241, 0.07);">
-                        <div class="d-flex align-items-center pe-3">
-                          <input class="form-check-input" type="radio" name="radioNoLabelX" id="radioNoLabel11" value="" aria-label="..." checked />
-                        </div>
-                        <div class="d-flex flex-column">
-                          <p class="mb-1 small text-primary">Total amount due</p>
-                          <h6 class="mb-0 text-primary"><?php echo $propertyDetails['property_price']; ?></h6>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="d-flex flex-row pb-3">
-                      <div class="rounded border d-flex w-100 px-3 py-2 align-items-center">
-                        <div class="d-flex align-items-center pe-3">
-                          <input class="form-check-input" type="radio" name="radioNoLabelX" id="radioNoLabel22" value="" aria-label="..." />
-                        </div>
-                        <div class="d-flex flex-column py-1">
-                          <p class="mb-1 small text-primary">Other amount</p>
-                          <div class="d-flex flex-row align-items-center">
-                            <h6 class="mb-0 text-primary pe-1">$</h6>
-                            <input type="text" class="form-control form-control-sm" id="numberExample" style="width: 55px;" />
-                          </div>
-                        </div>
-                      </div>
+                    <div class="mb-3">
+                      <label for="cardholderName" class="form-label">Amount</label>
+                      <input type="text" name="property_price" value="Rs. <?php echo $propertyDetails['property_price']; ?>" class="form-control">
                     </div>
                   </div>
 
                   <div class="d-flex justify-content-between align-items-center pb-1">
                     <a href="#!" class="text-muted">Go back</a>
-                    <button type="submit" class="btn btn-primary btn-lg">Pay amount</button>
+                    <button type="submit" name="pay-button" class="btn btn-primary btn-lg">Pay amount</button>
                   </div>
                 </div>
               </form>
