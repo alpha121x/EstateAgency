@@ -70,8 +70,11 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
           return "$years years ago";
         }
       }
+
+      $user = $_SESSION['user'];
       $notificationCount = DB::queryFirstField("SELECT COUNT(*) FROM notifications WHERE is_read = 0");
-      $notifications = DB::query("SELECT * FROM notifications WHERE is_read = 0 ORDER BY bid_date DESC");
+      $notifications = DB::query("SELECT * FROM notifications WHERE is_read = 0 ORDER BY bid_date DESC 
+      AND created_by=$user");
       $counter = 0;
       ?>
 
