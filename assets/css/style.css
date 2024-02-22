@@ -2159,34 +2159,50 @@ footer .credits {
   font-size: 14px;
 }
 
-#formWrap {
-  z-index:2;
-  margin-top:-96px;
-  border-radius:18px;
-  border:1px solid #e4e4e4;
-  border-top:12px solid #e4e4e4;
-}
-#cardDesign {
+.cardStyle {
+  padding:24px;
   border-radius:12px;
-  background:#232323;
-  color:#fff;
-  margin:0px 20px 0px 20px;
-  z-index:3
+  box-shadow: 4px 8px 12px rgba(0,0,0,0.1);
+  max-width:360px;
+  width:100%;
+  background: rgb(33,90,201);
+  background: linear-gradient(90deg, rgba(33,90,201,1) 0%, rgba(70,155,242,1) 42%, rgba(0,159,255,1) 100%);
+  z-index:6;
+  position:relative
 }
-#cardLogo {
-  background:url('/static_files/images/cardLogos.png') no-repeat;
-  width:52px;
-  height:32px;
-  background-size:auto 100%;
-  background-position:-52px
+.cardFont {
+  font-family: 'Roboto Condensed', sans-serif;
+  letter-spacing:1px;
 }
-#visualName {
-  max-width:220px;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-  overflow:hidden;
-  display:block;
+.text-shadow-white {
+  text-shadow : 2px 3px 1px rgba(85,85,85,0.18)
 }
-button.btn {
-  height:64px;
+.text-shadow-black {
+  text-shadow : 1px 1px 2px rgba(0,0,0,0.5)
+}
+.cardBack {
+  background: rgb(9,54,140);
+  background: linear-gradient(90deg, rgba(9,54,140,1) 0%, rgba(8,70,134,1) 42%, rgba(30,85,119,1) 100%);
+  padding:0px;
+  position:relative;
+  z-index:5;
+  height:220px;
+  margin-top:-180px;
+  margin-left:50px;
+}
+input.form-control {
+  height:48px;
+  border-radius:8px;
+}
+.customRounded {
+  border-radius:12px;
+}
+input::placeholder {
+  color:#aaaaaa !important
+}
+.btn {
+  height:48px;
+}
+a.btn {
+  line-height:32px;
 }
