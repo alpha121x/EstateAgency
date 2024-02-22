@@ -23,50 +23,6 @@
   <main id="main">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <?php
-    include("Admin/db_config.php");
-
-    // Check if the form is submitted
-    if (isset($_POST['pay-button'])) {
-      // Process the payment logic here
-
-      // Card details
-      $cardNumber = $_POST['cardNumber'];
-      $cardholderName = $_POST['cardholderName'];
-      // Amount details
-      $selectedAmount = $_POST['property_price'];
-
-      // Get property ID from the URL
-      if (isset($_GET['id'])) {
-        $property_id = intval($_GET['id']);
-
-        // Update property_status in home_content_slider table
-        $updateQuery = "UPDATE home_content_slider SET property_status = '3' WHERE id = %i";
-        DB::query($updateQuery, $property_id);
-      }
-
-      // Additional processing logic can be added here
-
-      // Display SweetAlert message
-      echo '<script>
-            Swal.fire({
-                title: "Thank You!",
-                text: "Your purchase has been successful.",
-                icon: "success",
-                confirmButtonText: "OK"
-            }).then(() => {
-                window.location.href = "index.php";
-            });
-          </script>';
-      exit();
-    } else {
-      // If the form is not submitted, redirect to the payment page
-      header("Location: payment.php");
-      exit();
-    }
-    ?>
-
-
 
     <?php
 
@@ -80,7 +36,34 @@
       // Fetch property details from the home_content_slider table based on the ID
       $propertyDetails = DB::queryFirstRow("SELECT * FROM home_content_slider WHERE id = %i", $property_id);
     }
+
+    // Check if the form is submitted
+    if (isset($_POST['pay-button'])) {
+
+      // Get property ID from the URL
+      if (isset($_GET['id'])) {
+        $property_id = intval($_GET['id']);
+
+        // Update property_status in home_content_slider table
+        $updateQuery = "UPDATE home_content_slider SET property_status = '3' WHERE id = %i";
+        DB::query($updateQuery, $property_id);
+      }
+
+      // Display SweetAlert message
+      echo '<script>
+            Swal.fire({
+                title: "Thank You!",
+                text: "Your purchase has been successful.",
+                icon: "success",
+                confirmButtonText: "OK"
+            }).then(() => {
+                window.location.href = "index.php";
+            });
+          </script>';
+      exit();
+    }
     ?>
+
 
     <section style="background-color: #eee;">
       <br><br><br><br><br><br>
@@ -88,7 +71,7 @@
         <div class="row d-flex justify-content-center">
           <div class="col-md-8 col-lg-6 col-xl-4">
             <div class="card rounded-3">
-              <form action="payment" method="post">
+              <form action="" method="post">
                 <div class="card-body mx-1 my-2">
                   <div class="d-flex align-items-center">
                     <div>
