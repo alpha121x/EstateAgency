@@ -1,3 +1,4 @@
+<?php  include("Admin/db_config.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,8 +27,6 @@
 
     <?php
 
-    include("Admin/db_config.php");
-
     // Check if the ID parameter is set in the URL
     if (isset($_GET['id'])) {
       // Sanitize the ID parameter to prevent SQL injection
@@ -41,6 +40,12 @@
     // Check if the form is submitted
     if (isset($_POST['pay-button'])) {
 
+      // Card details
+      $cardNumber = $_POST['cardNumber'];
+      $cardholderName = $_POST['cardholderName'];
+      // Amount details
+      $selectedAmount = $_POST['property_price'];
+
       // Get property ID from the URL
       if (isset($_GET['id'])) {
         $property_id = intval($_GET['id']);
@@ -53,17 +58,17 @@
         DB::query($updateQuery, $property_id);
 
         // Customize message for the purchase notification
-        $messageTitle = "Property Sold: Plot NO - " . $propertyDetails['plot_num'];
-        $message = "The property with Plot Num: " . $propertyDetails['plot_num'] . " has been sold to " . $cardholderName . ".";
+        $messageTitle = "Property Sold: Plot NO - " . $propertyDetails['property_num'];
+        $message = "The property with Plot Num: " . $propertyDetails['property_num'] . " has been sold to " . $cardholderName . ".";
 
         // Inserting notification into the database
         DB::insert("notifications", array(
           'title' => $messageTitle,
           'is_read' => 0,
-          'property_id' => $property_id,
-          'created_by' => $cardholderName,
+          'plot_id' => $property_id,
+          'created_by' => 'admin',
           'message' => $message,
-          'purchase_date' => date('Y-m-d H:i:s') // You can customize the date format as needed
+          'bid_date' => date('Y-m-d H:i:s') // You can customize the date format as needed
         ));
 
         // Display SweetAlert message
@@ -123,7 +128,7 @@
                   </div>
 
                   <div class="d-flex justify-content-between align-items-center pb-1">
-                    <a href="#!" class="text-muted">Go back</a>
+                    <a href="index.php" class="text-muted">Go back</a>
                     <button type="submit" name="pay-button" class="btn btn-primary btn-lg">Pay amount</button>
                   </div>
                 </div>
