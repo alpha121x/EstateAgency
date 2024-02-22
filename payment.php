@@ -1,4 +1,4 @@
-<?php  include("Admin/db_config.php"); ?>
+<?php include("Admin/db_config.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,44 +35,43 @@
       // Fetch property details from the home_content_slider table based on the ID
       $propertyDetails = DB::queryFirstRow("SELECT * FROM home_content_slider WHERE id = %i", $property_id);
       $prop_num = $propertyDetails['property_num'];
-    }
 
-    // Check if the form is submitted
-    if (isset($_POST['pay-button'])) {
+      // Check if the form is submitted
+      if (isset($_POST['pay-button'])) {
 
-      // Card details
-      $cardNumber = $_POST['cardNumber'];
-      $cardholderName = $_POST['cardholderName'];
-      // Amount details
-      $selectedAmount = $_POST['property_price'];
+        // Card details
+        $cardNumber = $_POST['cardNumber'];
+        $cardholderName = $_POST['cardholderName'];
+        // Amount details
+        $selectedAmount = $_POST['property_price'];
 
-      // Get property ID from the URL
-      if (isset($_GET['id'])) {
-        $property_id = intval($_GET['id']);
+        // Get property ID from the URL
+        if (isset($_GET['id'])) {
+          $property_id = intval($_GET['id']);
 
-        // Fetch property details for notification
-        $propertyDetails = DB::queryFirstRow("SELECT * FROM home_content_slider WHERE id = %i", $property_id);
+          // Fetch property details for notification
+          $propertyDetails = DB::queryFirstRow("SELECT * FROM home_content_slider WHERE id = %i", $property_id);
 
-        // Update property_status in home_content_slider table
-        $updateQuery = "UPDATE home_content_slider SET property_status = '3' WHERE id = %i";
-        DB::query($updateQuery, $property_id);
+          // Update property_status in home_content_slider table
+          $updateQuery = "UPDATE home_content_slider SET property_status = '3' WHERE id = %i";
+          DB::query($updateQuery, $property_id);
 
-        // Customize message for the purchase notification
-        $messageTitle = "Property Sold: Plot NO - " . $propertyDetails['property_num'];
-        $message = "The property with Plot Num: " . $propertyDetails['property_num'] . " has been sold to " . $cardholderName . ".";
+          // Customize message for the purchase notification
+          $messageTitle = "Property Sold: Plot NO - " . $propertyDetails['property_num'];
+          $message = "The property with Plot Num: " . $propertyDetails['property_num'] . " has been sold to " . $cardholderName . ".";
 
-        // Inserting notification into the database
-        DB::insert("notifications", array(
-          'title' => $messageTitle,
-          'is_read' => 0,
-          'plot_id' => $property_id,
-          'created_by' => $propertyDetails['username'],
-          'message' => $message,
-          'bid_date' => date('Y-m-d H:i:s') // You can customize the date format as needed
-        ));
+          // Inserting notification into the database
+          DB::insert("notifications", array(
+            'title' => $messageTitle,
+            'is_read' => 0,
+            'plot_id' => $property_id,
+            'created_by' => $propertyDetails['username'],
+            'message' => $message,
+            'bid_date' => date('Y-m-d H:i:s') // You can customize the date format as needed
+          ));
 
-        // Display SweetAlert message
-        echo '<script>
+          // Display SweetAlert message
+          echo '<script>
               Swal.fire({
                   title: "Thank You!",
                   text: "Your purchase has been successful.",
@@ -82,9 +81,22 @@
                   window.location.href = "index.php";
               });
             </script>';
+        }
+        exit();
       }
-      exit();
+
+      function sale_property($property_id, $sale_amount, $sold_to, $sold_date, $agent_name)
+      {
+        $insertQuery = "INSERT INTO sales_intake (plot_id, sale_amount, sold_to, sold_date, agent_name) 
+                      VALUES (%i, %s, %s, %s, %s)";
+
+        // Execute the query with the provided values
+        DB::query($insertQuery, $property_id, $sale_amount, $sold_to, $sold_date, $agent_name);
+
+        // Additional logic or return statement can be added here
+      }
     }
+
     ?>
 
 
