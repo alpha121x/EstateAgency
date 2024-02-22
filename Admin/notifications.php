@@ -70,7 +70,7 @@
                                                     <td><?php echo $notification['title']; ?></td>
                                                     <td><?php echo $notification['message']; ?></td>
                                                     <td class="text-center">
-                                                        <a href="notifications" data-notification-id="<?php echo $notification['id']; ?>" id="markAsRead" class="btn btn-success btn-sm">View</a>
+                                                        <a href="notifications" data-notification-id="<?php echo $notification['id']; ?>" id="markAsRead" class="btn btn-success btn-sm">Mark As Read</a>
                                                     </td>
                                                 </tr>
                                         <?php
