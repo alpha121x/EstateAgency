@@ -73,8 +73,7 @@ $user_data = DB::queryFirstRow("SELECT * FROM admin_users WHERE username=%s", $_
 
       $user = $_SESSION['user'];
       $notificationCount = DB::queryFirstField("SELECT COUNT(*) FROM notifications WHERE is_read = 0");
-      $notifications = DB::query("SELECT * FROM notifications WHERE is_read = 0 ORDER BY bid_date DESC 
-      AND created_by=$user");
+      $notifications = DB::query("SELECT * FROM notifications WHERE is_read = 0 AND (created_by = 'admin' OR created_by = 'abbas.ch') ORDER BY bid_date DESC");
       $counter = 0;
       ?>
 

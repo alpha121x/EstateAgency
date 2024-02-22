@@ -55,19 +55,22 @@
                                         <?php
                                         include("db_config.php");
 
-                                        // Select all users from the admin_users table
-                                        $users = DB::query("SELECT * FROM notifications WHERE is_read = 0 ORDER BY bid_date DESC LIMIT 100");
+                                        $user_name = $_SESSION['user'];
 
-                                        if ($users) {
+                                        // Select notifications for the logged-in user where is_read is 0
+                                        $notifications = DB::query("SELECT * FROM notifications WHERE is_read = 0 AND created_by = %s ORDER BY bid_date DESC LIMIT 100", $user_name);
+
+
+                                        if ($notifications) {
                                             $index = 1;
-                                            foreach ($users as $user) {
+                                            foreach ($notifications as $notification) {
                                         ?>
                                                 <tr>
                                                     <td><?php echo $index; ?></td>
-                                                    <td><?php echo $user['title']; ?></td>
-                                                    <td><?php echo $user['message']; ?></td>
+                                                    <td><?php echo $notification['title']; ?></td>
+                                                    <td><?php echo $notification['message']; ?></td>
                                                     <td class="text-center">
-                                                        <a href="notifications_single.php" data-notification-id="<?php echo $user['id']; ?>" id="markAsRead" class="btn btn-success btn-sm">View</a>
+                                                        <a href="notifications_single.php" data-notification-id="<?php echo $notification['id']; ?>" id="markAsRead" class="btn btn-success btn-sm">View</a>
                                                     </td>
                                                 </tr>
                                         <?php

@@ -19,6 +19,7 @@ if (isset($_POST['add-bid'])) {
     $bid_date = date("Y-m-d H:i:s");
 
     $plot_num = DB::queryFirstField("SELECT plot_num FROM plot_listing WHERE plot_id = %i", $plot_id);
+    $added_by = DB::queryFirstField("SELECT username FROM plot_listing WHERE plot_id = %i", $plot_id);
 
     // Extract numeric value and unit from the bid
     preg_match('/([\d.]+)\s*(Lakh|Cr\.)/i', $bid, $matches);
@@ -52,7 +53,7 @@ if (isset($_POST['add-bid'])) {
             'title' => $messageTitle,
             'is_read' => 0,
             'plot_id' => $plot_id,
-            'created_by' => 'admin',
+            'created_by' => $added_by,
             'message' => $message,
             'bid_date' => $bid_date
             // 'bid_date' => $bid_date, // Include bid_date in the notification
