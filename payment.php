@@ -36,6 +36,14 @@
       // Amount details
       $selectedAmount = $_POST['property_price'];
 
+      // Get property ID from the URL
+      if (isset($_GET['id'])) {
+        $property_id = intval($_GET['id']);
+
+        // Update property_status in home_content_slider table
+        $updateQuery = "UPDATE home_content_slider SET property_status = '3' WHERE id = %i";
+        DB::query($updateQuery, $property_id);
+      }
 
       // Additional processing logic can be added here
 
@@ -51,8 +59,13 @@
             });
           </script>';
       exit();
-    } 
+    } else {
+      // If the form is not submitted, redirect to the payment page
+      header("Location: payment.php");
+      exit();
+    }
     ?>
+
 
 
     <?php
