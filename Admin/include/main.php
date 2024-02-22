@@ -370,22 +370,28 @@
               try {
                 // Adjust the query based on your database schema
                 $user = $_SESSION['user'];
-                if ($_SESSION['user_type'] == 'admin') {
+                $userType = $_SESSION['user_type'];
+
+                if ($userType == 'admin') {
                   $query = "SELECT * FROM notifications 
-          WHERE bid_date >= CURDATE() - INTERVAL 6 DAY
-          AND is_read=0
-          ORDER BY bid_date DESC
-          LIMIT 5";
-                } elseif ($_SESSION['user_type'] == 'agent') {
+                                  WHERE bid_date >= CURDATE() - INTERVAL 6 DAY
+                                  AND is_read = 0
+                                  ORDER BY bid_date DESC
+                                  LIMIT 5";
+                                   $notificationsData = DB::query($query);
+                } elseif ($userType == 'agent') {
                   $query = "SELECT * FROM notifications 
-          WHERE bid_date >= CURDATE() - INTERVAL 6 DAY
-          AND created_by = %s
-          AND is_read=0
-          ORDER BY bid_date DESC
-          LIMIT 5";
+                                  WHERE bid_date >= CURDATE() - INTERVAL 6 DAY
+                                  AND created_by = %s
+                                  AND is_read = 0
+                                  ORDER BY bid_date DESC
+                                  LIMIT 5";
+                                   $notificationsData = DB::query($query, $user);
                 }
 
-                $notificationsData = DB::query($query, $user);
+                // Assuming DB::query is a method or function to execute the query
+               
+
                 return $notificationsData;
               } catch (MeekroDBException $e) {
                 die("Error: " . $e->getMessage());
@@ -394,6 +400,7 @@
 
             // Get recent activity data
             $recentActivityData = getRecentActivityData();
+
 
             // Array of different text colors for circles
             $textColors = ['text-success', 'text-warning', 'text-danger', 'text-primary', 'text-info'];
