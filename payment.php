@@ -23,7 +23,7 @@
   <main id="main">
 
     <section style="background-color: #eee;">
-    <br><br><br><br><br>
+    <br><br><br><br><br><br>
       <div class="container py-5">
         <div class="row d-flex justify-content-center">
           <div class="col-md-8 col-lg-6 col-xl-4">
@@ -31,7 +31,7 @@
               <div class="card-body mx-1 my-2">
                 <div class="d-flex align-items-center">
                   <div>
-                    <i class="fab fa-cc-visa fa-4x text-black pe-3"></i>
+                  <i class="fab fa-cc-visa fa-4x text-black pe-3"></i>
                   </div>
                   <div>
                     <p class="d-flex flex-column mb-0">
