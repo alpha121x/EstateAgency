@@ -37,7 +37,7 @@
                       </h1>
                       <p class="intro-subtitle intro-price">
                         <?php if ($property_status == 1) : ?>
-                          <a href="includes/payment?id=<?php echo $property_id;  ?>"><span class="price-a">Buy | Rs. <?php echo $property_price; ?></span></a>
+                          <a href="payment?id=<?php echo $property_id;  ?>"><span class="price-a">Buy | Rs. <?php echo $property_price; ?></span></a>
                         <?php elseif ($property_status == 3) : ?>
                           <span class="price-a">Sold</span>
                         <?php endif; ?>
