@@ -5,7 +5,7 @@
 
   <title>Payment Page</title>
 
-  <?php include("includes/linked-files.php") ?>
+  <?php include("linked-files.php") ?>
 
   
 </head>
@@ -13,11 +13,11 @@
 <body>
 
   <!-- ======= Property Search Section ======= -->
-  <?php include("includes/property-search-section.php") ?>
+  <?php include("property-search-section.php") ?>
   <!-- End Property Search Section -->
 
   <!-- ======= Header/Navbar ======= -->
-  <?php include("includes/header-nav.php") ?>
+  <?php include("header-nav.php") ?>
   <!-- End Header/Navbar -->
 
   <main id="main">
@@ -41,12 +41,12 @@
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
-  <?Php include("includes/footer.php") ?>
+  <?Php include("footer.php") ?>
   <!-- End  Footer -->
 
-  <?php include("includes/preloader.php") ?>
+  <?php include("preloader.php") ?>
 
-  <?php include("includes/script-files.php") ?>
+  <?php include("script-files.php") ?>
 
 </body>
 
