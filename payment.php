@@ -31,10 +31,10 @@
               <div class="card-body mx-1 my-2">
                 <div class="d-flex align-items-center">
                   <div>
-                   <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="black" class="bi bi-credit-card" viewBox="0 0 16 16">
-  <path d="M15 2H1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zm0 1v2H1V4h14zM0 7h16v2H0V7zm0 4h16v2H0v-2z"/>
-  <text x="50%" y="75%" font-size="3" font-family="Arial" fill="white" text-anchor="middle">Visa</text>
-</svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="black" class="bi bi-credit-card" viewBox="0 0 16 16">
+                      <path d="M15 2H1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zm0 1v2H1V4h14zM0 7h16v2H0V7zm0 4h16v2H0v-2z" />
+                      <text x="50%" y="75%" font-size="3" font-family="Arial" fill="white" text-anchor="middle">Visa</text>
+                    </svg>
 
                     &nbsp;
                   </div>
