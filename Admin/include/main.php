@@ -100,8 +100,8 @@
               <div class="card-body">
                 <h5 class="card-title">Total Bids Amounts <span>| Today</span></h5>
                 <div class="d-flex align-items-center">
-                <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                  <i class="bi bi-currency-dollar"></i>
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="bi bi-currency-dollar"></i>
                   </div>
                   <div class="ps-3">
                     <h6>Rs. <?php echo $totalAmountCrore; ?> Lakh.</h6>
@@ -506,11 +506,15 @@
             {
               try {
                 // Adjust the query based on your database schema
+                $user_name = $_SESSION['user'];
+
                 $query = "SELECT * FROM notifications 
-                WHERE bid_date >= CURDATE() - INTERVAL 6 DAY
-                ORDER BY bid_date DESC
-                LIMIT 5";              
-                $notificationsData = DB::query($query);
+          WHERE bid_date >= CURDATE() - INTERVAL 6 DAY
+          AND created_by = %s
+          ORDER BY bid_date DESC
+          LIMIT 5";
+
+                $notificationsData = DB::query($query, $user_name);
                 return $notificationsData;
               } catch (MeekroDBException $e) {
                 die("Error: " . $e->getMessage());
