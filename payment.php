@@ -22,6 +22,20 @@
 
   <main id="main">
 
+    <?php
+
+    include("Admin/db_config.php");
+
+    // Check if the ID parameter is set in the URL
+    if (isset($_GET['id'])) {
+      // Sanitize the ID parameter to prevent SQL injection
+      $property_id = intval($_GET['id']);
+
+      // Fetch property details from the home_content_slider table based on the ID
+      $propertyDetails = DB::queryFirstRow("SELECT * FROM home_content_slider WHERE id = %i", $property_id);
+    }
+    ?>
+
     <section style="background-color: #eee;">
       <br><br><br><br><br><br>
       <div class="container py-5">
@@ -63,7 +77,7 @@
                         </div>
                         <div class="d-flex flex-column">
                           <p class="mb-1 small text-primary">Total amount due</p>
-                          <h6 class="mb-0 text-primary">$8245</h6>
+                          <h6 class="mb-0 text-primary"><?php echo $propertyDetails['property_price']; ?></h6>
                         </div>
                       </div>
                     </div>
