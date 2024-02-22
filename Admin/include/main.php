@@ -374,6 +374,7 @@
                 $query = "SELECT * FROM notifications 
           WHERE bid_date >= CURDATE() - INTERVAL 6 DAY
           AND created_by = %s
+          AND is_read=0
           ORDER BY bid_date DESC
           LIMIT 5";
 
