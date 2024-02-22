@@ -350,7 +350,7 @@
           </div>
         </div><!-- Bids Monthly Report end-->
 
-       
+
 
 
 
@@ -369,16 +369,23 @@
             {
               try {
                 // Adjust the query based on your database schema
-                $user_name = $_SESSION['user'];
-
-                $query = "SELECT * FROM notifications 
+                $user = $_SESSION['user'];
+                if ($_SESSION['user_type'] == 'admin') {
+                  $query = "SELECT * FROM notifications 
+          WHERE bid_date >= CURDATE() - INTERVAL 6 DAY
+          AND is_read=0
+          ORDER BY bid_date DESC
+          LIMIT 5";
+                } elseif ($_SESSION['user_type'] == 'agent') {
+                  $query = "SELECT * FROM notifications 
           WHERE bid_date >= CURDATE() - INTERVAL 6 DAY
           AND created_by = %s
           AND is_read=0
           ORDER BY bid_date DESC
           LIMIT 5";
+                }
 
-                $notificationsData = DB::query($query, $user_name);
+                $notificationsData = DB::query($query, $user);
                 return $notificationsData;
               } catch (MeekroDBException $e) {
                 die("Error: " . $e->getMessage());
