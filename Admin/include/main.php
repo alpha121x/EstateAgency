@@ -272,13 +272,13 @@
               try {
                 // Fetch total sales data for the current month, including the sum of sales for each day
                 $query = "SELECT DAY(sold_date) AS day, 
-                          SUM(CASE WHEN sale_amount LIKE '%Cr.' THEN CAST(SUBSTRING_INDEX(sale_amount, ' ', 1) AS DECIMAL(10,2)) * 100
-                                   WHEN sale_amount LIKE '%Lakh' THEN CAST(SUBSTRING_INDEX(sale_amount, ' ', 1) AS DECIMAL(10,2))
-                                   ELSE 0 END) AS total_sale
-                          FROM sales_intake
-                          WHERE sold_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
-                          GROUP BY DAY(sold_date)
-                          ORDER BY DAY(sold_date);";
+                  SUM(CASE WHEN sale_unit = 'Cr.' THEN CAST(sale_amount AS DECIMAL(10,2)) * 100
+                           WHEN sale_unit = 'Lakh' THEN CAST(sale_amount AS DECIMAL(10,2))
+                           ELSE 0 END) AS total_sale
+                  FROM sales_intake
+                  WHERE sold_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
+                  GROUP BY DAY(sold_date)
+                  ORDER BY DAY(sold_date);";
 
                 $totalSalesData = DB::query($query);
 
@@ -382,6 +382,7 @@
             </script>
           </div>
         </div><!-- Sales Monthly Report end-->
+
 
 
 
