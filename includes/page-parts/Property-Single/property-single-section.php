@@ -28,7 +28,7 @@
     $property_id = $propertyDetails['plot_id'];
     $updateQuery = "UPDATE plot_listing SET plot_status = '3' WHERE plot_id = %i";
     DB::query($updateQuery, $property_id);
- 
+
     // // Fetch the top bidder for the specific property
     // $topBidder = DB::queryFirstRow("
     // SELECT pb.bid_id, pb.user_email, pb.user_name, pb.bid, pl.plot_num
@@ -111,13 +111,13 @@
                 <?php
                 // Fetch top 3 highest bids from plot_bidding table for a specific plot_id
                 $topBids = DB::query("
-            SELECT pb.bid_id, pb.plot_id, pb.user_name, pb.bid, pl.plot_num
-            FROM plot_bidding pb
-            JOIN plot_listing pl ON pb.plot_id = pl.plot_id
-            WHERE pb.plot_id = %i
-            GROUP BY pb.user_name
-            ORDER BY pb.bid DESC
-            LIMIT 3", $propertyId);
+                SELECT pb.bid_id, pb.plot_id, pb.user_name, pb.bid, pb.bid_unit, pl.plot_num
+                FROM plot_bidding pb
+                JOIN plot_listing pl ON pb.plot_id = pl.plot_id
+                WHERE pb.plot_id = %i
+                GROUP BY pb.user_name
+                ORDER BY pb.bid DESC
+                LIMIT 3", $propertyId);
 
                 foreach ($topBids as $bid) :
                   $plot_id = $bid['plot_id'];
@@ -125,7 +125,7 @@
                 ?>
                   <li>
                     <strong><?php echo $bid['user_name']; ?>:</strong>
-                    Bid Amount: Rs. <?php echo $bid['bid']; ?>
+                    Bid Amount: Rs. <?php echo $bid['bid'] . ' ' . $bid['bid_unit']; ?>
                   </li>
                 <?php endforeach; ?>
               </ul>
@@ -133,8 +133,26 @@
             } else {
               // If no bidding days left, display a message or take appropriate action
               echo '<h4 class="modal-title fs-5" id="exampleModalLabel">&nbsp;Bidding has ended</h4>';
+
+              // Fetch the top bidder from the plot_bidding table
+              $topBidder = DB::queryFirstRow("
+              SELECT pb.user_name, pb.bid, pb.bid_unit, pl.plot_num
+              FROM plot_bidding pb
+              JOIN plot_listing pl ON pb.plot_id = pl.plot_id
+              WHERE pb.plot_id = %i
+              ORDER BY pb.bid DESC
+              LIMIT 1", $propertyId);
+
+              // Display the sold message to the top bidder
+              if ($topBidder) {
+                echo '<p>Sold to top bidder:</p>';
+                echo '<p><strong>' . $topBidder['user_name'] . '</strong></p>';
+                echo '<p>Bid Amount: Rs. ' . $topBidder['bid'] . ' ' . $topBidder['bid_unit'] . '</p>';
+                echo '<p>Plot Number: ' . $topBidder['plot_num'] . '</p>';
+              }
             }
             ?>
+
 
 
 
