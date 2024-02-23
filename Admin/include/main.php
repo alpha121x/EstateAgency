@@ -89,8 +89,6 @@
           <div class="col-xxl-4 col-xl-12">
             <div class="card info-card amounts-card">
               <?php
-              include('db_config.php');
-
               // Query to get the total amount of bids for this day
               $totalAmountLakh = DB::queryFirstField("SELECT FORMAT(SUM(bid), 2) as bid_sum FROM plot_bidding WHERE DATE(bid_date) = %s", $currentDate);
               $totalAmountCrore = convertToCrore($totalAmountLakh, 'Lakh');
@@ -260,18 +258,18 @@
         </div><!-- Bids Monthly Report end-->
         <br><br>
         <div class="card"><!-- Sales Monthly Report start-->
-    <div class="card-body">
-        <h5 class="card-title">Sales Monthly Report</h5>
+          <div class="card-body">
+            <h5 class="card-title">Sales Monthly Report</h5>
 
-        <canvas id="salesChart" width="400" height="200"></canvas>
+            <canvas id="salesChart" width="400" height="200"></canvas>
 
-        <?php
-        require('db_config.php');
+            <?php
+            require('db_config.php');
 
-        // Function to get total sales data for the current month from the database
-        function getTotalSalesDataForCurrentMonth()
-        {
-            try {
+            // Function to get total sales data for the current month from the database
+            function getTotalSalesDataForCurrentMonth()
+            {
+              try {
                 // Fetch total sales data for the current month, including the sum of sales for each day
                 $query = "SELECT DAY(sold_date) AS day, 
                           SUM(CASE WHEN sale_amount LIKE '%Cr.' THEN CAST(SUBSTRING_INDEX(sale_amount, ' ', 1) AS DECIMAL(10,2)) * 100
@@ -285,108 +283,108 @@
                 $totalSalesData = DB::query($query);
 
                 return $totalSalesData;
-            } catch (MeekroDBException $e) {
+              } catch (MeekroDBException $e) {
                 die("Error: " . $e->getMessage());
+              }
             }
-        }
 
-        // Get total sales data for the current month
-        $totalSalesData = getTotalSalesDataForCurrentMonth();
+            // Get total sales data for the current month
+            $totalSalesData = getTotalSalesDataForCurrentMonth();
 
-        // Filter days with data
-        $daysWithData = array_filter($totalSalesData, function ($item) {
-            return isset($item['total_sale']) && $item['total_sale'] !== null;
-        });
+            // Filter days with data
+            $daysWithData = array_filter($totalSalesData, function ($item) {
+              return isset($item['total_sale']) && $item['total_sale'] !== null;
+            });
 
-        // Convert PHP array to JSON
-        $jsTotalSalesData = json_encode($daysWithData);
-        ?>
+            // Convert PHP array to JSON
+            $jsTotalSalesData = json_encode($daysWithData);
+            ?>
 
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script>
-            // Parse the PHP array in JavaScript
-            var totalSalesData = <?php echo $jsTotalSalesData; ?>;
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+              // Parse the PHP array in JavaScript
+              var totalSalesData = <?php echo $jsTotalSalesData; ?>;
 
-            // Create arrays to store numerical sale amounts and formatted sale strings
-            var numericalTotalSales = [];
-            var formattedTotalSales = [];
+              // Create arrays to store numerical sale amounts and formatted sale strings
+              var numericalTotalSales = [];
+              var formattedTotalSales = [];
 
-            // Convert sale values to a uniform format (either in lakh or crore)
-            totalSalesData.forEach(item => {
+              // Convert sale values to a uniform format (either in lakh or crore)
+              totalSalesData.forEach(item => {
                 var saleAmount = item.total_sale;
 
                 // Check if the sale is in Cr. and convert to lakh
                 if (saleAmount >= 10000000) {
-                    numericalTotalSales.push(saleAmount / 10000000);
-                    formattedTotalSales.push((saleAmount / 10000000).toFixed(2) + ' Cr.');
+                  numericalTotalSales.push(saleAmount / 10000000);
+                  formattedTotalSales.push((saleAmount / 10000000).toFixed(2) + ' Cr.');
                 } else {
-                    numericalTotalSales.push(saleAmount / 100000);
-                    formattedTotalSales.push((saleAmount / 100000).toFixed(2) + ' Lakh');
+                  numericalTotalSales.push(saleAmount / 100000);
+                  formattedTotalSales.push((saleAmount / 100000).toFixed(2) + ' Lakh');
                 }
-            });
+              });
 
-            // Get the canvas element
-            var ctxSales = document.getElementById('salesChart').getContext('2d');
+              // Get the canvas element
+              var ctxSales = document.getElementById('salesChart').getContext('2d');
 
-            // Create the chart
-            var salesChart = new Chart(ctxSales, {
+              // Create the chart
+              var salesChart = new Chart(ctxSales, {
                 type: 'line',
                 data: {
-                    labels: ['0', ...totalSalesData.map(item => item.day)],
-                    datasets: [{
-                        label: 'Total Sales Last Month',
-                        data: [0, ...numericalTotalSales],
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 2,
-                        pointBackgroundColor: 'rgba(75, 192, 192, 1)',
-                        pointRadius: 5,
-                        fill: false
-                    }]
+                  labels: ['0', ...totalSalesData.map(item => item.day)],
+                  datasets: [{
+                    label: 'Total Sales Last Month',
+                    data: [0, ...numericalTotalSales],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                    pointRadius: 5,
+                    fill: false
+                  }]
                 },
                 options: {
-                    scales: {
-                        x: {
-                            type: 'linear',
-                            position: 'bottom',
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Days'
-                            }
-                        },
-                        y: {
-                            beginAtZero: false,
-                            title: {
-                                display: true,
-                                text: 'Total Sales (in Lakh/Cr.)'
-                            },
-                            ticks: {
-                                callback: function (value) {
-                                    var index = numericalTotalSales.indexOf(value);
-                                    return (index !== -1) ? formattedTotalSales[index] : value.toFixed(2) + ' Lakh';
-                                }
-                            }
-                        }
+                  scales: {
+                    x: {
+                      type: 'linear',
+                      position: 'bottom',
+                      beginAtZero: true,
+                      title: {
+                        display: true,
+                        text: 'Days'
+                      }
                     },
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'top',
-                            labels: {
-                                font: {
-                                    size: 14
-                                }
-                            }
+                    y: {
+                      beginAtZero: false,
+                      title: {
+                        display: true,
+                        text: 'Total Sales (in Lakh/Cr.)'
+                      },
+                      ticks: {
+                        callback: function(value) {
+                          var index = numericalTotalSales.indexOf(value);
+                          return (index !== -1) ? formattedTotalSales[index] : value.toFixed(2) + ' Lakh';
                         }
+                      }
                     }
+                  },
+                  plugins: {
+                    legend: {
+                      display: true,
+                      position: 'top',
+                      labels: {
+                        font: {
+                          size: 14
+                        }
+                      }
+                    }
+                  }
                 }
-            });
-        </script>
-    </div>
-</div><!-- Sales Monthly Report end-->
+              });
+            </script>
+          </div>
+        </div><!-- Sales Monthly Report end-->
 
 
-      
+
 
 
 
@@ -416,7 +414,7 @@
                                   AND is_read = 0
                                   ORDER BY bid_date DESC
                                   LIMIT 5";
-                                   $notificationsData = DB::query($query);
+                  $notificationsData = DB::query($query);
                 } elseif ($userType == 'agent') {
                   $query = "SELECT * FROM notifications 
                                   WHERE bid_date >= CURDATE() - INTERVAL 6 DAY
@@ -424,11 +422,11 @@
                                   AND is_read = 0
                                   ORDER BY bid_date DESC
                                   LIMIT 5";
-                                   $notificationsData = DB::query($query, $user);
+                  $notificationsData = DB::query($query, $user);
                 }
 
                 // Assuming DB::query is a method or function to execute the query
-               
+
 
                 return $notificationsData;
               } catch (MeekroDBException $e) {

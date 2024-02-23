@@ -27,7 +27,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <?php
-
     // Check if the ID parameter is set in the URL
     if (isset($_GET['id'])) {
       // Sanitize the ID parameter to prevent SQL injection
@@ -72,7 +71,36 @@
 
           // Call the sale_property function
           $agent_name = $propertyDetails['username'];
-          sale_property($property_id, $selectedAmount, $cardholderName, date('Y-m-d H:i:s'), $agent_name);
+
+          // Extract numeric value and unit from the selectedAmount
+          preg_match('/([\d.]+)\s*(Lakh|Cr\.)/i', $selectedAmount, $matches);
+
+          // Check if the regular expression matched
+          if ($matches) {
+            // Numeric value
+            $numeric_value = $matches[1];
+
+            // Unit (either "Lakh" or "Cr.")
+            $unit = $matches[2];
+
+            // Insert query using MeekroDB for sales_intake table
+            $inserted = DB::insert('sales_intake', [
+              'plot_id' => $property_id,
+              'sale_amount' => $numeric_value,
+              'sale_unit' => $unit,
+              'sold_to' => $cardholderName,
+              'sold_date' => date('Y-m-d H:i:s'),
+              'agent_name' => $agent_name
+            ]);
+
+            // Check if the data was inserted successfully
+            if ($inserted) {
+              // Additional logic or response can be added here
+              echo "Data inserted into sales_intake successfully.";
+            } else {
+              echo "Failed to insert data into sales_intake.";
+            }
+          }
 
           // Display SweetAlert message
           echo '<script>
@@ -89,13 +117,13 @@
         exit();
       }
     }
-    
+
     // Define the sale_property function outside the conditional block
     function sale_property($property_id, $sale_amount, $sold_to, $sold_date, $agent_name)
     {
       // Assuming you have a function or method to execute SQL queries (e.g., DB::query)
       $insertQuery = "INSERT INTO sales_intake (plot_id, sale_amount, sold_to, sold_date, agent_name) 
-                    VALUES (%i, %s, %s, %s, %s)";
+                VALUES (%i, %s, %s, %s, %s)";
 
       // Execute the query with the provided values
       DB::query($insertQuery, $property_id, $sale_amount, $sold_to, $sold_date, $agent_name);
@@ -103,6 +131,7 @@
       // Additional logic or return statement can be added here
     }
     ?>
+
 
 
 
