@@ -101,7 +101,133 @@ include('db_config.php'); ?>
             </div>
             <!-- End Table with stripped rows -->
             <br><br>
-            
+            <div class="card"><!-- Bids Monthly Report start-->
+          <div class="card-body">
+            <h5 class="card-title">Bids Monthly Report</h5>
+
+            <canvas id="bidsChart" width="400" height="200"></canvas>
+
+            <?php
+            require('db_config.php');
+
+            // Function to get total bid data for the current month from the database
+            function getTotalBidsDataForCurrentMonth1()
+            {
+              try {
+                // Fetch total bid data for the current month, including the sum of bids for each day
+                $query = "SELECT DAY(bid_date) AS day, 
+            SUM(CASE WHEN bid_unit = 'Cr.' THEN bid * 100
+                     WHEN bid_unit = 'Lakh' THEN bid
+                     ELSE 0 END) AS total_bid
+         FROM plot_bidding
+         WHERE bid_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
+         GROUP BY DAY(bid_date)
+         ORDER BY DAY(bid_date);";
+
+                $totalBidsData = DB::query($query);
+
+                return $totalBidsData;
+              } catch (MeekroDBException $e) {
+                die("Error: " . $e->getMessage());
+              }
+            }
+
+            // Get total bid data for the current month
+            $totalBidsData = getTotalBidsDataForCurrentMonth1();
+
+            // Filter days with data
+            $daysWithData = array_filter($totalBidsData, function ($item) {
+              return isset($item['total_bid']) && $item['total_bid'] !== null;
+            });
+
+            // Convert PHP array to JSON
+            $jsTotalBidsData = json_encode($daysWithData);
+            ?>
+
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+              // Parse the PHP array in JavaScript
+              var totalBidsData = <?php echo $jsTotalBidsData; ?>;
+
+              // Create arrays to store numerical bid amounts and formatted bid strings
+              var numericalTotalBids = [];
+              var formattedTotalBids = [];
+
+              // Convert bid values to a uniform format (either in lakh or crore)
+              totalBidsData.forEach(item => {
+                var bidAmount = item.total_bid;
+                var numericalBid = parseFloat(bidAmount.replace(/[^\d.]/g, ''));
+
+                // Check if the bid is in Cr. and convert to lakh
+                if (bidAmount.includes('Cr.')) {
+                  numericalBid *= 100; // Convert Cr. to lakh
+                }
+
+                var formattedBid = (numericalBid >= 10000000) ? (numericalBid / 10000000).toFixed(2) + ' Cr.' : (numericalBid / 100000).toFixed(2) + ' Lakh';
+
+                numericalTotalBids.push(numericalBid);
+                formattedTotalBids.push(formattedBid);
+              });
+
+              // Get the canvas element
+              var ctxBids = document.getElementById('bidsChart').getContext('2d');
+
+              // Create the chart
+              var bidsChart = new Chart(ctxBids, {
+                type: 'line',
+                data: {
+                  labels: ['0', ...totalBidsData.map(item => item.day)],
+                  datasets: [{
+                    label: 'Total Bids Last Month',
+                    data: [0, ...numericalTotalBids],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                    pointRadius: 5,
+                    fill: false
+                  }]
+                },
+                options: {
+                  scales: {
+                    x: {
+                      type: 'linear',
+                      position: 'bottom',
+                      beginAtZero: true,
+                      title: {
+                        display: true,
+                        text: 'Days'
+                      }
+                    },
+                    y: {
+                      beginAtZero: false,
+                      title: {
+                        display: true,
+                        text: 'Total Bids (in Lakh)'
+                      },
+                      ticks: {
+                        callback: function(value) {
+                          var index = numericalTotalBids.indexOf(value);
+                          return (index !== -1) ? formattedTotalBids[index] : value.toFixed(2) + ' Lakh';
+                        }
+                      }
+                    }
+                  },
+                  plugins: {
+                    legend: {
+                      display: true,
+                      position: 'top',
+                      labels: {
+                        font: {
+                          size: 14
+                        }
+                      }
+                    }
+                  }
+                }
+              });
+            </script>
+          </div>
+        </div><!-- Bids Monthly Report end-->
             <div class="card"><!-- Bids Monthly Report start-->
               <div class="card-body">
                 <h5 class="card-title">Bids Count Monthly Report</h5>
