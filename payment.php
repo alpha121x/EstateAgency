@@ -95,24 +95,30 @@
 
             // Check if the data was inserted successfully
             if ($inserted) {
-              // Additional logic or response can be added here
-              echo "Data inserted into sales_intake successfully.";
+              // Display SweetAlert message
+              echo '<script>
+          Swal.fire({
+              title: "Thank You!",
+              text: "Your purchase has been successful.",
+              icon: "success",
+              confirmButtonText: "OK"
+          }).then(() => {
+              window.location.href = "index.php";
+          });
+          </script>';
             } else {
-              echo "Failed to insert data into sales_intake.";
+              echo '<script>
+            Swal.fire({
+                title: "Oops!",
+                text: "Your purchase was not successful.",
+                icon: "error",
+                confirmButtonText: "OK"
+            }).then(() => {
+                window.location.href = "index.php";
+            });
+        </script>';
             }
           }
-
-          // Display SweetAlert message
-          echo '<script>
-                Swal.fire({
-                    title: "Thank You!",
-                    text: "Your purchase has been successful.",
-                    icon: "success",
-                    confirmButtonText: "OK"
-                }).then(() => {
-                    window.location.href = "index.php";
-                });
-                </script>';
         }
         exit();
       }
