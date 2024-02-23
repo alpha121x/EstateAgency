@@ -264,6 +264,7 @@
             <canvas id="salesChart" width="400" height="200"></canvas>
 
             <?php
+
             require('db_config.php');
 
             // Function to get total sales data for the current month from the database
@@ -303,25 +304,7 @@
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <script>
               // Parse the PHP array in JavaScript
-              var totalSalesData = <?php echo $jsTotalSalesData; ?>;
-
-              // Create arrays to store numerical sale amounts and formatted sale strings
-              var numericalTotalSales = [];
-              var formattedTotalSales = [];
-
-              // Convert sale values to a uniform format (either in lakh or crore)
-              totalSalesData.forEach(item => {
-                var saleAmount = item.total_sale;
-
-                // Check if the sale is in Cr. and convert to lakh
-                if (saleAmount >= 10000000) {
-                  numericalTotalSales.push(saleAmount / 10000000);
-                  formattedTotalSales.push((saleAmount / 10000000).toFixed(2) + ' Cr.');
-                } else {
-                  numericalTotalSales.push(saleAmount / 100000);
-                  formattedTotalSales.push((saleAmount / 100000).toFixed(2) + ' Lakh');
-                }
-              });
+              var totalSalesData = <?php echo json_encode($totalSalesData); ?>;
 
               // Get the canvas element
               var ctxSales = document.getElementById('salesChart').getContext('2d');
@@ -333,7 +316,7 @@
                   labels: ['0', ...totalSalesData.map(item => item.day)],
                   datasets: [{
                     label: 'Total Sales Last Month',
-                    data: [0, ...numericalTotalSales],
+                    data: totalSalesData.map(item => item.total_sale),
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 2,
                     pointBackgroundColor: 'rgba(75, 192, 192, 1)',
@@ -356,12 +339,11 @@
                       beginAtZero: false,
                       title: {
                         display: true,
-                        text: 'Total Sales (in Lakh/Cr.)'
+                        text: 'Total Sales'
                       },
                       ticks: {
                         callback: function(value) {
-                          var index = numericalTotalSales.indexOf(value);
-                          return (index !== -1) ? formattedTotalSales[index] : value.toFixed(2) + ' Lakh';
+                          return value.toFixed(2);
                         }
                       }
                     }
@@ -380,6 +362,8 @@
                 }
               });
             </script>
+
+
           </div>
         </div><!-- Sales Monthly Report end-->
 
