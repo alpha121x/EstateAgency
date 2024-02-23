@@ -316,10 +316,10 @@
               var salesChart = new Chart(ctxSales, {
                 type: 'line',
                 data: {
-                  labels: daysWithSales.map(item => item.day),
+                  labels: ['0', ...daysWithSales.map(item => item.day)],
                   datasets: [{
                     label: 'Total Sales Last Month',
-                    data: daysWithSales.map(item => item.total_sale),
+                    data: [0, ...daysWithSales.map(item => item.total_sale)],
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 2,
                     pointBackgroundColor: 'rgba(75, 192, 192, 1)',
@@ -339,10 +339,10 @@
                       }
                     },
                     y: {
-                      beginAtZero: false,
+                      beginAtZero: true, // Start the y-axis at 0
                       title: {
                         display: true,
-                        text: 'Total Sales'
+                        text: 'Total Sales (in Lakh)'
                       },
                       ticks: {
                         callback: function(value) {
@@ -365,6 +365,7 @@
                 }
               });
             </script>
+
           </div>
         </div><!-- Sales Monthly Report end-->
 
