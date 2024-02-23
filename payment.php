@@ -1,4 +1,5 @@
 <?php include("Admin/db_config.php"); ?>
+<?php require("auth.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 

@@ -1,5 +1,4 @@
 <?php include("visit_count.php"); ?>
-<?php require("Admin/auth.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 
