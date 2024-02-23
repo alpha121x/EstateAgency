@@ -17,70 +17,73 @@
 
   // Assuming $propertyDetails['added_on'] contains the added_on date from your database
   $addedOnDate = strtotime($propertyDetails['added_on']);
-  $biddingEndDate = strtotime($propertyDetails['bidding_days'], $addedOnDate);
-
-  date_default_timezone_set('Asia/Karachi');
-  // Get the current date
   $currentDate = time();
 
+  // Calculate the remaining bidding days
+  $daysLeft = (int)$propertyDetails['bidding_days'] - (int)floor(($currentDate - $addedOnDate) / (60 * 60 * 24));
+
+
   // // Check if bidding has ended
-  if ($currentDate >= $biddingEndDate) {
+  if ($daysLeft == 0) {
     $property_id = $propertyDetails['plot_id'];
-    $updateQuery = "UPDATE plot_listing SET property_status = '3' WHERE id = %i";
-          DB::query($updateQuery, $property_id);
-    // // Fetch the top bidder for the specific property
-    // $topBidder = DB::queryFirstRow("
-    // SELECT pb.bid_id, pb.user_email, pb.user_name, pb.bid, pl.plot_num
-    // FROM plot_bidding pb
-    // JOIN plot_listing pl ON pb.plot_id = pl.plot_id
-    // WHERE pb.plot_id = %i
-    // GROUP BY pb.user_name
-    // ORDER BY pb.bid DESC
-    // LIMIT 3", $propertyId);
+    $updateQuery = "UPDATE plot_listing SET plot_status = '3' WHERE plot_id = %i";
+    DB::query($updateQuery, $property_id);
+ 
+    // Fetch the top bidder for the specific property
+    $topBidder = DB::queryFirstRow("
+    SELECT pb.bid_id, pb.user_email, pb.user_name, pb.bid, pl.plot_num
+    FROM plot_bidding pb
+    JOIN plot_listing pl ON pb.plot_id = pl.plot_id
+    WHERE pb.plot_id = %i
+    GROUP BY pb.user_name
+    ORDER BY pb.bid DESC
+    LIMIT 3", $propertyId);
 
-    // if ($topBidder) {
-    //   // Send congratulatory email to the top bidder
-    //   $topBidderName = $topBidder['user_name'];
-    //   $topBidAmount = $topBidder['bid'];
-    //   $topBidderEmail = $topBidder['user_email'];
+    if ($topBidder) {
+      // Send congratulatory email to the top bidder
+      $topBidderName = $topBidder['user_name'];
+      $topBidAmount = $topBidder['bid'];
+      $topBidderEmail = $topBidder['user_email'];
 
 
-    //   // Check if the email has already been sent
-    //   if (!isset($_SESSION['email_sent']) || $_SESSION['email_sent'] !== true) {
-    //     try {
-    //       $mail = new PHPMailer(true);
+      // Check if the email has already been sent
+      if (!isset($_SESSION['email_sent']) || $_SESSION['email_sent'] !== true) {
+        try {
+          $mail = new PHPMailer(true);
 
-    //       // Server settings
-    //       $mail->SMTPDebug = SMTP::DEBUG_OFF;
-    //       $mail->isSMTP();
-    //       $mail->Host       = 'smtp.gmail.com'; // Set your SMTP server
-    //       $mail->SMTPAuth   = true;
-    //       $mail->Username   = 'abbasshakor0123@gmail.com'; // Your SMTP username
-    //       $mail->Password   = 'avngwwtgyxeemppm'; // Your SMTP password
-    //       $mail->SMTPSecure = 'tls';
-    //       $mail->Port       = 587;
+          // Server settings
+          $mail->SMTPDebug = SMTP::DEBUG_OFF;
+          $mail->isSMTP();
+          $mail->Host       = 'smtp.gmail.com'; // Set your SMTP server
+          $mail->SMTPAuth   = true;
+          $mail->Username   = 'abbasshakor0123@gmail.com'; // Your SMTP username
+          $mail->Password   = 'avngwwtgyxeemppm'; // Your SMTP password
+          $mail->SMTPSecure = 'tls';
+          $mail->Port       = 587;
 
-    //       // Recipients
-    //       $mail->setFrom('abbashakor0123@gmail.com', 'EstateAgency');
-    //       $mail->addAddress($topBidderEmail, $topBidderName); // Add the recipient
+          // Recipients
+          $mail->setFrom('abbashakor0123@gmail.com', 'EstateAgency');
+          $mail->addAddress($topBidderEmail, $topBidderName); // Add the recipient
 
-    //       // Content
-    //       $mail->isHTML(true);
-    //       $mail->Subject = 'Congratulations! You Won the Bidding';
-    //       $mail->Body    = 'Congratulations, ' . $topBidderName . '! Your bid of Rs. ' . $topBidAmount . ' ranked #1. Visit our office or official website for further instructions on completing the purchase process.';
-    //       $mail->AltBody = 'Congratulations, ' . $topBidderName . '! Your bid of Rs. ' . $topBidAmount . ' ranked #1. Visit our office or official website for further instructions on completing the purchase process.';
-    //       $mail->send();
+          // Content
+          $mail->isHTML(true);
+          $mail->Subject = 'Congratulations! You Won the Bidding';
+          $mail->Body    = 'Congratulations, ' . $topBidderName . '! Your bid of Rs. ' . $topBidAmount . ' ranked #1. Visit our office or official website for further instructions on completing the purchase process.';
+          $mail->AltBody = 'Congratulations, ' . $topBidderName . '! Your bid of Rs. ' . $topBidAmount . ' ranked #1. Visit our office or official website for further instructions on completing the purchase process.';
+          $mail->send();
 
-    //       // Set the session variable to indicate that the email has been sent
-    //       $_SESSION['email_sent'] = true;
+          // Set the session variable to indicate that the email has been sent
+          $_SESSION['email_sent'] = true;
 
-    //       // echo 'Email has been sent successfully.';
-    //     } catch (Exception $e) {
-    //       echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-    //     }
-    //   }
-    // }
+          // echo 'Email has been sent successfully.';
+        } catch (Exception $e) {
+          echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        }
+      }
+    }
   }
+
+
 
 
 
@@ -100,21 +103,14 @@
             <?php
             require('Admin/db_config.php');
 
-            // Assuming $propertyDetails['added_on'] contains the added_on date from your database
-            $addedOnDate = strtotime($propertyDetails['added_on']);
-            $currentDate = time();
-
-            // Calculate the remaining bidding days
-            $daysLeft = (int)$propertyDetails['bidding_days'] - (int)floor(($currentDate - $addedOnDate) / (60 * 60 * 24));
-
             // If there are still bidding days left, display the time left
             if ($daysLeft > 0) {
               echo '<h4>Bidding Time Left: ' . $daysLeft . ' days <br> Top 3 Bids</h4>';
-              ?>
+            ?>
               <ul>
-              <?php
-              // Fetch top 3 highest bids from plot_bidding table for a specific plot_id
-              $topBids = DB::query("
+                <?php
+                // Fetch top 3 highest bids from plot_bidding table for a specific plot_id
+                $topBids = DB::query("
             SELECT pb.bid_id, pb.plot_id, pb.user_name, pb.bid, pl.plot_num
             FROM plot_bidding pb
             JOIN plot_listing pl ON pb.plot_id = pl.plot_id
@@ -123,22 +119,22 @@
             ORDER BY pb.bid DESC
             LIMIT 3", $propertyId);
 
-              foreach ($topBids as $bid) :
-                $plot_id = $bid['plot_id'];
-                $plot_num = $bid['plot_num'];
-              ?>
-                <li>
-                  <strong><?php echo $bid['user_name']; ?>:</strong>
-                  Bid Amount: Rs. <?php echo $bid['bid']; ?>
-                </li>
-              <?php endforeach; ?>
-            </ul>
-        <?php
-          } else {
-          // If no bidding days left, display a message or take appropriate action
-          echo '<h4 class="modal-title fs-5" id="exampleModalLabel">&nbsp;Bidding has ended</h4>';
-        }
-        ?>
+                foreach ($topBids as $bid) :
+                  $plot_id = $bid['plot_id'];
+                  $plot_num = $bid['plot_num'];
+                ?>
+                  <li>
+                    <strong><?php echo $bid['user_name']; ?>:</strong>
+                    Bid Amount: Rs. <?php echo $bid['bid']; ?>
+                  </li>
+                <?php endforeach; ?>
+              </ul>
+            <?php
+            } else {
+              // If no bidding days left, display a message or take appropriate action
+              echo '<h4 class="modal-title fs-5" id="exampleModalLabel">&nbsp;Bidding has ended</h4>';
+            }
+            ?>
 
 
 
@@ -278,9 +274,9 @@
           <li class="nav-item">
             <a class="nav-link" id="pills-plans-tab" data-bs-toggle="pill" href="#pills-plans" role="tab" aria-controls="pills-plans" aria-selected="false">Floor Plans</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" id="pills-map-tab" data-bs-toggle="pill" href="#pills-map" role="tab" aria-controls="pills-map" aria-selected="false">Ubication</a>
-          </li>
+          </li> -->
         </ul>
         <div class="tab-content" id="pills-tabContent">
           <div class="tab-pane fade show active" id="pills-video" role="tabpanel" aria-labelledby="pills-video-tab">
