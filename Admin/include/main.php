@@ -299,12 +299,16 @@
 
             // Convert PHP array to JSON
             $jsTotalSalesData = json_encode($daysWithData);
+            echo $jsTotalSalesData;
             ?>
 
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <script>
               // Parse the PHP array in JavaScript
               var totalSalesData = <?php echo json_encode($totalSalesData); ?>;
+
+              // Filter days with data
+              var daysWithSales = totalSalesData.filter(item => item.total_sale !== null);
 
               // Get the canvas element
               var ctxSales = document.getElementById('salesChart').getContext('2d');
@@ -313,10 +317,10 @@
               var salesChart = new Chart(ctxSales, {
                 type: 'line',
                 data: {
-                  labels: ['0', ...totalSalesData.map(item => item.day)],
+                  labels: ['0', ...daysWithSales.map(item => item.day)],
                   datasets: [{
                     label: 'Total Sales Last Month',
-                    data: totalSalesData.map(item => item.total_sale),
+                    data: daysWithSales.map(item => item.total_sale),
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 2,
                     pointBackgroundColor: 'rgba(75, 192, 192, 1)',
