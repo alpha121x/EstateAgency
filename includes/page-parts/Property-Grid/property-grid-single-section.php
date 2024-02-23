@@ -102,8 +102,15 @@
                       $statusValue = $property['plot_status'];
                       $statusLabel = isset($statusLabels[$statusValue]) ? $statusLabels[$statusValue] : 'Unknown Status';
 
-                      echo $statusLabel . ' | Rs. ' . $property['plot_price'];
+                      if ($statusValue == 3) {
+                        // If status is "Sold", display only the status label
+                        echo $statusLabel;
+                      } else {
+                        // If status is not "Sold", display status label and price
+                        echo $statusLabel . ' | Rs. ' . $property['plot_price'];
+                      }
                       ?>
+
                     </span>
                     &nbsp;
                     <span type="button" class="price-a" data-bs-toggle="modal" data-bs-target="#exampleModal<?php echo $property['plot_id']; ?>" data-property-id="<?php echo $property['plot_id']; ?>">Bid</span>
