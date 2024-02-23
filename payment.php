@@ -161,6 +161,7 @@
 
                   <div class="pt-3">
                     <div class="mb-3">
+                      <input type="hidden" name="id" value="<?php echo $property_id; ?>">
                       <label for="cardNumber" class="form-label">Card Number</label>
                       <input type="text" name="cardNumber" class="form-control" id="cardNumber" placeholder="**** **** **** 8880">
                     </div>
