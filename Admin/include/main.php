@@ -273,13 +273,13 @@
               try {
                 // Fetch total sales data for the current month, including the sum of sales for each day
                 $query = "SELECT DAY(sold_date) AS day, 
-                  SUM(CASE WHEN sale_unit = 'Cr.' THEN CAST(sale_amount AS DECIMAL(10,2)) * 100
-                           WHEN sale_unit = 'Lakh' THEN CAST(sale_amount AS DECIMAL(10,2))
-                           ELSE 0 END) AS total_sale
-                  FROM sales_intake
-                  WHERE sold_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
-                  GROUP BY DAY(sold_date)
-                  ORDER BY DAY(sold_date);";
+          SUM(CASE WHEN sale_unit = 'Cr.' THEN CAST(sale_amount AS DECIMAL(10,2)) * 100
+                   WHEN sale_unit = 'Lakh' THEN CAST(sale_amount AS DECIMAL(10,2))
+                   ELSE 0 END) AS total_sale
+          FROM sales_intake
+          WHERE sold_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
+          GROUP BY DAY(sold_date)
+          ORDER BY DAY(sold_date);";
 
                 $totalSalesData = DB::query($query);
 
@@ -299,7 +299,6 @@
 
             // Convert PHP array to JSON
             $jsTotalSalesData = json_encode($daysWithData);
-            echo $jsTotalSalesData;
             ?>
 
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -317,7 +316,7 @@
               var salesChart = new Chart(ctxSales, {
                 type: 'line',
                 data: {
-                  labels: ['0', ...daysWithSales.map(item => item.day)],
+                  labels: daysWithSales.map(item => item.day),
                   datasets: [{
                     label: 'Total Sales Last Month',
                     data: daysWithSales.map(item => item.total_sale),
@@ -366,10 +365,9 @@
                 }
               });
             </script>
-
-
           </div>
         </div><!-- Sales Monthly Report end-->
+
 
 
 
