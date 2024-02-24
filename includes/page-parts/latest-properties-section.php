@@ -1,5 +1,4 @@
 <?php
-require_once "Admin/include/classes/meekrodb.2.3.class.php";
 require('Admin/db_config.php');
 
 // Fetch properties from the database using MeekroDB (replace 'your_table_name' with the actual table name)
