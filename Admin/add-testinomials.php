@@ -39,26 +39,26 @@
                 <div class="row mb-3">
                   <label for="inputusername" class="col-sm-2 col-form-label">Add Name</label>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" placeholder="Enter Name" name="agent_name">
+                    <input type="text" class="form-control" placeholder="Enter Name" name="testimonial_name">
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputusername" class="col-sm-2 col-form-label">Add Description</label>
                   <div class="col-sm-6">
-                    <textarea name="agent_about" class="form-control" placeholder="Enter content" cols="30" rows="10"></textarea>
+                    <textarea name="testinomial_about" class="form-control" placeholder="Enter content" cols="30" rows="10"></textarea>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputimage" class="col-sm-2 col-form-label">Add Testinomials Image</label>
                   <div class="col-sm-6">
-                    <input type="file" class="form-control" name="agent_image">
+                    <input type="file" class="form-control" name="testinomial_image">
                   </div>
                 </div>
                    
                 </div>
                 
                 <div class="text-center">
-                  <button type="submit" class="btn btn-primary" name="add-agent"><i class='bx bx-upload'></i> Add</button>
+                  <button type="submit" class="btn btn-primary" name="add-testinomial"><i class='bx bx-upload'></i> Add</button>
                   <button type="reset" class="btn btn-secondary" name="reset">Reset</button>
                 </div>
                 <br>
