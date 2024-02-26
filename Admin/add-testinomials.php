@@ -18,11 +18,11 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Add Posts</h1>
+      <h1>Add Testinomials</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-          <li class="breadcrumb-item">Add Agents</li>
+          <li class="breadcrumb-item">Add Testinomials</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
