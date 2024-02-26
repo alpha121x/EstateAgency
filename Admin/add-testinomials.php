@@ -49,7 +49,7 @@
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputimage" class="col-sm-2 col-form-label">Add Agent Image</label>
+                  <label for="inputimage" class="col-sm-2 col-form-label">Add Testinomials Image</label>
                   <div class="col-sm-6">
                     <input type="file" class="form-control" name="agent_image">
                   </div>
