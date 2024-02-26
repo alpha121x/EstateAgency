@@ -37,13 +37,13 @@
               <!-- Horizontal Form -->
               <form method="post" action="fire-add-querries" enctype="multipart/form-data">
                 <div class="row mb-3">
-                  <label for="inputusername" class="col-sm-2 col-form-label">Agent Name</label>
+                  <label for="inputusername" class="col-sm-2 col-form-label">Name</label>
                   <div class="col-sm-6">
                     <input type="text" class="form-control" placeholder="Enter Name" name="agent_name">
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputusername" class="col-sm-2 col-form-label">Agent About</label>
+                  <label for="inputusername" class="col-sm-2 col-form-label">Description</label>
                   <div class="col-sm-6">
                     <textarea name="agent_about" class="form-control" placeholder="Enter content" cols="30" rows="10"></textarea>
                   </div>
