@@ -49,12 +49,6 @@
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputusername" class="col-sm-2 col-form-label">Email</label>
-                  <div class="col-sm-6">
-                    <input type="email" class="form-control" placeholder="Enter Email" name="agent_email">
-                  </div>
-                </div>
-                <div class="row mb-3">
                   <label for="inputimage" class="col-sm-2 col-form-label">Add Agent Image</label>
                   <div class="col-sm-6">
                     <input type="file" class="form-control" name="agent_image">
