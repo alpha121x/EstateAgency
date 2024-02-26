@@ -49,12 +49,6 @@
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputusername" class="col-sm-2 col-form-label">Phone</label>
-                  <div class="col-sm-6">
-                    <input type="number" class="form-control" placeholder="Enter Phone" name="agent_phone">
-                  </div>
-                </div>
-                <div class="row mb-3">
                   <label for="inputusername" class="col-sm-2 col-form-label">Email</label>
                   <div class="col-sm-6">
                     <input type="email" class="form-control" placeholder="Enter Email" name="agent_email">
