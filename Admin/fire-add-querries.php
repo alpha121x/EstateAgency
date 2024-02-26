@@ -264,7 +264,7 @@ if (isset($_POST['add-agent'])) {
 <?php
 if (isset($_POST["add-testimonial"])) {
     // Include your database configuration file here
-    require('Admin/db_config.php');
+    require('db_config.php');
 
     // Get form data
     $testimonialName = $_POST['testimonial_name'];
