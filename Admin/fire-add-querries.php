@@ -260,7 +260,6 @@ if (isset($_POST['add-agent'])) {
 
 ?>
 
-
 <?php
 if (isset($_POST["add-testimonial"])) {
     // Include your database configuration file here
