@@ -1,6 +1,4 @@
 <?php
-// Include MeekroDB library
-require_once 'include/classes/meekrodb.2.3.class.php';
 include("db_config.php");
 
 if (isset($_POST['login'])) {

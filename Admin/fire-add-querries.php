@@ -287,7 +287,7 @@ if (isset($_POST["add-testimonial"])) {
     ]);
 
     if ($inserted) {
-        header("Location: add-testinomias");
+        header("Location: add-testinomials");
     } else {
         echo "Error inserting data into the database.";
     }
