@@ -1,6 +1,39 @@
 <!-- // write code for adding testimomials -->
 <?php include("db_config.php") ?>
-<?php include("auth.php"); ?>
+<?php
+if (isset($_POST["add-testimonial"])) {
+    
+
+    // Get form data
+    $testimonialName = $_POST['testimonial_name'];
+    $testimonialAbout = $_POST['testinomial_about'];
+
+     // File Upload
+     $uploadsFolder = 'uploads/';
+     $testinomial_image = $uploadsFolder . basename($_FILES['testinomial_image']['name']);
+     $uploadSuccess = move_uploaded_file($_FILES['testinomial_image']['tmp_name'], $testinomial_image);
+ 
+     if (!$uploadSuccess) {
+         echo "Error uploading file.";
+         exit;
+     }
+
+     // Insert query using MeekroDB
+    $inserted = DB::insert('testinomials', [
+        'name' => $testimonialName,
+        'description' => $testimonialAbout,
+        'image' => $testinomial_image // Save the file path in the database
+    ]);
+
+    if ($inserted) {
+        echo "<script>window.location.href='add-testinomials';</script>";
+    } else {
+        echo "Error inserting data into the database.";
+    }
+
+   
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,7 +70,7 @@
               <h5 class="card-title">Form</h5>
 
               <!-- Horizontal Form -->
-              <form method="post" action="fire-add-querries" enctype="multipart/form-data">
+              <form method="post"  enctype="multipart/form-data">
                 <div class="row mb-3">
                   <label for="inputusername" class="col-sm-2 col-form-label">Add Name</label>
                   <div class="col-sm-6">
