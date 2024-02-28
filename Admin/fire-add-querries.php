@@ -271,15 +271,26 @@ if (isset($_POST["add-testimonial"])) {
 
      // File Upload
      $uploadsFolder = 'uploads/';
-     $agent_image = $uploadsFolder . basename($_FILES['testinomial_image']['name']);
-     $uploadSuccess = move_uploaded_file($_FILES['testinomial_image']['tmp_name'], $agent_image);
+     $testinomial_image = $uploadsFolder . basename($_FILES['testinomial_image']['name']);
+     $uploadSuccess = move_uploaded_file($_FILES['testinomial_image']['tmp_name'], $testinomial_image);
  
      if (!$uploadSuccess) {
          echo "Error uploading file.";
          exit;
      }
 
-     
+     // Insert query using MeekroDB
+    $inserted = DB::insert('testinomials', [
+        'name' => $testimonialName,
+        'about' => $testimonialAbout,
+        'image' => $testinomial_image // Save the file path in the database
+    ]);
+
+    if ($inserted) {
+        header("Location: add-agents");
+    } else {
+        echo "Error inserting data into the database.";
+    }
 
    
 }
