@@ -269,11 +269,15 @@ if (isset($_POST["add-testimonial"])) {
     $testimonialName = $_POST['testimonial_name'];
     $testimonialAbout = $_POST['testinomial_about'];
 
-    // Handle file upload
-    $targetDir = "uploads/"; // Specify your upload directory
-    $targetFile = $targetDir . basename($_FILES["testinomial_image"]["name"]);
-    $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+     // File Upload
+     $uploadsFolder = 'uploads/';
+     $agent_image = $uploadsFolder . basename($_FILES['agent_image']['name']);
+     $uploadSuccess = move_uploaded_file($_FILES['agent_image']['tmp_name'], $agent_image);
+ 
+     if (!$uploadSuccess) {
+         echo "Error uploading file.";
+         exit;
+     }
 
    
 }
