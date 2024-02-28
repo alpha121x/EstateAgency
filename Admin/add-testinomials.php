@@ -1,5 +1,7 @@
 <!-- // write code for adding testimomials -->
 <?php include("db_config.php") ?>
+<?php include("auth.php"); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

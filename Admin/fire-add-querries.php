@@ -264,23 +264,23 @@ if (isset($_POST['add-agent'])) {
 // Include your database configuration file here
 require('db_config.php');
 if (isset($_POST["add-testimonial"])) {
-
+    
 
     // Get form data
     $testimonialName = $_POST['testimonial_name'];
     $testimonialAbout = $_POST['testinomial_about'];
 
-    // File Upload
-    $uploadsFolder = 'uploads/';
-    $testinomial_image = $uploadsFolder . basename($_FILES['testinomial_image']['name']);
-    $uploadSuccess = move_uploaded_file($_FILES['testinomial_image']['tmp_name'], $testinomial_image);
+     // File Upload
+     $uploadsFolder = 'uploads/';
+     $testinomial_image = $uploadsFolder . basename($_FILES['testinomial_image']['name']);
+     $uploadSuccess = move_uploaded_file($_FILES['testinomial_image']['tmp_name'], $testinomial_image);
+ 
+     if (!$uploadSuccess) {
+         echo "Error uploading file.";
+         exit;
+     }
 
-    if (!$uploadSuccess) {
-        echo "Error uploading file.";
-        exit;
-    }
-
-    // Insert query using MeekroDB
+     // Insert query using MeekroDB
     $inserted = DB::insert('testinomials', [
         'name' => $testimonialName,
         'about' => $testimonialAbout,
@@ -292,6 +292,8 @@ if (isset($_POST["add-testimonial"])) {
     } else {
         echo "Error inserting data into the database.";
     }
+
+   
 }
 ?>
 
