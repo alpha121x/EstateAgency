@@ -271,7 +271,7 @@ if (isset($_POST["add-testimonial"])) {
 
      // File Upload
      $uploadsFolder = 'uploads/';
-     $agent_image = $uploadsFolder . basename($_FILES['agent_image']['name']);
+     $agent_image = $uploadsFolder . basename($_FILES['testinomial_image']['name']);
      $uploadSuccess = move_uploaded_file($_FILES['agent_image']['tmp_name'], $agent_image);
  
      if (!$uploadSuccess) {
