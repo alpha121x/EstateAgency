@@ -30,8 +30,6 @@ if (isset($_POST["add-testimonial"])) {
     } else {
         echo "Error inserting data into the database.";
     }
-
-   
 }
 ?>
 
