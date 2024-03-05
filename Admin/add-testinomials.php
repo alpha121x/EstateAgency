@@ -2,8 +2,6 @@
 <?php include("db_config.php") ?>
 <?php
 if (isset($_POST["add-testimonial"])) {
-    
-
     // Get form data
     $testimonialName = $_POST['testimonial_name'];
     $testimonialAbout = $_POST['testinomial_about'];
