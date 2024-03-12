@@ -27,7 +27,7 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
           <li class="breadcrumb-item">Bid Winners Emails</li>
-          <li class="breadcrumb-item active">Bid Winners Emailsiew All</li>
+          <li class="breadcrumb-item active">View All</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
