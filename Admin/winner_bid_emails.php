@@ -79,7 +79,7 @@
     FROM
         plot_bidding pb
     JOIN
-        plots p ON pb.plot_id = p.plot_id
+        plot_listing p ON pb.plot_id = p.plot_id
     GROUP BY
         pb.plot_id;
 ";
