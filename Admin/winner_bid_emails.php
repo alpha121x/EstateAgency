@@ -96,7 +96,9 @@ $result = DB::query($query);
             <td><?php echo $row['bid_winner']; ?></td>
             <td><?php echo $row['bid_winner_email']; ?></td>
             <td><?php echo $row['status']; ?></td>
-            <!-- Add your other columns as needed -->
+            <td class="text-center">
+            <a href='#' class="btn btn-success btn-sm"><i class='fa fa-edit'></i>Send Email</a>
+            </td>
         </tr>
     <?php endforeach; ?>
                                     </tbody>
