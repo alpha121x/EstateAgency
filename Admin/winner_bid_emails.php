@@ -97,7 +97,7 @@ $result = DB::query($query);
             <td><?php echo $row['bid_winner_email']; ?></td>
             <td><?php echo $row['status']; ?></td>
             <td class="text-center">
-            <a href='#' class="btn btn-success btn-sm"><i class='fa fa-edit'></i>Send Email</a>
+            <button class="btn btn-success btn-sm"><i class='fa fa-edit'></i>Send Email</button>
             </td>
         </tr>
     <?php endforeach; ?>
