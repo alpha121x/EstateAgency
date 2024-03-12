@@ -55,51 +55,51 @@
                                         </tr>
                                     </thead>
                                     <?php
-                                    // Your database query
-                                    $query = "
-    SELECT
-        pb.plot_id,
-        p.plot_title,
-        MAX(pb.bid) AS top_bid,
-        (
-            SELECT user_name
-            FROM plot_bidding
-            WHERE plot_id = pb.plot_id
-            ORDER BY bid DESC
-            LIMIT 1
-        ) AS bid_winner,
-        (
-            SELECT user_email
-            FROM plot_bidding
-            WHERE plot_id = pb.plot_id
-            ORDER BY bid DESC
-            LIMIT 1
-        ) AS bid_winner_email,
-        'Pending' AS status
-    FROM
-        plot_bidding pb
-    JOIN
-        plot_listing p ON pb.plot_id = p.plot_id
-    GROUP BY
-        pb.plot_id;
+// Your database query
+$query = "
+SELECT
+    p.plot_num,
+    p.plot_title,
+    MAX(pb.bid) AS top_bid,
+    (
+        SELECT user_name
+        FROM plot_bidding
+        WHERE plot_id = pb.plot_id
+        ORDER BY bid DESC
+        LIMIT 1
+    ) AS bid_winner,
+    (
+        SELECT user_email
+        FROM plot_bidding
+        WHERE plot_id = pb.plot_id
+        ORDER BY bid DESC
+        LIMIT 1
+    ) AS bid_winner_email,
+    'Pending' AS status
+FROM
+    plot_bidding pb
+JOIN
+    plot_listing p ON pb.plot_id = p.plot_id
+GROUP BY
+    pb.plot_id;
 ";
 
-                                    // Execute the query
-                                    $result = DB::query($query);
-                                    ?>
+// Execute the query
+$result = DB::query($query);
+?>
 
-                                    <tbody>
-                                        <?php foreach ($result as $row) : ?>
-                                            <tr>
-                                                <td><?php echo $row['plot_id']; ?></td>
-                                                <td><?php echo $row['plot_title']; ?></td>
-                                                <td><?php echo $row['top_bid']; ?></td>
-                                                <td><?php echo $row['bid_winner']; ?></td>
-                                                <td><?php echo $row['bid_winner_email']; ?></td>
-                                                <td><?php echo $row['status']; ?></td>
-                                                <!-- Add your other columns as needed -->
-                                            </tr>
-                                        <?php endforeach; ?>
+<tbody>
+    <?php foreach ($result as $index => $row) : ?>
+        <tr>
+            <td><?php echo $index + 1; ?></td>
+            <td><?php echo $row['plot_num']; ?></td>
+            <td><?php echo $row['bid_winner']; ?></td>
+            <td><?php echo $row['bid_winner_email']; ?></td>
+            <td><?php echo $row['top_bid']; ?></td>
+            <td><?php echo $row['status']; ?></td>
+            <!-- Add your other columns as needed -->
+        </tr>
+    <?php endforeach; ?>
                                     </tbody>
                                 </table>
                             </div>
